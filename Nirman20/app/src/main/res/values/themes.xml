@@ -16,6 +16,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/statusBarBackground</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/Primary</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
     <!--- Menu Style -->
     <style name="navTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">

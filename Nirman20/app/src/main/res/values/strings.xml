@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Nirman 2.0</string>
+    <string name="developed_by_sipc_copyright_2022">© Developed by SIPC, copyright 2022</string>
+    <string name="image_of_nirmal_logo">Image of Nirmal Logo</string>
+    <string name="hacknation_ideathon">HackNation || Ideathon</string>
+    <string name="welcome">Welcome</string>
+    <string name="rise_with_technology">Rise with Technology</string>
+    <string name="robo_race_line_follower">Robo Race || Line Follower</string>
 </resources>
