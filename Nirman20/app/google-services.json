@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "28006081385",
+    "project_id": "nirman-sipc",
+    "storage_bucket": "nirman-sipc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28006081385:android:d5768749e831e4389ed3f8",
+        "android_client_info": {
+          "package_name": "com.sipc.silicontech.nirman20"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28006081385-es0bhghol4mm8lkknlhe3tnrqpovd0m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQIfuJ7dh_UOJehTqZ-GgxkQxaohgstpQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28006081385-es0bhghol4mm8lkknlhe3tnrqpovd0m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
