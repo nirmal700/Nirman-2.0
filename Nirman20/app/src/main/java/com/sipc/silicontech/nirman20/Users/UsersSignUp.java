@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
+import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.R;
 
 public class UsersSignUp extends AppCompatActivity {
@@ -28,6 +30,13 @@ public class UsersSignUp extends AppCompatActivity {
         next = findViewById(R.id.btn_next);
         login = findViewById(R.id.btn_login);
         title = findViewById(R.id.title);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AdminSignin.class));
+            }
+        });
 
     }
 

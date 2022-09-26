@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -11,8 +12,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.Admins.AdminPhoneVerification;
 import com.sipc.silicontech.nirman20.Admins.AdminSignin;
+import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
+import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
 public class MainActivity extends AppCompatActivity {
     Animation topanim, botanim;
@@ -20,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     View robo;
     TextView cn1, cn2, rwth, wel, dev;
 
+
+    private static final int SPLASH_TIMER = 3900;
+    private static final int RC_APP_UPDATE = 895;
+    
+
+    SessionManagerAdmin managerAdmin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +55,24 @@ public class MainActivity extends AppCompatActivity {
         rwth.setAnimation(botanim);
         dev.setAnimation(botanim);
 
-        startActivity(new Intent(getApplicationContext(), AdminSignin.class));
-        finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                //  startActivity( new Intent(MainActivity.this, ShopSignup.class));
+                //Initialize SessionManager
+                managerAdmin = new SessionManagerAdmin(getApplicationContext());
+
+                if (managerAdmin.getAdminLogin()){
+                    startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
+                }else {
+                    Intent intent = new Intent(MainActivity.this, UsersSignUp.class);
+                    startActivity(intent);
+                }
+                finish();
+
+            }
+        },SPLASH_TIMER);
 
     }
 }

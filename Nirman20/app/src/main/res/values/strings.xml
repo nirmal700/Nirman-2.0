@@ -15,4 +15,5 @@
     <string name="low">Low</string>
     <string name="current_risk_level">Current Risk Level</string>
     <string name="the_devlooper_s">The Devlooper\'s</string>
+    <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.()-_</string>
 </resources>

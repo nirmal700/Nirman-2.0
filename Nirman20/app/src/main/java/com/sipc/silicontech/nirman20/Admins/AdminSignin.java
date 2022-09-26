@@ -38,8 +38,8 @@ import java.util.concurrent.TimeUnit;
 
 public class AdminSignin extends AppCompatActivity {
 
-    private TextInputLayout et_Sic,et_Password;
-    Button mSignIn,mParticipant;
+    private TextInputLayout et_Sic, et_Password;
+    Button mSignIn, mParticipant;
     ProgressDialog progressDialog;
 
     SessionManagerAdmin sessionManagerAdmin;
@@ -69,13 +69,12 @@ public class AdminSignin extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), UsersSignUp.class);
 
                 Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View,String>(findViewById(R.id.btn_backSignIn),"transition_signUp");
+                pairs[0] = new Pair<View, String>(findViewById(R.id.btn_backSignIn), "transition_signUp");
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(AdminSignin.this,pairs);
-                    startActivity(intent,options.toBundle());
-                }
-                else{
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(AdminSignin.this, pairs);
+                    startActivity(intent, options.toBundle());
+                } else {
                     finish();
                 }
             }
@@ -89,18 +88,18 @@ public class AdminSignin extends AppCompatActivity {
         });
 
         //--------------- Internet Checking -----------
-        if (!isConnected(AdminSignin.this)){
+        if (!isConnected(AdminSignin.this)) {
             showCustomDialog();
         }
     }
 
     private void SipcLogin() {
-        if (!isConnected(AdminSignin.this)){
+        if (!isConnected(AdminSignin.this)) {
             showCustomDialog();
         }
 
         //EditText Validations
-        if (!validatePassword() ) {
+        if (!validatePassword()) {
 
             return;
         }
@@ -120,7 +119,7 @@ public class AdminSignin extends AppCompatActivity {
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     et_Sic.getEditText().setError(null);
                     String systemPassword = snapshot.child(_sic).child("Profile").child("mPassword").getValue(String.class);
 
@@ -131,13 +130,12 @@ public class AdminSignin extends AppCompatActivity {
                         String SIC = snapshot.child(_sic).child("Profile").child("SIC").getValue(String.class);
                         String UserRole = snapshot.child(_sic).child("Profile").child("mUserRole").getValue(String.class);
                         String Password = snapshot.child(_sic).child("Profile").child("mPassword").getValue(String.class);
-                        String Phone = "+91"+snapshot.child(_sic).child("mPhoneNo").getValue(String.class);
+                        String Phone = "+91" + snapshot.child(_sic).child("mPhoneNo").getValue(String.class);
                         sessionManagerAdmin.setAdminLogin(true);
                         sessionManagerAdmin.setDetails(Name, SIC, Password, AccessLev, UserRole, Phone);
 
 //                        startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
 //                        finish();
-                        Toast.makeText(AdminSignin.this, ""+Phone, Toast.LENGTH_SHORT).show();
                         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                                 .setPhoneNumber(Phone)
                                 .setTimeout(60L, TimeUnit.SECONDS)
@@ -151,11 +149,11 @@ public class AdminSignin extends AppCompatActivity {
                         progressDialog.dismiss();
                         Toast.makeText(AdminSignin.this, "Password Doesn't Match!", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                        progressDialog.dismiss();
-                        Toast.makeText(AdminSignin.this, "User Does Not Exist!", Toast.LENGTH_SHORT).show();
-                    }
+                } else {
+                    progressDialog.dismiss();
+                    Toast.makeText(AdminSignin.this, "User Does Not Exist!", Toast.LENGTH_SHORT).show();
                 }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -189,7 +187,6 @@ public class AdminSignin extends AppCompatActivity {
                         otpIntent.putExtra("auth", s);
                         phoneNumber = sessionManagerAdmin.getPhone();
                         otpIntent.putExtra("phoneNumber", phoneNumber);
-                        Log.e("TAG", "run: "+phoneNumber );
                         startActivity(otpIntent);
                         finish();
                     }
@@ -203,17 +200,18 @@ public class AdminSignin extends AppCompatActivity {
     private boolean validatePassword() {
         String val = et_Password.getEditText().getText().toString().trim();
 
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             et_Password.setError("Field can not be empty");
             return false;
-        }else if (!val.matches("\\w*")){
+        } else if (!val.matches("\\w*")) {
             et_Password.setError("White spaces & Special Char not allowed");
             return false;
-        }else {
+        } else {
             et_Password.setError(null);
             return true;
         }
     }
+
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 
@@ -229,7 +227,7 @@ public class AdminSignin extends AppCompatActivity {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),AdminSignin.class));
+                        startActivity(new Intent(getApplicationContext(), AdminSignin.class));
                         finish();
                     }
                 });
@@ -237,6 +235,7 @@ public class AdminSignin extends AppCompatActivity {
         alertDialog.show();
 
     }
+
     //--------------- Check Internet Is Connected -----------
     private boolean isConnected(AdminSignin userLogin) {
 
