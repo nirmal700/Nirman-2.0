@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieDrawable;
+import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.Admins.UsersSignin;
 import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         rwth.setAnimation(botanim);
         dev.setAnimation(botanim);
 
-        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
         finish();
 
     }
