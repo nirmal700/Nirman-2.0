@@ -8,7 +8,7 @@
     android:fillViewport="true"
     android:orientation="vertical"
     android:transitionName="transition_login"
-    tools:context=".Admins.UsersSignin"
+    tools:context=".Admins.AdminSignin"
     android:padding="20dp">
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/logoimg"
@@ -40,7 +40,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp">
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_phoneNumber"
+            android:id="@+id/et_SIC"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
             tools:targetApi="lollipop" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_backSignUp"
+            android:id="@+id/btn_backSignIn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"

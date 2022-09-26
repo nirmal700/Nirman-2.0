@@ -11,11 +11,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieDrawable;
-import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
-import com.sipc.silicontech.nirman20.Admins.UsersSignin;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
-import com.sipc.silicontech.nirman20.Users.UsersSignUp;
+import com.sipc.silicontech.nirman20.Admins.AdminPhoneVerification;
+import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 
 public class MainActivity extends AppCompatActivity {
     Animation topanim, botanim;
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         rwth.setAnimation(botanim);
         dev.setAnimation(botanim);
 
-        startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
+        startActivity(new Intent(getApplicationContext(), AdminSignin.class));
         finish();
 
     }
