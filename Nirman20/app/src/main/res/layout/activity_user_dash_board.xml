@@ -53,8 +53,8 @@
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:text="The Devlooper's"
-                android:textSize="25sp"
+                android:text="@string/the_devlooper_s"
+                android:textSize="30sp"
                 android:fontFamily="@font/dangrek"
                 android:textStyle="bold" />
             <TextView
@@ -66,8 +66,8 @@
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:text="Current Risk Level"
-                android:textSize="15sp"
+                android:text="@string/current_risk_level"
+                android:textSize="20sp"
                 android:fontFamily="@font/dangrek"/>
             <TextView
                 android:id="@+id/Text1"
@@ -78,8 +78,8 @@
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:text="Low"
-                android:textSize="35sp"
+                android:text="@string/low"
+                android:textSize="40sp"
                 android:fontFamily="@font/dangrek"
                 android:textStyle="bold" />
 
@@ -145,7 +145,7 @@
                         android:layout_alignParentBottom="true"
                         android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
-                        android:text="My Qr"
+                        android:text="@string/my_qr"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:fontFamily="@font/my_fav_sans_number"
@@ -157,7 +157,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_scanQR"
+                android:id="@+id/btn_FoodCoupouns"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
@@ -176,21 +176,21 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:contentDescription="@null"
-                        android:src="@drawable/ic_qr_code_scanner_user" />
+                        android:src="@drawable/burger" />
 
                     <TextView
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_alignParentBottom="true"
-                        android:autoSizeTextType="uniform"
+                        android:layout_centerInParent="true"
                         android:layout_marginBottom="20dp"
-                        android:text="Scan Code"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:autoSizeTextType="uniform"
                         android:fontFamily="@font/my_fav_sans_number"
-                        style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textSize="20sp" />
+                        android:text="@string/food_coupoun_s"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -224,7 +224,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:contentDescription="@null"
-                        android:src="@drawable/img_shop" />
+                        android:src="@drawable/ic_help" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -233,7 +233,7 @@
                         android:layout_alignParentBottom="true"
                         android:autoSizeTextType="uniform"
                         android:layout_marginBottom="20dp"
-                        android:text="Scanned Shops"
+                        android:text="@string/request_help"
                         android:gravity="center_horizontal"
                         android:textStyle="bold"
                         android:textColor="@color/black"
@@ -276,7 +276,7 @@
                         android:layout_marginBottom="20dp"
                         android:autoSizeTextType="uniform"
                         android:fontFamily="@font/my_fav_sans_number"
-                        android:text="To Do List"
+                        android:text="@string/to_do_list"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -312,7 +312,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:contentDescription="@null"
-                        android:src="@drawable/ic_edit_profile" />
+                        android:src="@drawable/satisfaction" />
 
                     <TextView
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -323,7 +323,8 @@
                         android:layout_marginBottom="20dp"
                         android:autoSizeTextType="uniform"
                         android:fontFamily="@font/my_fav_sans_number"
-                        android:text="Edit Profile"
+                        android:text="@string/rate_co_participants"
+                        android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -350,7 +351,7 @@
                         android:layout_height="65dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/ic_shop_location"
+                        android:src="@drawable/ic_podium"
                         android:contentDescription="@null" />
 
                     <TextView
@@ -361,8 +362,9 @@
                         android:layout_centerInParent="true"
                         android:layout_marginBottom="20dp"
                         android:autoSizeTextType="uniform"
+                        android:textAlignment="center"
                         android:fontFamily="@font/my_fav_sans_number"
-                        android:text="Find Shops"
+                        android:text="@string/check_leaderboard"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />

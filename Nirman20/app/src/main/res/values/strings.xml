@@ -6,4 +6,13 @@
     <string name="welcome">Welcome</string>
     <string name="rise_with_technology">Rise with Technology</string>
     <string name="robo_race_line_follower">Robo Race || Line Follower</string>
+    <string name="check_leaderboard">Check Leaderboard</string>
+    <string name="rate_co_participants">Rate Co-Participants</string>
+    <string name="to_do_list">To Do List</string>
+    <string name="request_help">Request Help</string>
+    <string name="food_coupoun_s">Food Coupoun\'s</string>
+    <string name="my_qr">My Qr</string>
+    <string name="low">Low</string>
+    <string name="current_risk_level">Current Risk Level</string>
+    <string name="the_devlooper_s">The Devlooper\'s</string>
 </resources>
