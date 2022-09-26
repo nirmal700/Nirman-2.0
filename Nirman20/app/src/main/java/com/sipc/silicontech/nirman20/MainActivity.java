@@ -13,20 +13,22 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieDrawable;
 import com.sipc.silicontech.nirman20.Admins.UsersSignin;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
 public class MainActivity extends AppCompatActivity {
     Animation topanim, botanim;
     ImageView logo;
     View robo;
-    TextView cn1,cn2,rwth,wel,dev;
+    TextView cn1, cn2, rwth, wel, dev;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        topanim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
-        botanim = AnimationUtils.loadAnimation(this,R.anim.bottom_anim);
+        topanim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        botanim = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
 
         logo = findViewById(R.id.logo);
         robo = findViewById(R.id.splash_robo);
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         rwth.setAnimation(botanim);
         dev.setAnimation(botanim);
 
-        startActivity(new Intent(getApplicationContext(), UsersSignUp.class));
+        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
         finish();
 
     }

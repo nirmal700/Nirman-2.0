@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:enabled="true"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:enabled="true"
+            android:icon="@drawable/ic_app_info"
+            android:title="App info" />
+        <item
+            android:id="@+id/nav_contactUs"
+            android:enabled="true"
+            android:icon="@drawable/ic_contact_us"
+            android:title="Contact Us" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:enabled="true"
+            android:icon="@drawable/ic_share"
+            android:title="Share" />
+
+
+        <item
+            android:id="@+id/logout"
+            android:enabled="true"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
+
+        <item
+            android:id="@+id/exit"
+            android:enabled="true"
+            android:icon="@drawable/ic_exit"
+            android:title="Exit" />
+
+    </group>
+
+
+</menu>

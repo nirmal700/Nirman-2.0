@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_primary"
+    android:background="@color/Primary"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -47,32 +47,19 @@
             android:transitionName="logo_image"
             android:contentDescription="@string/image_of_nirmal_logo"/>
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/rwth"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/content"
+            android:layout_gravity="center_horizontal"
             android:autoSizeTextType="uniform"
-            android:fontFamily="@font/bold_height_regular"
-            android:gravity="center"
-            android:text="@string/hacknation_ideathon"
-            android:transitionName="logo_text"
-            android:textColor="@color/white"
-            android:textSize="20dp"
+            android:fontFamily="@font/dangrek"
+            android:gravity="center_horizontal"
+            android:text="@string/rise_with_technology"
+            android:textColor="@color/black"
+            android:textSize="35dp"
+            android:textStyle="bold"
             tools:ignore="SpUsage"
-            tools:targetApi="o"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/content1"
-            android:layout_marginTop="5dp"
-            android:autoSizeTextType="uniform"
-            android:fontFamily="@font/bold_height_regular"
-            android:gravity="center"
-            android:text="@string/robo_race_line_follower"
-            android:transitionName="logo_text"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            tools:ignore="SpUsage"
-            tools:targetApi="o"/>
+            tools:targetApi="o" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -80,21 +67,34 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/rwth"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/content"
                 android:autoSizeTextType="uniform"
-                android:fontFamily="@font/dangrek"
-                android:gravity="center_horizontal"
-                android:text="@string/rise_with_technology"
-                android:textColor="@color/black"
-                android:textSize="35dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/bold_height_regular"
+                android:gravity="center"
+                android:text="@string/hacknation_ideathon"
+                android:transitionName="logo_text"
+                android:textColor="@color/white"
+                android:textSize="20dp"
                 tools:ignore="SpUsage"
-                tools:targetApi="o" />
+                tools:targetApi="o"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/content1"
+                android:layout_marginTop="5dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/bold_height_regular"
+                android:gravity="center"
+                android:text="@string/robo_race_line_follower"
+                android:transitionName="logo_text"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                tools:ignore="SpUsage"
+                tools:targetApi="o"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
