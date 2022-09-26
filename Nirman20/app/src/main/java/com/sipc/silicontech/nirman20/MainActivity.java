@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         rwth.setAnimation(botanim);
         dev.setAnimation(botanim);
 
-        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        startActivity(new Intent(getApplicationContext(), evaluator_dashboard.class));
         finish();
 
     }
