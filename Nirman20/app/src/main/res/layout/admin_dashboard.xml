@@ -235,7 +235,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_TodoList"
+                    android:id="@+id/btn_AddNewTeams"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"
@@ -254,7 +254,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:contentDescription="@null"
-                            android:src="@drawable/ic_todo_list" />
+                            android:src="@drawable/ic_add_group" />
 
                         <TextView
                             style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -265,7 +265,7 @@
                             android:layout_marginBottom="20dp"
                             android:autoSizeTextType="uniform"
                             android:fontFamily="@font/my_fav_sans_number"
-                            android:text="@string/to_do_list"
+                            android:text="@string/add_teams"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />

@@ -47,7 +47,7 @@
         android:layout_marginTop="20dp"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/my_fav_sans_number"
-        android:text="Add Volunteer's"
+        android:text="@string/add_volunteer_s"
         android:textColor="@color/white"
         android:textSize="35dp"
         android:textStyle="bold"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:autoSizeTextType="uniform"
-            android:hint="SIC"
+            android:hint="@string/sic"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="1dp"
@@ -82,7 +82,8 @@
             android:layout_margin="10dp"
             app:hintTextColor="@color/black"
             app:startIconDrawable="@drawable/id2"
-            app:startIconTint="@color/black">
+            app:startIconTint="@color/black"
+            tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -104,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:autoSizeTextType="uniform"
-            android:hint="Name"
+            android:hint="@string/name"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="1dp"
@@ -113,7 +114,8 @@
             app:hintTextColor="@color/black"
             android:layout_margin="10dp"
             app:startIconDrawable="@drawable/ic_user"
-            app:startIconTint="@color/black">
+            app:startIconTint="@color/black"
+            tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -124,7 +126,8 @@
                 android:inputType="textCapWords"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                tools:ignore="SpUsage" />
+                tools:ignore="SpUsage"
+                tools:targetApi="o" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:autoSizeTextType="uniform"
-            android:hint="User Role"
+            android:hint="@string/user_role"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="1dp"
@@ -144,7 +147,8 @@
             app:hintTextColor="@color/black"
             android:layout_margin="10dp"
             app:startIconDrawable="@drawable/user_role"
-            app:startIconTint="@color/black">
+            app:startIconTint="@color/black"
+            tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -165,7 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Select User Type"
+            android:hint="@string/select_user_type"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             android:layout_margin="10dp"
@@ -196,7 +200,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:autoSizeTextType="uniform"
-            android:hint="Phone Number"
+            android:hint="@string/phone_number"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="1dp"
@@ -207,7 +211,8 @@
             app:prefixText="+91"
             app:prefixTextColor="@color/hintBlack"
             app:startIconDrawable="@drawable/ic_phone"
-            app:startIconTint="@color/black">
+            app:startIconTint="@color/black"
+            tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -218,7 +223,8 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/hintBlack"
                 android:textSize="20dp"
-                tools:ignore="SpUsage" />
+                tools:ignore="SpUsage"
+                tools:targetApi="o" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -228,7 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Password"
+            android:hint="@string/password"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="1dp"
@@ -248,7 +254,8 @@
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                tools:ignore="SpUsage" />
+                tools:ignore="SpUsage"
+                tools:targetApi="o" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -262,7 +269,7 @@
             android:backgroundTint="@color/Primary"
             android:fontFamily="@font/astronaut"
             android:gravity="center"
-            android:text="Generate ID"
+            android:text="@string/generate_id"
             android:textColor="@color/white"
             android:textSize="25dp"
             app:cornerRadius="5dp"

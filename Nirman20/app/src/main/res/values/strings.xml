@@ -16,4 +16,13 @@
     <string name="current_risk_level">Current Risk Level</string>
     <string name="the_devlooper_s">The Devlooper\'s</string>
     <string name="allowedName">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,.()-_</string>
+    <string name="add_volunteer_s">Add Volunteer\'s</string>
+    <string name="sic">SIC</string>
+    <string name="name">Name</string>
+    <string name="user_role">User Role</string>
+    <string name="select_user_type">Select User Type</string>
+    <string name="generate_id">Generate ID</string>
+    <string name="password">Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="add_teams">Add Teams</string>
 </resources>

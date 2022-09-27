@@ -14,7 +14,7 @@ public class AdminDashboard extends AppCompatActivity {
 
     TextView mUserRole,mName;
     SessionManagerAdmin managerAdmin;
-    MaterialCardView mAddVolunteer;
+    MaterialCardView mAddVolunteer,mAddNewTeams;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +22,7 @@ public class AdminDashboard extends AppCompatActivity {
         mUserRole = findViewById(R.id.UserRole);
         mName = findViewById(R.id.User_name);
         mAddVolunteer = findViewById(R.id.btn_AddVolunteers);
+        mAddNewTeams = findViewById(R.id.btn_AddNewTeams);
 
         managerAdmin = new SessionManagerAdmin(getApplicationContext());
         mUserRole.setText(managerAdmin.getUserRole());
@@ -31,6 +32,12 @@ public class AdminDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AdminDashboard.this, AddVolunteers.class));
+            }
+        });
+        mAddNewTeams.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminDashboard.this, AddNewTeams.class));
             }
         });
 
