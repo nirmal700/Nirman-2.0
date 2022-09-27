@@ -4793,23 +4793,90 @@ public class AddVolunteers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SIC = Objects.requireNonNull(et_sic.getEditText()).getText().toString();
-                Toast.makeText(AddVolunteers.this, ""+SIC, Toast.LENGTH_SHORT).show();
-                mName = Objects.requireNonNull(et_userName.getEditText()).getText().toString();
-                mPassword = Objects.requireNonNull(et_password.getEditText()).getText().toString();
-                mUserRole = Objects.requireNonNull(et_userRole.getEditText()).getText().toString();
-                mPhoneNo = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString();
-                FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-                DatabaseReference reference = rootNode.getReference("SIPC");
-                AdminData adminData = new AdminData(SIC,mAccessLevel,mName,mPassword,mUserRole,mPhoneNo);
-                reference.child(SIC).child("Profile").setValue(adminData);
-                reference.child(SIC).child("mPhoneNo").setValue(mPhoneNo);
-                reference.child(SIC).child("mSic").setValue(SIC);
+                if (!validatePhoneNumber()  | !validateUserName() | !validUserType() | !validatePassword() | !validateUserRole()  | !validateSIC() ) {
+
+                    return;
+                }
+
+                UploadVolunteerData();
             }
         });
 
 
     }
+
+    private void UploadVolunteerData() {
+        //Initialize alert dialog
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+
+        //Set Title
+        builder.setTitle("Add New Volunteer");
+
+        //set Message
+        builder.setMessage("Are you sure to Add New Volunteer for Nirman ?");
+
+        //positive YES button
+        builder.setPositiveButton("YES", (dialog, which) -> {
+
+            //activity.finishAffinity();
+            // dialog.dismiss();
+            SIC = Objects.requireNonNull(et_sic.getEditText()).getText().toString();
+            mName = Objects.requireNonNull(et_userName.getEditText()).getText().toString();
+            mPassword = Objects.requireNonNull(et_password.getEditText()).getText().toString();
+            mUserRole = Objects.requireNonNull(et_userRole.getEditText()).getText().toString();
+            mPhoneNo = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString();
+            FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+            DatabaseReference reference = rootNode.getReference("SIPC");
+            AdminData adminData = new AdminData(SIC,mAccessLevel,mName,mPassword,mUserRole,mPhoneNo);
+            reference.child(SIC).child("Profile").setValue(adminData);
+            reference.child(SIC).child("mPhoneNo").setValue(mPhoneNo);
+            reference.child(SIC).child("mSic").setValue(SIC);
+            Toast.makeText(AddVolunteers.this, "User created Successfully", Toast.LENGTH_SHORT).show();
+
+
+            //Finish Activity
+            startActivity(new Intent(getApplicationContext(), AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
+            finish();
+        });
+
+        //Negative NO button
+        builder.setNegativeButton("NO", (dialog, which) -> {
+            //Dismiss Dialog
+            dialog.dismiss();
+        });
+
+        androidx.appcompat.app.AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private boolean validUserType() {
+        String val = autoCompleteUserType.getText().toString().trim();
+
+        if (val.isEmpty()) {
+            autoCompleteUserType.setError("Field can not be empty");
+            return false;
+        } else {
+            autoCompleteUserType.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateUserRole() {
+        String val = et_userRole.getEditText().getText().toString().trim();
+
+        if (val.isEmpty()){
+            et_userRole.setError("Field can not be empty");
+            return false;
+        }else if(val.length()>25){
+            et_userRole.setError("Name is Too Large");
+            return false;
+        }else {
+            et_userRole.setError(null);
+            return true;
+        }
+
+    }
+
     private boolean validatePhoneNumber() {
 
         String val = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString().trim();
