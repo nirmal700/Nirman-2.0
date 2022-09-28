@@ -120,7 +120,7 @@
                     android:layout_height="55dp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/my_fav_sans_number"
-                    android:inputType="textCapCharacters"
+                    android:inputType="textCapSentences"
                     android:maxLines="1"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -209,7 +209,7 @@
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
                 android:layout_margin="10dp"
-                app:startIconDrawable="@drawable/user_role"
+                app:startIconDrawable="@drawable/ic_school"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
 
@@ -241,7 +241,7 @@
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
                 android:layout_margin="10dp"
-                app:startIconDrawable="@drawable/user_role"
+                app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
 
@@ -308,7 +308,7 @@
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
                 android:layout_margin="10dp"
-                app:startIconDrawable="@drawable/user_role"
+                app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
 
@@ -375,7 +375,7 @@
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
                 android:layout_margin="10dp"
-                app:startIconDrawable="@drawable/user_role"
+                app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
 
@@ -479,17 +479,6 @@
                     android:text="4"
                     android:textAlignment="center"
                     android:textColor="@color/black" />
-                <RadioButton
-                    android:id="@+id/trio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/radio_selector"
-                    android:button="@color/transparent"
-                    android:buttonTint="@color/Primary"
-                    android:text="5"
-                    android:textAlignment="center"
-                    android:textColor="@color/black" />
 
 
             </RadioGroup>
@@ -515,7 +504,7 @@
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
                 android:layout_margin="10dp"
-                app:startIconDrawable="@drawable/user_role"
+                app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
 
@@ -567,78 +556,13 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_Member4Name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:autoSizeTextType="uniform"
-                android:hint="Member-4 Name"
-                android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/black"
-                app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
-                app:startIconDrawable="@drawable/user_role"
-                app:startIconTint="@color/black"
-                tools:targetApi="o">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:autoSizeTextType="uniform"
-                    android:digits="@string/allowedName"
-                    android:fontFamily="@font/my_fav_sans_number"
-                    android:inputType="textCapWords"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    tools:ignore="SpUsage" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_Member4phoneNumber"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:autoSizeTextType="uniform"
-                android:hint="Member-4 Phone"
-                android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/black"
-                android:layout_margin="10dp"
-                app:hintTextColor="@color/black"
-                app:prefixText="+91"
-                app:prefixTextColor="@color/hintBlack"
-                app:startIconDrawable="@drawable/ic_phone"
-                app:startIconTint="@color/black"
-                tools:targetApi="o">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:autoSizeTextType="uniform"
-                    android:fontFamily="@font/my_fav_sans_number"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintBlack"
-                    android:textSize="20dp"
-                    tools:ignore="SpUsage"
-                    tools:targetApi="o" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
 
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_genID"
+                android:id="@+id/btn_AddTeam"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
@@ -647,7 +571,7 @@
                 android:backgroundTint="@color/Primary"
                 android:fontFamily="@font/astronaut"
                 android:gravity="center"
-                android:text="@string/generate_id"
+                android:text="Add The Team"
                 android:textColor="@color/white"
                 android:textSize="25dp"
                 app:cornerRadius="5dp"

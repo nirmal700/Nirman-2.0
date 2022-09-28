@@ -1,13 +1,13 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 public class NewTeamData {
-    String mEventParticipating,mTeamName,mProblemStat,mApproach,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone,mMem4Name,mMem4Phone,mRound1Eva,mRound2Eva,mRound3Eva,mCoParticipant,mFinalMark;
+    String mEventParticipating,mTeamName,mProblemStat,mApproach,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone,mRound1Eva,mRound2Eva,mRound3Eva,mCoParticipant,mFinalMark;
     boolean mCheckedIn;
 
     public NewTeamData() {
     }
 
-    public NewTeamData(String mEventParticipating, String mTeamName, String mProblemStat, String mApproach, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, String mMem4Name, String mMem4Phone, String mRound1Eva, String mRound2Eva, String mRound3Eva, String mCoParticipant, String mFinalMark, boolean mCheckedIn) {
+    public NewTeamData(String mEventParticipating, String mTeamName, String mProblemStat, String mApproach, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, String mRound1Eva, String mRound2Eva, String mRound3Eva, String mCoParticipant, String mFinalMark, boolean mCheckedIn) {
         this.mEventParticipating = mEventParticipating;
         this.mTeamName = mTeamName;
         this.mProblemStat = mProblemStat;
@@ -21,8 +21,6 @@ public class NewTeamData {
         this.mMem2Phone = mMem2Phone;
         this.mMem3Name = mMem3Name;
         this.mMem3Phone = mMem3Phone;
-        this.mMem4Name = mMem4Name;
-        this.mMem4Phone = mMem4Phone;
         this.mRound1Eva = mRound1Eva;
         this.mRound2Eva = mRound2Eva;
         this.mRound3Eva = mRound3Eva;
@@ -133,22 +131,6 @@ public class NewTeamData {
 
     public void setmMem3Phone(String mMem3Phone) {
         this.mMem3Phone = mMem3Phone;
-    }
-
-    public String getmMem4Name() {
-        return mMem4Name;
-    }
-
-    public void setmMem4Name(String mMem4Name) {
-        this.mMem4Name = mMem4Name;
-    }
-
-    public String getmMem4Phone() {
-        return mMem4Phone;
-    }
-
-    public void setmMem4Phone(String mMem4Phone) {
-        this.mMem4Phone = mMem4Phone;
     }
 
     public String getmRound1Eva() {
