@@ -114,7 +114,9 @@ public class UsersSignUp extends AppCompatActivity {
                                             arrayListPartcipantNames.add(teamData.getmMem1Name());
                                             arrayListPartcipantNames.add(teamData.getmMem2Name());
                                             if(!(teamData.getmMem3Name().length() <1))
-                                            arrayListPartcipantNames.add(teamData.getmMem3Name());
+                                            {
+                                                arrayListPartcipantNames.add(teamData.getmMem3Name());
+                                            }
                                             arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(),R.layout.text_menu,arrayListPartcipantNames);
                                             mParticipants.setAdapter(arrayAdapterPartcipantNames);
                                             Log.e("TAG", "onItemClick: "+arrayListPartcipantNames.toString() );
@@ -122,6 +124,7 @@ public class UsersSignUp extends AppCompatActivity {
                                     } 
                                 }
                             });
+
                         }
                         else
                         {
