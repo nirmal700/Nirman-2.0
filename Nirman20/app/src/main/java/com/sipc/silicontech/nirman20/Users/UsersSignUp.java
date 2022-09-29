@@ -38,10 +38,12 @@ public class UsersSignUp extends AppCompatActivity {
     ImageView bckBtn;
     Button next, login;
     TextView title;
-    AutoCompleteTextView mEventType,mTeam;
+    AutoCompleteTextView mEventType,mTeam,mParticipants;
     NewTeamData teamData;
-    ArrayList<String> arrayListPartcipantType;
-    ArrayAdapter<String> arrayAdapterPartcipantType;
+    ArrayList<String> arrayListPartcipantTeamName;
+    ArrayAdapter<String> arrayAdapterPartcipantTeamName;
+    ArrayList<String> arrayListPartcipantNames;
+    ArrayAdapter<String> arrayAdapterPartcipantNames;
     ProgressDialog progressDialog;
 
     @Override
@@ -55,6 +57,7 @@ public class UsersSignUp extends AppCompatActivity {
         title = findViewById(R.id.title);
         mEventType = findViewById(R.id.autoCompleteEvent);
         mTeam = findViewById(R.id.autoCompleteTeam);
+        mParticipants = findViewById(R.id.autoCompleteUserName);
 
         progressDialog = new ProgressDialog(UsersSignUp.this);
         progressDialog.show();
@@ -77,6 +80,7 @@ public class UsersSignUp extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mTeam.setText("Select Team Name");
+                mParticipants.setText("Select Your Name");
                 progressDialog.show();
                 CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(arrayAdapterEventType.getItem(i).toString());
                 mCollectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -85,16 +89,39 @@ public class UsersSignUp extends AppCompatActivity {
                         progressDialog.cancel();
                         if(task.isSuccessful())
                         {
-                            arrayListPartcipantType = new ArrayList<>();
-                            arrayAdapterPartcipantType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantType);
+                            arrayListPartcipantTeamName = new ArrayList<>();
+                            arrayAdapterPartcipantTeamName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantTeamName);
                             for(QueryDocumentSnapshot document : task.getResult())
                             {
                                 teamData = document.toObject(NewTeamData.class);
                                 Log.e("TAG", "onComplete: "+document.getId() +"=>"+document.getData() );
-                                arrayListPartcipantType.add(teamData.getmTeamName());
-                                arrayAdapterPartcipantType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantType);
-                                mTeam.setAdapter(arrayAdapterPartcipantType);
+                                arrayListPartcipantTeamName.add(teamData.getmTeamName());
+                                arrayAdapterPartcipantTeamName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantTeamName);
+                                mTeam.setAdapter(arrayAdapterPartcipantTeamName);
                             }
+                            mTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    mParticipants.setText("Select Your Name");
+                                    arrayListPartcipantNames = new ArrayList<>();
+                                    arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(),R.layout.text_menu,arrayListPartcipantNames);
+                                    for(QueryDocumentSnapshot documentSnapshot : task.getResult())
+                                    {
+                                        teamData = documentSnapshot.toObject(NewTeamData.class);
+                                        if(teamData.getmTeamName() == arrayAdapterPartcipantTeamName.getItem(i))
+                                        {
+                                            arrayListPartcipantNames.add(teamData.getmTeamLead());
+                                            arrayListPartcipantNames.add(teamData.getmMem1Name());
+                                            arrayListPartcipantNames.add(teamData.getmMem2Name());
+                                            if(!(teamData.getmMem3Name().length() <1))
+                                            arrayListPartcipantNames.add(teamData.getmMem3Name());
+                                            arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(),R.layout.text_menu,arrayListPartcipantNames);
+                                            mParticipants.setAdapter(arrayAdapterPartcipantNames);
+                                            Log.e("TAG", "onItemClick: "+arrayListPartcipantNames.toString() );
+                                        }
+                                    } 
+                                }
+                            });
                         }
                         else
                         {
