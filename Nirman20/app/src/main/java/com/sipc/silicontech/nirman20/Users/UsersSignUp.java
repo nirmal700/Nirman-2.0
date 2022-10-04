@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -33,6 +34,7 @@ import com.sipc.silicontech.nirman20.Admins.NewTeamData;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UsersSignUp extends AppCompatActivity {
     ImageView bckBtn;
@@ -45,6 +47,8 @@ public class UsersSignUp extends AppCompatActivity {
     ArrayList<String> arrayListPartcipantNames;
     ArrayAdapter<String> arrayAdapterPartcipantNames;
     ProgressDialog progressDialog;
+    TextInputLayout et_password;
+    String phone,password,teamname,event,participantName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class UsersSignUp extends AppCompatActivity {
         mEventType = findViewById(R.id.autoCompleteEvent);
         mTeam = findViewById(R.id.autoCompleteTeam);
         mParticipants = findViewById(R.id.autoCompleteUserName);
+        et_password = findViewById(R.id.et_password);
 
         progressDialog = new ProgressDialog(UsersSignUp.this);
         progressDialog.show();
@@ -124,6 +129,41 @@ public class UsersSignUp extends AppCompatActivity {
                                     } 
                                 }
                             });
+                            mParticipants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    for(QueryDocumentSnapshot documentSnapshot :task.getResult())
+                                    {
+                                        teamData = documentSnapshot.toObject(NewTeamData.class);
+                                        if(teamData.getmTeamLead() == arrayAdapterPartcipantNames.getItem(i).toString())
+                                        {
+                                            phone = "+91"+teamData.getmTeamLeadPhone().toString();
+                                            Log.e("TAG phone1", "onItemClick: "+phone );
+                                        }
+                                        else if(teamData.getmMem1Name() == arrayAdapterPartcipantNames.getItem(i).toString()){
+                                            phone = "+91"+teamData.getmMem1Phone().toString();
+                                            Log.e("TAG phone2", "onItemClick: "+phone );
+                                        }
+                                        else if(teamData.getmMem2Name() == arrayAdapterPartcipantNames.getItem(i).toString()){
+                                            phone = "+91"+teamData.getmMem2Phone().toString();
+                                            Log.e("TAG phone3", "onItemClick: "+phone );
+                                        }
+                                        else if(teamData.getmMem3Name() == arrayAdapterPartcipantNames.getItem(i).toString())
+                                        {
+                                            phone = "+91"+teamData.getmMem3Phone().toString();
+                                            Log.e("TAG phone4", "onItemClick: "+phone );
+                                        }
+                                    }
+                                }
+                            });
+                            next.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+//                                    if (!validatePassword() | !validTeamName() | !validPartcipantName()) {
+//                                    }
+                                }
+                            });
+
 
                         }
                         else
@@ -143,8 +183,6 @@ public class UsersSignUp extends AppCompatActivity {
 
 
 
-
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,6 +191,14 @@ public class UsersSignUp extends AppCompatActivity {
         });
 
     }
+
+//    private boolean validPartcipantName() {
+//
+//    }
+//
+//    private boolean validTeamName() {
+//
+//    }
 
     public void callNextSignpScreen(View view) {
         Intent intent = new Intent(getApplicationContext(), UsersSignup2.class);
@@ -164,5 +210,23 @@ public class UsersSignUp extends AppCompatActivity {
 
         ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(UsersSignUp.this, pairs);
         startActivity(intent, activityOptions.toBundle());
+    }
+    private boolean validatePassword() {
+        String val = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
+
+        if (val.isEmpty()) {
+            et_password.setError("Field can not be empty");
+            return false;
+        } else if (val.length() < 8) {
+            et_password.setError("Password minimum 8 Characters");
+            return false;
+        } else if (!val.matches("\\w*")) {
+            et_password.setError("White spaces not allowed");
+            return false;
+        } else {
+            et_password.setError(null);
+            return true;
+        }
+
     }
 }

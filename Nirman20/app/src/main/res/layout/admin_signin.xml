@@ -63,6 +63,7 @@
                 android:fontFamily="@font/my_fav_sans_number"
                 android:inputType="text"
                 android:textColor="@color/black"
+                android:textAllCaps="true"
                 android:maxLength="11"
                 android:textSize="20dp"
                 tools:ignore="SpUsage" />
@@ -121,7 +122,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/Primary"
             android:fontFamily="@font/astronaut"
             android:gravity="center"
             android:text="Participant? Sign-in"
