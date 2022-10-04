@@ -23,7 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sipc.silicontech.nirman20.R;
 
@@ -44,7 +43,7 @@ public class AddNewTeams extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_teams);
+        setContentView(R.layout.add_new_teams);
 
         mTeamName = findViewById(R.id.et_TeamName);
         mProblemStatement = findViewById(R.id.et_Problem_Statement);

@@ -52,7 +52,7 @@ public class AddVolunteers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_volunteers);
+        setContentView(R.layout.add_volunteers);
         et_userName = findViewById(R.id.et_userName);
         et_sic = findViewById(R.id.et_sic);
         et_phoneNumber = findViewById(R.id.et_phoneNumber);
