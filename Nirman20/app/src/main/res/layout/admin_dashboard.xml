@@ -322,7 +322,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_mapFind"
+                    android:id="@+id/btn_mapFind1"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"
@@ -372,7 +372,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_CustomerProfile"
+                    android:id="@+id/btn_CustomerProfile1"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"

@@ -61,7 +61,7 @@
                 android:layout_height="55dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/my_fav_sans_number"
-                android:inputType="text"
+                android:inputType="textCapCharacters"
                 android:textColor="@color/black"
                 android:textAllCaps="true"
                 android:maxLength="11"
