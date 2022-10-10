@@ -183,6 +183,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/sipc"
                 android:text="SIPC/Evaluator?"
                 android:textAlignment="textEnd"
                 android:layout_gravity="end"

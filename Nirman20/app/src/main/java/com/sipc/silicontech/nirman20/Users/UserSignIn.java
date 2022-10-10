@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class UserSignIn extends AppCompatActivity {
     Button btn_login,btn_backSignUp;
     AutoCompleteTextView mEventType;
     String event;
+    TextView mSipc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class UserSignIn extends AppCompatActivity {
 
         btn_login = findViewById(R.id.btn_login);
         btn_backSignUp = findViewById(R.id.btn_backSignUp);
+        mSipc = findViewById(R.id.sipc);
 
         ArrayList<String> arrayListEventType;
         ArrayAdapter<String> arrayAdapterEventType;
@@ -76,6 +80,23 @@ public class UserSignIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UsersSignUp.class);
+
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View,String>(findViewById(R.id.btn_backSignUp),"transition_signUp");
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignIn.this,pairs);
+                    startActivity(intent,options.toBundle());
+                }
+                else{
+                    finish();
+                }
+            }
+        });
+        mSipc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AdminSignin.class);
 
                 Pair[] pairs = new Pair[1];
                 pairs[0] = new Pair<View,String>(findViewById(R.id.btn_backSignUp),"transition_signUp");

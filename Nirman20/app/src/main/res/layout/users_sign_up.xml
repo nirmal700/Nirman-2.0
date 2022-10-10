@@ -176,7 +176,6 @@
                 app:strokeWidth="1dp"
                 android:elevation="5dp"
                 tools:ignore="SpUsage"
-                android:onClick="callNextSignpScreen"
                 tools:targetApi="lollipop" />
 
             <com.google.android.material.button.MaterialButton
