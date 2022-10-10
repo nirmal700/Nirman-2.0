@@ -3,9 +3,15 @@ package com.sipc.silicontech.nirman20.Admins;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -83,6 +89,12 @@ public class AddNewTeams extends AppCompatActivity {
         arrayListEventType.add("HackNation");
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);
+
+        //--------------- Internet Checking -----------
+        if (!isConnected(AddNewTeams.this)){
+            showCustomDialog();
+        }
+
 
         radio_group.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == t4.getId()) {
@@ -380,6 +392,42 @@ public class AddNewTeams extends AppCompatActivity {
             mTeamName.setError("The Team Name Should be between 25");
             return false;
         }
+    }
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddNewTeams.this);
+        builder.setMessage("Please connect to the internet")
+                //   .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(),AddNewTeams.class));
+                        finish();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(AddNewTeams userSignUp) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) userSignUp.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
+
     }
 
 }

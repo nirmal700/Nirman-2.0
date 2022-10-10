@@ -4,10 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -97,6 +103,11 @@ public class UsersSignUp extends AppCompatActivity {
         arrayListEventType.add("HackNation");
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);
+
+        //--------------- Internet Checking -----------
+        if (!isConnected(UsersSignUp.this)){
+            showCustomDialog();
+        }
 
         mEventType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -332,4 +343,42 @@ public class UsersSignUp extends AppCompatActivity {
         }
 
     }
+
+    //--------------- Internet Error Dialog Box -----------
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(UsersSignUp.this);
+        builder.setMessage("Please connect to the internet")
+                //   .setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getApplicationContext(),UsersSignUp.class));
+                        finish();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(UsersSignUp userSignUp) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) userSignUp.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
+
+    }
+
 }

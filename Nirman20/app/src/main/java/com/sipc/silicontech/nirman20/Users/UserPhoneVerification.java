@@ -192,7 +192,7 @@ public class UserPhoneVerification extends AppCompatActivity {
                 String _partpassword = snapshot.child(phoneNumber).child("Profile").child("mPassword").getValue(String.class);
                 String _partteamname = snapshot.child(phoneNumber).child("Profile").child("mTeamName").getValue(String.class);
                 managerParticipant.setParticipantLogin(true);
-                managerParticipant.setDetails(event,participantname,password,phoneNumber,teamname);
+                managerParticipant.setDetails(event,_participantname,_partpassword,_partphoneNo,_partteamname);
 
 
                 progressDialog.dismiss();
