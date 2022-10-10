@@ -45,10 +45,10 @@
             android:background="@drawable/bg_primary"
             android:padding="20dp">
             <TextView
-                android:id="@+id/get_name"
+                android:id="@+id/team_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="0dp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
@@ -57,6 +57,21 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/dangrek"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/participant_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text="Nirmal Kumar"
+                android:textSize="22sp"
+                android:fontFamily="@font/averial"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/RiskLevel"
                 android:layout_width="match_parent"
@@ -67,13 +82,13 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:text="@string/current_risk_level"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/dangrek"/>
             <TextView
-                android:id="@+id/Text1"
+                android:id="@+id/mRiskLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="110dp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
