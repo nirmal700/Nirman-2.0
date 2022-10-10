@@ -296,7 +296,7 @@ public class UsersSignUp extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AdminSignin.class));
+                startActivity(new Intent(getApplicationContext(), UserSignIn.class));
             }
         });
 
