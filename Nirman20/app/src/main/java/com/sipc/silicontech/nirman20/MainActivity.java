@@ -17,6 +17,8 @@ import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.Admins.AdminPhoneVerification;
 import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
+import com.sipc.silicontech.nirman20.Users.SessionManagerParticipant;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     
 
     SessionManagerAdmin managerAdmin;
+    SessionManagerParticipant managerParticipant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 //  startActivity( new Intent(MainActivity.this, ShopSignup.class));
                 //Initialize SessionManager
                 managerAdmin = new SessionManagerAdmin(getApplicationContext());
+                managerParticipant = new SessionManagerParticipant(getApplicationContext());
 
                 if (managerAdmin.getAdminLogin()){
                     startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
-                }else {
+                }
+                else if(managerParticipant.getParticipantLogin())
+                {
+                    startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+                }
+                else {
                     Intent intent = new Intent(MainActivity.this, UsersSignUp.class);
                     startActivity(intent);
                 }
