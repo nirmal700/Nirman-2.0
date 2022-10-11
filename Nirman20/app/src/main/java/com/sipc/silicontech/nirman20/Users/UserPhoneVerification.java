@@ -89,6 +89,13 @@ public class UserPhoneVerification extends AppCompatActivity {
             finish();
         });
         CountTimer();
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserPhoneVerification.this,UserDashBoard.class));
+                finishAffinity();
+            }
+        });
         btn_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,6 +278,11 @@ public class UserPhoneVerification extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        super.onBackPressed();
     }
 
     private boolean validateOtp(){

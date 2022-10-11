@@ -37,6 +37,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.R;
 
 import java.io.File;
@@ -145,6 +146,11 @@ public class UserQrCode extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        super.onBackPressed();
     }
 
     //--------------- Internet Error Dialog Box -----------

@@ -209,7 +209,10 @@ public class AddNewTeams extends AppCompatActivity {
                 }
             }
         });
-
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
+            finishAffinity();
+        });
 
 
 
@@ -392,6 +395,11 @@ public class AddNewTeams extends AppCompatActivity {
             mTeamName.setError("The Team Name Should be between 25");
             return false;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
+        super.onBackPressed();
     }
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
+import com.sipc.silicontech.nirman20.Users.UserPhoneVerification;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,6 +47,7 @@ public class AddVolunteers extends AppCompatActivity {
     AutoCompleteTextView autoCompleteUserType;
 
     Button mGen;
+    ImageView btn_back;
 
     ProgressDialog progressDialog;
     String mAccessLevel="";
@@ -60,6 +64,7 @@ public class AddVolunteers extends AppCompatActivity {
         autoCompleteUserType = findViewById(R.id.autoCompleteUserType);
         mGen = findViewById(R.id.btn_genID);
         et_userRole = findViewById(R.id.et_userRole);
+        btn_back = findViewById(R.id.btn_backToSd);
 
         mStudentMSCName = new ArrayList<>();
         mStudentsmscSIC = new ArrayList<>();
@@ -4801,10 +4806,22 @@ public class AddVolunteers extends AppCompatActivity {
                 UploadVolunteerData();
             }
         });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddVolunteers.this,AdminDashboard.class));
+                finishAffinity();
+            }
+        });
 
 
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
+        super.onBackPressed();
+    }
     private void UploadVolunteerData() {
         //Initialize alert dialog
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
