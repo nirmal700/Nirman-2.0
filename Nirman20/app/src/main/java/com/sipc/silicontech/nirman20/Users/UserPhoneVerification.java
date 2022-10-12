@@ -296,6 +296,5 @@ public class UserPhoneVerification extends AppCompatActivity {
             et_otp.setError(null);
             return true;
         }
-
     }
 }
