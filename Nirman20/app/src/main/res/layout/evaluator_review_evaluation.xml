@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Evaluators.EvaluatorReviewEvaluation"
+    android:background="@color/Primary"
+    android:transitionName="transition_edit_shop_profile"
+    tools:targetApi="o">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/btn_backToSd"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@color/black"
+            android:contentDescription="@null"
+            android:focusable="true"
+            android:layout_marginStart="20dp"
+            android:transitionName="transition_shop_dashboard"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_shop_details"
+            android:layout_marginTop="-55dp"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_shopName"
+            android:textAllCaps="true"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/astronaut"
+            android:layout_marginHorizontal="20dp"
+            android:textSize="30sp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="Event : "
+                android:autoSizeTextType="uniform"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp" />
+
+            <TextView
+                android:id="@+id/tv_shopId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autoSizeTextType="uniform"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="20dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_lower"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Evaluate current project"
+                android:autoSizeTextType="uniform"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/Primary"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:autoSizeTextType="uniform"
+                android:text="Required"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_marginStart="10dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_shopName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Team Name"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/users_type"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:hint="Enter Team Name"
+                    android:inputType="textCapCharacters"
+                    android:autoSizeTextType="uniform"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintBlack"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_collegeName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="College Name"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_shop"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:hint="Enter College Name"
+                    android:inputType="textCapSentences"
+                    android:autoSizeTextType="uniform"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintBlack"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Project Detail's"
+                    android:textColor="@color/Primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="264dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_Problem_Statement"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Problem Statement"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_user"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:hint="Problem Statement"
+                    android:inputType="textCapSentences"
+                    android:autoSizeTextType="uniform"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintBlack"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/description"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_license"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:hint="Suggested Approach"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:autoSizeTextType="uniform"
+                    android:textColorHint="@color/hintBlack"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Marking's"
+                    android:textColor="@color/Primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="264dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="How technically impressive was the hack? Was the technical problem the team tackled difficult? Did it use a particularly clever technique or did it use many different components? Did the technology involved make you go 'Wow'?"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+
+                <com.ramotion.fluidslider.FluidSlider
+                    android:id="@+id/fluidSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:elevation="2dp"
+                    app:size="small"
+                    app:duration="400"/>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Did the team put thought into the user experience? How well designed is the interface? For a website, this might be about how beautiful the CSS or graphics are. For a hardware project, it might be more about how good the human-computer interaction is (e.g. is it easy to use or does it use a cool interface?)"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <com.ramotion.fluidslider.FluidSlider
+                android:id="@+id/fluidSlider2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:elevation="2dp"
+                app:size="small"
+                app:duration="400"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Does the hack work? Did the team achieve everything they wanted?"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <com.ramotion.fluidslider.FluidSlider
+                android:id="@+id/fluidSlider3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:elevation="2dp"
+                app:size="small"
+                app:duration="400"/>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Did the team stretch themselves? Did they try to learn something new? What kind of projects have they worked on before?"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <com.ramotion.fluidslider.FluidSlider
+                android:id="@+id/fluidSlider4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:elevation="2dp"
+                app:size="small"
+                app:duration="400"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Suggestion"
+                    android:textColor="@color/Primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="264dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_description1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Suggestion"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidth="1dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_license"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="175dp"
+                    android:hint="Suggestion To The Team"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:autoSizeTextType="uniform"
+                    android:textColorHint="@color/hintBlack"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="20dp"
+                android:text="Submit"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/astronaut"
+                android:textStyle="bold"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

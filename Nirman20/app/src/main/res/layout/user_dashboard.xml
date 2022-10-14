@@ -220,7 +220,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_ScannedShops"
+                android:id="@+id/btn_RequestHelp"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"

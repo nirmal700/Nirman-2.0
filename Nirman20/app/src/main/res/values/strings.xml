@@ -25,4 +25,32 @@
     <string name="password">Password</string>
     <string name="phone_number">Phone Number</string>
     <string name="add_teams">Add Teams</string>
+
+
+    <string name="id">ID : </string>
+    <string name="updateShop">Update your shop or Organization details</string>
+    <string name="contactDetails">Contact Details</string>
+    <string name="workDayTime">Working Days and Times</string>
+    <string name="shopAbout">Shop abouts and Images</string>
+    <string name="uploadImages">Upload your shop or organization Images</string>
+
+    <string name="editShopName">Name<font color='#FF0000'>*</font></string>
+    <string name="editCategory">Category<font color='#FF0000'>*</font></string>
+    <string name="editOwnerName">Owner Name<font color='#FF0000'>*</font></string>
+    <string name="workingTime">Working Time</string>
+    <string name="workingDays">Working Days</string>
+    <string name="description">Description</string>
+
+    <string name="hint_enterShopName">Enter shop or organization name</string>
+    <string name="hint_shopCategory">Enter shop or organization category</string>
+    <string name="hint_ownerName">eg. John</string>
+    <string name="hint_shopLocation">eg. Bypass road, calicut</string>
+    <string name="hint_time">7:00 am - 5:00 pm</string>
+    <string name="hint_days">Monday - Friday</string>
+    <string name="hint_desc">About shop</string>
+
+    <string name="upload">Upload</string>
+    <string name="showAll">Show all</string>
+    <string name="long_text">Kotlin is a great fit for developing Android applications, bringing all of the advantages of a modern language to the Android platform without introducing any new restrictions.</string>
+
 </resources>

@@ -27,6 +27,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
+import com.sipc.silicontech.nirman20.Evaluators.EvaluatorReviewEvaluation;
 import com.sipc.silicontech.nirman20.R;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +40,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    MaterialCardView mGenQR;
+    MaterialCardView mGenQR,btn_RequestHelp;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
@@ -69,6 +70,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         user_Name = findViewById(R.id.participant_name);
         risk_level = findViewById(R.id.mRiskLevel);
         mGenQR = findViewById(R.id.btn_generateQR);
+        btn_RequestHelp = findViewById(R.id.btn_RequestHelp);
 
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
         managerAdmin = new SessionManagerAdmin(getApplicationContext());
@@ -100,6 +102,12 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserQrCode.class));
+            }
+        });
+        btn_RequestHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), EvaluatorReviewEvaluation.class));
             }
         });
 
