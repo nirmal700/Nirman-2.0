@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".Evaluators.EvaluatorSignIn"
+    android:background="@color/Primary"
+    android:orientation="vertical"
+    android:transitionName="transition_login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/Primary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_user_login"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:layout_width="190dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/nirmanlogo"
+                tools:ignore="ContentDescription"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="80sp"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/moon_regular"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
+            android:paddingTop="20dp"
+            android:background="@drawable/bg_bottom"
+            android:layout_marginTop="60dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/autoEvent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Select Your Name"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconTint="@color/black"
+                app:errorTextColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_user"
+                app:startIconTint="@color/black">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteEvaluator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:fontFamily="@font/my_fav_sans_number"
+                    android:inputType="none"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    tools:ignore="LabelFor,SpUsage" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/password"
+                android:textColorHint="@color/hintBlack"
+                app:boxStrokeColor="@color/hintBlack"
+                app:boxStrokeWidth="1.5dp"
+                android:layout_marginTop="20dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/black"
+                app:hintTextColor="@color/hintBlack"
+                app:startIconDrawable="@drawable/ic_password"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/my_fav_sans_number"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/hintBlack"
+                android:backgroundTint="@color/Primary"
+                android:fontFamily="@font/moon_bold"
+                app:cornerRadius="5dp"
+                android:text="Login"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:transitionName="transition_signUp"
+                tools:targetApi="lollipop" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_backSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/Primary_light"
+                android:gravity="center"
+                android:text="SIPC?"
+                android:textColor="@color/Primary"
+                android:textSize="25sp"
+                android:fontFamily="@font/moon_bold"
+                android:transitionName="transition_signUp"
+                app:cornerRadius="5dp"
+                app:strokeColor="@color/hintBlack"
+                app:strokeWidth="1dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sipc"
+                android:text="Participant?"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:textColor="@color/blue"
+                android:textSize="17sp"
+                tools:ignore="RelativeOverlap" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

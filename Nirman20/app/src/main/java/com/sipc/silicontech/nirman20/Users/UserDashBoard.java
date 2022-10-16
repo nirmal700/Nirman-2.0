@@ -28,8 +28,8 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorLogin;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorReviewEvaluation;
+import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
 import com.sipc.silicontech.nirman20.R;
 
 import java.text.SimpleDateFormat;
@@ -109,7 +109,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_RequestHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
+                startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class));
             }
         });
 
