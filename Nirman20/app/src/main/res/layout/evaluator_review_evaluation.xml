@@ -116,7 +116,7 @@
                 android:layout_marginStart="10dp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_shopName"
+                android:id="@+id/et_teamName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -289,7 +289,7 @@
                     android:textColor="@color/black"/>
 
                 <com.ramotion.fluidslider.FluidSlider
-                    android:id="@+id/fluidSlider"
+                    android:id="@+id/fluidSlider1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -378,7 +378,7 @@
 
             </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/et_description1"
+                android:id="@+id/et_suggestion"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -406,12 +406,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
-
-
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_update"
+                android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"

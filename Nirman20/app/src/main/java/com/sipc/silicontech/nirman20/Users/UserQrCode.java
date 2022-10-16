@@ -61,7 +61,7 @@ public class UserQrCode extends AppCompatActivity {
 
     //--------------- Encryption Variables -----------
     String AES = "AES";
-    String keyPass = "qrregistry@user";
+    String keyPass = "Nirman@2023-SIPC";
     //------------------------------------------------
 
     @Override

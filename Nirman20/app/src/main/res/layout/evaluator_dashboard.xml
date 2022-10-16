@@ -106,7 +106,7 @@
                 android:background="@color/Primary">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_generateQR"
+                    android:id="@+id/btn_evaluate"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"
