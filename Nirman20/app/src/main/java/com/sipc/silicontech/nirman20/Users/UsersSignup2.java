@@ -8,9 +8,6 @@ import android.view.WindowManager;
 import com.sipc.silicontech.nirman20.R;
 
 public class UsersSignup2 extends AppCompatActivity {
-
-    int a;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
