@@ -1,13 +1,14 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 public class NewTeamData {
-    String mEventParticipating,mTeamName,mProblemStat,mApproach,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone,mRound1Eva,mRound2Eva,mRound3Eva,mCoParticipant,mFinalMark;
+    String mEventParticipating,mTeamName,mProblemStat,mApproach,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
+    double mRound1Eva,mRound2Eva,mRound3Eva,mCoParticipant,mFinalMark;
     boolean mCheckedIn;
 
     public NewTeamData() {
     }
 
-    public NewTeamData(String mEventParticipating, String mTeamName, String mProblemStat, String mApproach, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, String mRound1Eva, String mRound2Eva, String mRound3Eva, String mCoParticipant, String mFinalMark, boolean mCheckedIn) {
+    public NewTeamData(String mEventParticipating, String mTeamName, String mProblemStat, String mApproach, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, double mRound1Eva, double mRound2Eva, double mRound3Eva, double mCoParticipant, double mFinalMark, boolean mCheckedIn) {
         this.mEventParticipating = mEventParticipating;
         this.mTeamName = mTeamName;
         this.mProblemStat = mProblemStat;
@@ -133,43 +134,43 @@ public class NewTeamData {
         this.mMem3Phone = mMem3Phone;
     }
 
-    public String getmRound1Eva() {
+    public double getmRound1Eva() {
         return mRound1Eva;
     }
 
-    public void setmRound1Eva(String mRound1Eva) {
+    public void setmRound1Eva(double mRound1Eva) {
         this.mRound1Eva = mRound1Eva;
     }
 
-    public String getmRound2Eva() {
+    public double getmRound2Eva() {
         return mRound2Eva;
     }
 
-    public void setmRound2Eva(String mRound2Eva) {
+    public void setmRound2Eva(double mRound2Eva) {
         this.mRound2Eva = mRound2Eva;
     }
 
-    public String getmRound3Eva() {
+    public double getmRound3Eva() {
         return mRound3Eva;
     }
 
-    public void setmRound3Eva(String mRound3Eva) {
+    public void setmRound3Eva(double mRound3Eva) {
         this.mRound3Eva = mRound3Eva;
     }
 
-    public String getmCoParticipant() {
+    public double getmCoParticipant() {
         return mCoParticipant;
     }
 
-    public void setmCoParticipant(String mCoParticipant) {
+    public void setmCoParticipant(double mCoParticipant) {
         this.mCoParticipant = mCoParticipant;
     }
 
-    public String getmFinalMark() {
+    public double getmFinalMark() {
         return mFinalMark;
     }
 
-    public void setmFinalMark(String mFinalMark) {
+    public void setmFinalMark(double mFinalMark) {
         this.mFinalMark = mFinalMark;
     }
 

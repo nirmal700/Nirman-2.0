@@ -141,7 +141,7 @@ public class AddNewTeams extends AppCompatActivity {
                     else {
                         progressDialog.show();
                         CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
-                        NewTeamData newTeamData = new NewTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,null,null,null,null,null,false);
+                        NewTeamData newTeamData = new NewTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
                         mCollectionReference.document(teamname).set(newTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
@@ -177,7 +177,7 @@ public class AddNewTeams extends AppCompatActivity {
                     else {
                         progressDialog.show();
                         CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
-                        NewTeamData newTeamData = new NewTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,null,null,null,null,null,false);
+                        NewTeamData newTeamData = new NewTeamData(event,teamname,problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
                         mCollectionReference.document(teamname).set(newTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
