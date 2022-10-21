@@ -28,6 +28,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.sipc.silicontech.nirman20.Admins.PublishResults;
 import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
+import com.sipc.silicontech.nirman20.Admins.TeamDetails;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorReviewEvaluation;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
@@ -117,7 +118,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_TodoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), PublishResults.class));
+                startActivity(new Intent(getApplicationContext(), TeamDetails.class));
             }
         });
 
