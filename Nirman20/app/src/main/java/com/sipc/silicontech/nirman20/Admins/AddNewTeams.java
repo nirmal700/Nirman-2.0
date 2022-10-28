@@ -113,59 +113,163 @@ public class AddNewTeams extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 event = arrayAdapterEventType.getItem(i).toString();
+                if(event.equals("Line Follower") || event.equals("Robo Race") )
+                {
+                    mProblemStatement.setVisibility(View.GONE);
+                    mApproach.setVisibility(View.GONE);
+                }
+                else
+                {
+                    mProblemStatement.setVisibility(View.VISIBLE);
+                    mApproach.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                teamname = Objects.requireNonNull(mTeamName.getEditText()).getText().toString();
-                problemstatement = Objects.requireNonNull(mProblemStatement.getEditText()).getText().toString();
-                approach = Objects.requireNonNull(mApproach.getEditText()).getText().toString();
-                clgname = Objects.requireNonNull(mCollegeName.getEditText()).getText().toString();
-                teamleadname = Objects.requireNonNull(mTeamLeadName.getEditText()).getText().toString();
-                teamleadph = Objects.requireNonNull(mTeamLeadPhone.getEditText()).getText().toString();
-                mem1name = Objects.requireNonNull(mMember1Name.getEditText()).getText().toString();
-                mem1phone = Objects.requireNonNull(mMember1Phone.getEditText()).getText().toString();
-                mem2name = Objects.requireNonNull(mMember2Name.getEditText()).getText().toString();
-                mem2phone = Objects.requireNonNull(mMember2Phone.getEditText()).getText().toString();
-                mem3name = mMember3Name.getEditText().getText().toString();
-                mem3phone = mMember3Phone.getEditText().getText().toString();
+                teamname = Objects.requireNonNull(mTeamName.getEditText()).getText().toString().trim();
+                problemstatement = Objects.requireNonNull(mProblemStatement.getEditText()).getText().toString().trim();
+                approach = Objects.requireNonNull(mApproach.getEditText()).getText().toString().trim();
+                clgname = Objects.requireNonNull(mCollegeName.getEditText()).getText().toString().trim();
+                teamleadname = Objects.requireNonNull(mTeamLeadName.getEditText()).getText().toString().trim();
+                teamleadph = Objects.requireNonNull(mTeamLeadPhone.getEditText()).getText().toString().trim();
+                mem1name = Objects.requireNonNull(mMember1Name.getEditText()).getText().toString().trim();
+                mem1phone = Objects.requireNonNull(mMember1Phone.getEditText()).getText().toString().trim();
+                mem2name = Objects.requireNonNull(mMember2Name.getEditText()).getText().toString().trim();
+                mem2phone = Objects.requireNonNull(mMember2Phone.getEditText()).getText().toString().trim();
+                mem3name = mMember3Name.getEditText().getText().toString().trim();
+                mem3phone = mMember3Phone.getEditText().getText().toString().trim();
                 if(b==3)
                 {
-                    if(!ValidTeamName() | !ValidProblemStat()| !ValidApproach()| !ValidCollegeName()| !ValidName1()| !ValidPhone1()| !ValidName2()| !ValidPhone2() | !ValidName3()| !ValidPhone3() |!ValidateEventType())
+                    if(!ValidTeamName() | !ValidCollegeName()| !ValidName1()| !ValidPhone1()| !ValidName2()| !ValidPhone2() | !ValidName3()| !ValidPhone3() |!ValidateEventType())
                     {
-                        Toast.makeText(AddNewTeams.this, "Not Entered Into Else" ,Toast.LENGTH_SHORT).show();
                         return;
                     }
                     else {
+                        if(event.equals("HackNation") || event.equals("Ideate"))
+                        {
+                            if(!ValidProblemStat()| !ValidApproach())
+                            {
+                                return;
+                            }
+                        }
                         progressDialog.show();
                         CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
-                        NewTeamData newTeamData = new NewTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
-                        mCollectionReference.document(teamname).set(newTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                progressDialog.cancel();
-                                Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
-                                    progressDialog.dismiss();
-                                    startActivity(intent);
-                                    finish();
+                        if(event.equals("Line Follower"))
+                        {
+                            NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
                                 }
-                            }
-                        });
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                        else if(event.equals("Robo Race"))
+                        {
+                            NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                        else if(event.equals("Ideate"))
+                        {
+                            NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,false);
+                            mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                        else if(event.equals("HackNation"))
+                        {
+                            NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
+                            mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+
                     }
                 }
                 if(b==4)
@@ -175,33 +279,128 @@ public class AddNewTeams extends AppCompatActivity {
                         return;
                     }
                     else {
+                        if(event.equals("HackNation") || event.equals("Ideate"))
+                        {
+                            if(!ValidProblemStat()| !ValidApproach())
+                            {
+                                return;
+                            }
+                        }
                         progressDialog.show();
                         CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
-                        NewTeamData newTeamData = new NewTeamData(event,teamname,problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
-                        mCollectionReference.document(teamname).set(newTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                progressDialog.cancel();
-                                Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
-                                    progressDialog.dismiss();
-                                    startActivity(intent);
-                                    finish();
+                        if(event.equals("Line Follower"))
+                        {
+                            NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
                                 }
-                            }
-                        });
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                        else if(event.equals("Robo Race"))
+                        {
+                            NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                        else if(event.equals("Ideate"))
+                        {
+                            NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,false);
+                            mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+                        else if(event.equals("HackNation"))
+                        {
+                            NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
+                            mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    progressDialog.cancel();
+                                    Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.cancel();
+                                    Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                        progressDialog.dismiss();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
+                        }
+
                     }
                 }
                 else {
@@ -294,7 +493,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName1() {
-        if(mTeamLeadName.getEditText().getText().toString().length() <= 25)
+        if(mTeamLeadName.getEditText().getText().toString().length() <= 35 && mTeamLeadName.getEditText().getText().toString().length() >= 3 )
         {
             mTeamLeadName.setError(null);
             return true;
@@ -307,7 +506,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName2() {
-        if(mMember1Name.getEditText().getText().toString().length() <= 25)
+        if(mMember1Name.getEditText().getText().toString().length() <= 35 && mMember1Name.getEditText().getText().toString().length() >= 3 )
         {
             mMember1Name.setError(null);
             return true;
@@ -320,7 +519,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName3() {
-        if(mMember2Name.getEditText().getText().toString().length() <= 25)
+        if(mMember2Name.getEditText().getText().toString().length() <= 35 && mMember2Name.getEditText().getText().toString().length() >= 3 )
         {
             mMember2Name.setError(null);
             return true;
@@ -333,7 +532,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName4() {
-        if(mMember3Name.getEditText().getText().toString().length() <= 25)
+        if(mMember3Name.getEditText().getText().toString().length() <= 35 && mMember3Name.getEditText().getText().toString().length() >= 3)
         {
             mMember3Name.setError(null);
             return true;
@@ -346,7 +545,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidCollegeName() {
-        if( clgname.length() <=35 && clgname.length() >=10  )
+        if( clgname.length() <=55 && clgname.length() >=2  )
         {
             mCollegeName.setError(null);
             return true;
@@ -359,7 +558,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidApproach() {
-        if(approach.length() <=100 && approach.length() >=25 )
+        if(approach.length() <=150 && approach.length() >=15 )
         {
             mApproach.setError(null);
             return true;
@@ -372,7 +571,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidProblemStat() {
-        if(problemstatement.length() <=75 && problemstatement.length() >=25)
+        if(problemstatement.length() <=100 && problemstatement.length() >=10)
         {
             mProblemStatement.setError(null);
             return true;

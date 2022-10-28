@@ -1,18 +1,17 @@
 package com.sipc.silicontech.nirman20.Admins;
 
-public class NewTeamData {
-    String mEventParticipating,mTeamName,mProblemStat,mApproach,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
-    double mRound1Eva,mRound2Eva,mRound3Eva,mCoParticipant,mFinalMark;
-    boolean mCheckedIn;
+public class NewRoboRaceTeamData {
+    String mEventParticipating,mTeamName,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
+    double mTotalTimeTaken,mTotal;
+    boolean mCheckedIn,mTimeOutTaken;
+    int mCheckPointCleared,mHandTouches,mBonus,mCheckPointSkipped;
 
-    public NewTeamData() {
+    public NewRoboRaceTeamData() {
     }
 
-    public NewTeamData(String mEventParticipating, String mTeamName, String mProblemStat, String mApproach, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, double mRound1Eva, double mRound2Eva, double mRound3Eva, double mCoParticipant, double mFinalMark, boolean mCheckedIn) {
+    public NewRoboRaceTeamData(String mEventParticipating, String mTeamName, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, double mTotalTimeTaken, double mTotal, boolean mCheckedIn, boolean mTimeOutTaken, int mCheckPointCleared, int mHandTouches, int mBonus, int mCheckPointSkipped) {
         this.mEventParticipating = mEventParticipating;
         this.mTeamName = mTeamName;
-        this.mProblemStat = mProblemStat;
-        this.mApproach = mApproach;
         this.mCollegeName = mCollegeName;
         this.mTeamLead = mTeamLead;
         this.mTeamLeadPhone = mTeamLeadPhone;
@@ -22,12 +21,14 @@ public class NewTeamData {
         this.mMem2Phone = mMem2Phone;
         this.mMem3Name = mMem3Name;
         this.mMem3Phone = mMem3Phone;
-        this.mRound1Eva = mRound1Eva;
-        this.mRound2Eva = mRound2Eva;
-        this.mRound3Eva = mRound3Eva;
-        this.mCoParticipant = mCoParticipant;
-        this.mFinalMark = mFinalMark;
+        this.mTotalTimeTaken = mTotalTimeTaken;
+        this.mTotal = mTotal;
         this.mCheckedIn = mCheckedIn;
+        this.mTimeOutTaken = mTimeOutTaken;
+        this.mCheckPointCleared = mCheckPointCleared;
+        this.mHandTouches = mHandTouches;
+        this.mBonus = mBonus;
+        this.mCheckPointSkipped = mCheckPointSkipped;
     }
 
     public String getmEventParticipating() {
@@ -44,22 +45,6 @@ public class NewTeamData {
 
     public void setmTeamName(String mTeamName) {
         this.mTeamName = mTeamName;
-    }
-
-    public String getmProblemStat() {
-        return mProblemStat;
-    }
-
-    public void setmProblemStat(String mProblemStat) {
-        this.mProblemStat = mProblemStat;
-    }
-
-    public String getmApproach() {
-        return mApproach;
-    }
-
-    public void setmApproach(String mApproach) {
-        this.mApproach = mApproach;
     }
 
     public String getmCollegeName() {
@@ -134,44 +119,20 @@ public class NewTeamData {
         this.mMem3Phone = mMem3Phone;
     }
 
-    public double getmRound1Eva() {
-        return mRound1Eva;
+    public double getmTotalTimeTaken() {
+        return mTotalTimeTaken;
     }
 
-    public void setmRound1Eva(double mRound1Eva) {
-        this.mRound1Eva = mRound1Eva;
+    public void setmTotalTimeTaken(double mTotalTimeTaken) {
+        this.mTotalTimeTaken = mTotalTimeTaken;
     }
 
-    public double getmRound2Eva() {
-        return mRound2Eva;
+    public double getmTotal() {
+        return mTotal;
     }
 
-    public void setmRound2Eva(double mRound2Eva) {
-        this.mRound2Eva = mRound2Eva;
-    }
-
-    public double getmRound3Eva() {
-        return mRound3Eva;
-    }
-
-    public void setmRound3Eva(double mRound3Eva) {
-        this.mRound3Eva = mRound3Eva;
-    }
-
-    public double getmCoParticipant() {
-        return mCoParticipant;
-    }
-
-    public void setmCoParticipant(double mCoParticipant) {
-        this.mCoParticipant = mCoParticipant;
-    }
-
-    public double getmFinalMark() {
-        return mFinalMark;
-    }
-
-    public void setmFinalMark(double mFinalMark) {
-        this.mFinalMark = mFinalMark;
+    public void setmTotal(double mTotal) {
+        this.mTotal = mTotal;
     }
 
     public boolean ismCheckedIn() {
@@ -180,5 +141,45 @@ public class NewTeamData {
 
     public void setmCheckedIn(boolean mCheckedIn) {
         this.mCheckedIn = mCheckedIn;
+    }
+
+    public boolean ismTimeOutTaken() {
+        return mTimeOutTaken;
+    }
+
+    public void setmTimeOutTaken(boolean mTimeOutTaken) {
+        this.mTimeOutTaken = mTimeOutTaken;
+    }
+
+    public int getmCheckPointCleared() {
+        return mCheckPointCleared;
+    }
+
+    public void setmCheckPointCleared(int mCheckPointCleared) {
+        this.mCheckPointCleared = mCheckPointCleared;
+    }
+
+    public int getmHandTouches() {
+        return mHandTouches;
+    }
+
+    public void setmHandTouches(int mHandTouches) {
+        this.mHandTouches = mHandTouches;
+    }
+
+    public int getmBonus() {
+        return mBonus;
+    }
+
+    public void setmBonus(int mBonus) {
+        this.mBonus = mBonus;
+    }
+
+    public int getmCheckPointSkipped() {
+        return mCheckPointSkipped;
+    }
+
+    public void setmCheckPointSkipped(int mCheckPointSkipped) {
+        this.mCheckPointSkipped = mCheckPointSkipped;
     }
 }

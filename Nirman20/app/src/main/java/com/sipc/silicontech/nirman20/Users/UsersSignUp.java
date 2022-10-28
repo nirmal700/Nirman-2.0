@@ -44,14 +44,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.sipc.silicontech.nirman20.Admins.AddNewTeams;
-import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
-import com.sipc.silicontech.nirman20.Admins.AdminSignin;
-import com.sipc.silicontech.nirman20.Admins.NewTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -60,7 +56,7 @@ public class UsersSignUp extends AppCompatActivity {
     Button next, login;
     TextView title;
     AutoCompleteTextView mEventType,mTeam,mParticipants;
-    NewTeamData teamData;
+    NewHackNationTeamData teamData;
     ArrayList<String> arrayListPartcipantTeamName;
     ArrayAdapter<String> arrayAdapterPartcipantTeamName;
     ArrayList<String> arrayListPartcipantNames;
@@ -127,7 +123,7 @@ public class UsersSignUp extends AppCompatActivity {
                             arrayAdapterPartcipantTeamName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantTeamName);
                             for(QueryDocumentSnapshot document : task.getResult())
                             {
-                                teamData = document.toObject(NewTeamData.class);
+                                teamData = document.toObject(NewHackNationTeamData.class);
                                 Log.e("TAG", "onComplete: "+document.getId() +"=>"+document.getData() );
                                 arrayListPartcipantTeamName.add(teamData.getmTeamName());
                                 arrayAdapterPartcipantTeamName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantTeamName);
@@ -141,7 +137,7 @@ public class UsersSignUp extends AppCompatActivity {
                                     arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(),R.layout.text_menu,arrayListPartcipantNames);
                                     for(QueryDocumentSnapshot documentSnapshot : task.getResult())
                                     {
-                                        teamData = documentSnapshot.toObject(NewTeamData.class);
+                                        teamData = documentSnapshot.toObject(NewHackNationTeamData.class);
                                         if(teamData.getmTeamName() == arrayAdapterPartcipantTeamName.getItem(i))
                                         {
                                             teamname = arrayAdapterPartcipantTeamName.getItem(i).toString();
@@ -164,7 +160,7 @@ public class UsersSignUp extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                     for(QueryDocumentSnapshot documentSnapshot :task.getResult())
                                     {
-                                        teamData = documentSnapshot.toObject(NewTeamData.class);
+                                        teamData = documentSnapshot.toObject(NewHackNationTeamData.class);
                                         participantName = arrayAdapterPartcipantNames.getItem(i).toString();
                                         if(teamData.getmTeamLead() == arrayAdapterPartcipantNames.getItem(i).toString())
                                         {

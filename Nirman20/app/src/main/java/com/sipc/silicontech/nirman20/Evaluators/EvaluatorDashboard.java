@@ -28,7 +28,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.sipc.silicontech.nirman20.Admins.NewTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 
@@ -126,10 +126,10 @@ public class EvaluatorDashboard extends AppCompatActivity {
                     documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            NewTeamData newTeamData = documentSnapshot.toObject(NewTeamData.class);
-                            String clgname = newTeamData.getmCollegeName().toString();
-                            String problemstat = newTeamData.getmProblemStat().toString();
-                            String approach = newTeamData.getmApproach().toString();
+                            NewHackNationTeamData newHackNationTeamData = documentSnapshot.toObject(NewHackNationTeamData.class);
+                            String clgname = newHackNationTeamData.getmCollegeName().toString();
+                            String problemstat = newHackNationTeamData.getmProblemStat().toString();
+                            String approach = newHackNationTeamData.getmApproach().toString();
                             Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, EvaluatorReviewEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             mEvaluatorIntent.putExtra("mTeamName",teamname);
                             mEvaluatorIntent.putExtra("mCollegeName",clgname);

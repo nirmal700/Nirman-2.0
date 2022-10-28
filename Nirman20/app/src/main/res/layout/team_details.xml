@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -28,19 +28,6 @@
             android:src="@drawable/ic_back_arrow"
             app:tint="@color/black" />
 
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:text="Search"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="27sp"-->
-<!--            android:textStyle="bold"-->
-<!--            tools:ignore="RelativeOverlap" />-->
 
     </RelativeLayout>
 
@@ -59,14 +46,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/at_category"
+            android:id="@+id/autoCompleteEvent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="15sp"
-            android:hint="Event Type"
             android:inputType="none"
-            android:text="Select Event"/>
+            android:text="Select Event"
+            tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,7 +92,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_book"
+            android:id="@+id/rv_team_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="1dp"
