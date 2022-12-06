@@ -69,4 +69,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.ramotion.fluidslider:fluid-slider:0.3.1'
+    implementation 'com.vipulasri:ticketview:1.1.2'
 }
