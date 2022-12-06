@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 7.3.1" type="baseline" client="gradle" dependencies="false" name="AGP (7.3.1)" variant="fatal" version="7.3.1">
+
+    <issue
+        id="DuplicateIds"
+        message="Duplicate id `@+id/decrement`, already defined earlier in this layout"
+        errorLine1="                    android:id=&quot;@+id/decrement&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/robo_race_evaluation.xml"
+            line="381"
+            column="21"/>
+        <location
+            file="src/main/res/layout/robo_race_evaluation.xml"
+            line="306"
+            column="21"
+            message="Duplicate id `@+id/decrement` originally defined here"/>
+    </issue>
+
+    <issue
+        id="DuplicateIds"
+        message="Duplicate id `@+id/incrementer`, already defined earlier in this layout"
+        errorLine1="                    android:id=&quot;@+id/incrementer&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/robo_race_evaluation.xml"
+            line="407"
+            column="21"/>
+        <location
+            file="src/main/res/layout/robo_race_evaluation.xml"
+            line="332"
+            column="21"
+            message="Duplicate id `@+id/incrementer` originally defined here"/>
+    </issue>
+
+</issues>

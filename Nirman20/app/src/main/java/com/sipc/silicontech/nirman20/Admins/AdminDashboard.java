@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.sipc.silicontech.nirman20.Evaluators.RoboRaceEvaluation;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.UserSignIn;
 
@@ -46,7 +47,7 @@ public class AdminDashboard extends AppCompatActivity {
         btn_CustomerProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminDashboard.this, UserSignIn.class));
+                startActivity(new Intent(AdminDashboard.this, RoboRaceEvaluation.class));
             }
         });
 

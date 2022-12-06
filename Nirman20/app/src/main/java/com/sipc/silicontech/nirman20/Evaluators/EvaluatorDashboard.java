@@ -122,31 +122,66 @@ public class EvaluatorDashboard extends AppCompatActivity {
 //                        address = "";
 //                    }
 
-                    DocumentReference documentReference = mCollectionReference.document(teamname);
-                    documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            NewHackNationTeamData newHackNationTeamData = documentSnapshot.toObject(NewHackNationTeamData.class);
-                            String clgname = newHackNationTeamData.getmCollegeName().toString();
-                            String problemstat = newHackNationTeamData.getmProblemStat().toString();
-                            String approach = newHackNationTeamData.getmApproach().toString();
-                            Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, EvaluatorReviewEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            mEvaluatorIntent.putExtra("mTeamName",teamname);
-                            mEvaluatorIntent.putExtra("mCollegeName",clgname);
-                            mEvaluatorIntent.putExtra("mProblemStat",problemstat);
-                            mEvaluatorIntent.putExtra("mApproach",approach);
-                            startActivity(mEvaluatorIntent);
-                            finish();
+                    if(event.equals("HackNation"))
+                    {
+                        DocumentReference documentReference = mCollectionReference.document(teamname);
+                        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                NewHackNationTeamData newHackNationTeamData = documentSnapshot.toObject(NewHackNationTeamData.class);
+                                String clgname = newHackNationTeamData.getmCollegeName().toString();
+                                String problemstat = newHackNationTeamData.getmProblemStat().toString();
+                                String approach = newHackNationTeamData.getmApproach().toString();
+                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, EvaluatorReviewEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                mEvaluatorIntent.putExtra("mTeamName",teamname);
+                                mEvaluatorIntent.putExtra("mCollegeName",clgname);
+                                mEvaluatorIntent.putExtra("mProblemStat",problemstat);
+                                mEvaluatorIntent.putExtra("mApproach",approach);
+                                startActivity(mEvaluatorIntent);
+                                finish();
 
 
 
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(EvaluatorDashboard.this, "Error!!"+e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EvaluatorDashboard.this, "Error!!"+e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    else if(event.equals("Ideate"))
+                    {
+                        DocumentReference documentReference = mCollectionReference.document(teamname);
+                        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                NewHackNationTeamData newHackNationTeamData = documentSnapshot.toObject(NewHackNationTeamData.class);
+                                String clgname = newHackNationTeamData.getmCollegeName().toString();
+                                String problemstat = newHackNationTeamData.getmProblemStat().toString();
+                                String approach = newHackNationTeamData.getmApproach().toString();
+                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, EvaluatorReviewEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                mEvaluatorIntent.putExtra("mTeamName",teamname);
+                                mEvaluatorIntent.putExtra("mCollegeName",clgname);
+                                mEvaluatorIntent.putExtra("mProblemStat",problemstat);
+                                mEvaluatorIntent.putExtra("mApproach",approach);
+                                startActivity(mEvaluatorIntent);
+                                finish();
+
+
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EvaluatorDashboard.this, "Error!!"+e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                    else
+                    {
+
+                    }
 
                     //Initialize Dialog box
                     AlertDialog.Builder builder = new AlertDialog.Builder(EvaluatorDashboard.this);
