@@ -31,8 +31,9 @@ public class TeamDetails extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     private EditText et_search;
-    private TeamDetailsAdapter teamDetailsAdapter;
+    private ParticipantTeamsAdapter teamsAdapter;
     ImageView btn_back;
+    ArrayList<NewHackNationTeamData> list;
     Query eventDb;
 
 
@@ -49,6 +50,9 @@ public class TeamDetails extends AppCompatActivity {
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        progressDialog.setCancelable(false);
+        progressDialog.cancel();
+
         recyclerView = findViewById(R.id.rv_team_details);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -63,6 +67,12 @@ public class TeamDetails extends AppCompatActivity {
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);
 
+
+        list = new ArrayList<>();
+        teamsAdapter = new ParticipantTeamsAdapter(TeamDetails.this,list);
+        recyclerView.setAdapter(teamsAdapter);
+
+
         mEventType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,10 +80,20 @@ public class TeamDetails extends AppCompatActivity {
                 mCollectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful())
+                        if(task.isSuccessful() && arrayAdapterEventType.getItem(position).equals("HackNation"))
                         {
-                            for(QueryDocumentSnapshot documentSnapshot : task.getResult())
-                                Log.e("TAG7009", "onComplete: "+documentSnapshot.getId() +"=>"+documentSnapshot.getData() );
+                            list.clear();
+                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                Log.e("TAG7009", "onComplete: " + documentSnapshot.getId() + "=>" + documentSnapshot.getData());
+                                list.add(documentSnapshot.toObject(NewHackNationTeamData.class));
+                                Log.e("TAG7709", "onComplete() returned: "+list.toString() );
+                                teamsAdapter = new ParticipantTeamsAdapter(TeamDetails.this,list);
+                                recyclerView.setAdapter(teamsAdapter);
+                                teamsAdapter.notifyDataSetChanged();
+                            }
+                        }else {
+                            list.clear();
+                            teamsAdapter.notifyDataSetChanged();
                         }
                     }
                 });

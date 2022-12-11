@@ -52,5 +52,22 @@
     <string name="upload">Upload</string>
     <string name="showAll">Show all</string>
     <string name="long_text">Kotlin is a great fit for developing Android applications, bringing all of the advantages of a modern language to the Android platform without introducing any new restrictions.</string>
+    <string name="team_lead_name">Team-Lead Name:</string>
+    <string name="team_lead_ph_no">Team-Lead Ph No. :</string>
+    <string name="check_points_cleared">Check Points Cleared :</string>
+    <string name="lorem">lorem</string>
+    <string name="hand_touches">Hand Touches :</string>
+    <string name="bonus">Bonus :</string>
+    <string name="time_out_taken">Time Out Taken :</string>
+    <string name="check_point_skipped">Check Point Skipped :</string>
+    <string name="total_time_taken">Total Time Taken :</string>
+    <string name="total">Total :</string>
+    <string name="call">Call</string>
+    <string name="team_name">Team Name :</string>
+    <string name="team_developers">Team Developers</string>
+    <string name="college_name">College Name:</string>
+    <string name="silicon_institute_of_technology">Silicon Institute Of Technology</string>
+    <string name="check_in_status">Check-in Status:</string>
+    <string name="not_checked_in">Not Checked-In</string>
 
 </resources>

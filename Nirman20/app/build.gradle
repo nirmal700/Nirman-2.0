@@ -70,4 +70,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.ramotion.fluidslider:fluid-slider:0.3.1'
     implementation 'com.vipulasri:ticketview:1.1.2'
+    implementation 'com.ramotion.foldingcell:folding-cell:1.2.3'
 }

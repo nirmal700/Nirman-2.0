@@ -11,7 +11,14 @@
     <color name="white">#FFFF</color>
     <color name="transparent">#00000000</color>
     <color name="light_red">#FD4755</color>
-    <color name="light_green">#09EAA3</color>
+    <color name="light_green1">#09EAA3</color>
     <color name="blue">#0022FF</color>
     <color name="pink">#E91E63</color>
+    <color name="active_red">#DB0318</color>
+    <color name="light_green">#09EAA3</color>
+    <color name="active_green">#00FF22</color>
+    <color name="light_blue">#1A73e8</color>
+    <color name="active_blue">#014AF2</color>
+    <color name="Primary_light1">#44ADFF</color>
+    <color name="primary1Grey">#b0bec5</color>
 </resources>
