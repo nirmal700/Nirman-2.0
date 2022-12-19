@@ -25,15 +25,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeamDetails extends AppCompatActivity {
     AutoCompleteTextView mEventType;
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     private EditText et_search;
-    private ParticipantTeamsAdapter teamsAdapter;
+    private MultiViewAdapter multiViewAdapter;
     ImageView btn_back;
-    ArrayList<NewHackNationTeamData> list;
+   private List list = new ArrayList();
     Query eventDb;
 
 
@@ -69,8 +70,8 @@ public class TeamDetails extends AppCompatActivity {
 
 
         list = new ArrayList<>();
-        teamsAdapter = new ParticipantTeamsAdapter(TeamDetails.this,list);
-        recyclerView.setAdapter(teamsAdapter);
+        multiViewAdapter = new MultiViewAdapter(TeamDetails.this,list);
+        recyclerView.setAdapter(multiViewAdapter);
 
 
         mEventType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,20 +81,29 @@ public class TeamDetails extends AppCompatActivity {
                 mCollectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful() && arrayAdapterEventType.getItem(position).equals("HackNation"))
+                        if(task.isSuccessful())
                         {
                             list.clear();
                             for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                                 Log.e("TAG7009", "onComplete: " + documentSnapshot.getId() + "=>" + documentSnapshot.getData());
-                                list.add(documentSnapshot.toObject(NewHackNationTeamData.class));
-                                Log.e("TAG7709", "onComplete() returned: "+list.toString() );
-                                teamsAdapter = new ParticipantTeamsAdapter(TeamDetails.this,list);
-                                recyclerView.setAdapter(teamsAdapter);
-                                teamsAdapter.notifyDataSetChanged();
+                                if(documentSnapshot.getData().get("mEventParticipating").toString().equals("Robo Race"))
+                                {
+                                    list.add(documentSnapshot.toObject(NewRoboRaceTeamData.class));
+                                }else if(documentSnapshot.getData().get("mEventParticipating").toString().equals("Line Follower"))
+                                {
+                                    list.add(documentSnapshot.toObject(NewLineFollowerTeamData.class));
+                                }else if(documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate")){
+                                    list.add(documentSnapshot.toObject(NewIdeateTeamData.class));
+                                }
+                                else
+                                    list.add(documentSnapshot.toObject(NewHackNationTeamData.class));
+                                multiViewAdapter = new MultiViewAdapter(TeamDetails.this,list);
+                                recyclerView.setAdapter(multiViewAdapter);
+                                multiViewAdapter.notifyDataSetChanged();
                             }
                         }else {
                             list.clear();
-                            teamsAdapter.notifyDataSetChanged();
+                            multiViewAdapter.notifyDataSetChanged();
                         }
                     }
                 });

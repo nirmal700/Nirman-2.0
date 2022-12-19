@@ -10,14 +10,14 @@
     app:cardElevation="8dp"
     app:strokeWidth=".5dp"
     app:strokeColor="@color/hintBlack"
-    android:layout_marginBottom="15dp"
-    android:layout_marginHorizontal="8dp"
     tools:targetApi="o">
 
     <com.ramotion.foldingcell.FoldingCell
         android:id="@+id/folding_cell"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false">
 
         <FrameLayout
             android:id="@+id/cell_content_view"
@@ -28,10 +28,7 @@
             app:cardElevation="8dp"
             app:strokeWidth=".5dp"
             app:strokeColor="@color/hintBlack"
-            android:layout_marginBottom="15dp"
-            android:layout_marginHorizontal="8dp"
-            android:layout_margin="10dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -46,6 +43,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -66,7 +64,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_member1_Name"
+                            android:id="@+id/tv_Team_Lead_Name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -100,7 +98,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_member1_Phone"
+                            android:id="@+id/tv_Lead_Phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -136,7 +134,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_Problem_Statement"
+                            android:id="@+id/tv_CheckPoints_Cleared"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -170,7 +168,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_approach"
+                            android:id="@+id/tv_HandTouches"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -205,7 +203,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_approach2"
+                            android:id="@+id/tv_Bonus"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -242,7 +240,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_Final_Mark"
+                            android:id="@+id/tv_TimeOutTaken"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -276,7 +274,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_Final_Mark2"
+                            android:id="@+id/tv_CheckPoints_Skipped"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -310,7 +308,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_Final_Mark3"
+                            android:id="@+id/tv_TotalTimeTaken"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -344,7 +342,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_Final_Mark4"
+                            android:id="@+id/tv_Final_Mark"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -410,19 +408,17 @@
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_card_user"
+            android:background="@drawable/bg_card_team_content"
             android:layout_weight="1"
             app:cardElevation="8dp"
             app:strokeWidth=".5dp"
             app:strokeColor="@color/hintBlack"
-            android:layout_marginBottom="15dp"
-            android:layout_marginHorizontal="8dp"
-            android:padding="10dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -523,6 +519,38 @@
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         tools:targetApi="o" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+                    <TextView
+                        android:id="@+id/tv_chekin2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        android:text="Event Type : "
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        tools:targetApi="o" />
+
+                    <TextView
+                        android:id="@+id/tv_Event"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        android:text="Ideate"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        tools:targetApi="o" />
+
 
                 </LinearLayout>
 

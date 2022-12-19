@@ -66,7 +66,6 @@ dependencies {
     implementation 'com.airbnb.android:lottie:5.2.0'
     implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
-    implementation 'com.google.android.material:material:1.6.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.ramotion.fluidslider:fluid-slider:0.3.1'
     implementation 'com.vipulasri:ticketview:1.1.2'
