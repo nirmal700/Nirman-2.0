@@ -16,7 +16,7 @@ public class AdminDashboard extends AppCompatActivity {
 
     TextView mUserRole,mName;
     SessionManagerAdmin managerAdmin;
-    MaterialCardView mAddVolunteer,mAddNewTeams,btn_CustomerProfile;
+    MaterialCardView mAddVolunteer,mAddNewTeams,btn_CustomerProfile,btn_ViewTeamDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,8 @@ public class AdminDashboard extends AppCompatActivity {
         mName = findViewById(R.id.User_name);
         mAddVolunteer = findViewById(R.id.btn_AddVolunteers);
         mAddNewTeams = findViewById(R.id.btn_AddNewTeams);
-        btn_CustomerProfile  = findViewById(R.id.btn_CustomerProfile);
+        btn_ViewTeamDetails = findViewById(R.id.btn_ViewTeams);
+
 
 
         managerAdmin = new SessionManagerAdmin(getApplicationContext());
@@ -44,10 +45,10 @@ public class AdminDashboard extends AppCompatActivity {
                 startActivity(new Intent(AdminDashboard.this, AddNewTeams.class));
             }
         });
-        btn_CustomerProfile.setOnClickListener(new View.OnClickListener() {
+        btn_ViewTeamDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminDashboard.this, RoboRaceEvaluation.class));
+                startActivity(new Intent(AdminDashboard.this, TeamDetails.class));
             }
         });
 

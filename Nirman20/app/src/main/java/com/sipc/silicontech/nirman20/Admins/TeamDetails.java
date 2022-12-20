@@ -112,7 +112,7 @@ public class TeamDetails extends AppCompatActivity {
                 });
             }
         });
-       
+
 
     }
 }

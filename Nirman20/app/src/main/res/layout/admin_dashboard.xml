@@ -282,7 +282,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_CustomerProfile"
+                    android:id="@+id/btn_ViewTeams"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"
@@ -301,7 +301,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:contentDescription="@null"
-                            android:src="@drawable/satisfaction" />
+                            android:src="@drawable/ic_team" />
 
                         <TextView
                             style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -312,7 +312,7 @@
                             android:layout_marginBottom="20dp"
                             android:autoSizeTextType="uniform"
                             android:fontFamily="@font/my_fav_sans_number"
-                            android:text="@string/rate_co_participants"
+                            android:text="View Team Details"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="20sp"
