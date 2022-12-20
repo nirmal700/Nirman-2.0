@@ -64,7 +64,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_Team_Lead_Name"
+                            android:id="@+id/tv_Team_Lead_Name_Robo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"
@@ -98,7 +98,7 @@
                             tools:targetApi="o" />
 
                         <TextView
-                            android:id="@+id/tv_member1_Phone"
+                            android:id="@+id/tv_Lead_Phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:autoSizeTextType="uniform"

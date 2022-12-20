@@ -2,6 +2,7 @@ package com.sipc.silicontech.nirman20.Admins;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ramotion.foldingcell.FoldingCell;
 import com.sipc.silicontech.nirman20.R;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class MultiViewAdapter extends RecyclerView.Adapter {
@@ -123,14 +123,14 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             NewRoboRaceTeamData roboRaceTeamData = (NewRoboRaceTeamData) list.get(position);
             RoboRace RoboHolder = (RoboRace) holder;
             ((RoboRace) RoboHolder).mTeamName.setText(roboRaceTeamData.getmTeamName());
-            ((RoboRace) RoboHolder).mTeamLeadName.setText(roboRaceTeamData.getmTeamLead());
+           ((RoboRace) RoboHolder).mTeamLeadName.setText(""+roboRaceTeamData.getmTeamLead());
             ((RoboRace) RoboHolder).mTeamLeadPhone.setText(roboRaceTeamData.getmTeamLeadPhone());
             ((RoboRace) RoboHolder).mCollegeName.setText(roboRaceTeamData.getmCollegeName());
             ((RoboRace) RoboHolder).mEventType.setText(roboRaceTeamData.getmEventParticipating());
-            ((RoboRace) RoboHolder).mBonus.setText(roboRaceTeamData.getmBonus());
-            ((RoboRace) RoboHolder).mCheckPointsCleared.setText(roboRaceTeamData.getmCheckPointCleared());
-            ((RoboRace) RoboHolder).mCheckPointsSkipped.setText(roboRaceTeamData.getmCheckPointSkipped());
-            ((RoboRace) RoboHolder).mHandtouches.setText(roboRaceTeamData.getmHandTouches());
+            ((RoboRace) RoboHolder).mBonus.setText(""+roboRaceTeamData.getmBonus());
+            ((RoboRace) RoboHolder).mCheckPointsCleared.setText(""+roboRaceTeamData.getmCheckPointCleared());
+            ((RoboRace) RoboHolder).mCheckPointsSkipped.setText(""+roboRaceTeamData.getmCheckPointSkipped());
+            ((RoboRace) RoboHolder).mHandtouches.setText(""+roboRaceTeamData.getmHandTouches());
             ((RoboRace) RoboHolder).mTotalTimeTaken.setText(""+roboRaceTeamData.getmTotalTimeTaken());
             ((RoboRace) RoboHolder).mTotal.setText(""+roboRaceTeamData.getmTotal());
             ((RoboRace) RoboHolder).mTimeOutTaken.setText(""+roboRaceTeamData.ismTimeOutTaken());
@@ -172,6 +172,7 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return list.size();
     }
+
 
     static class HackNation extends RecyclerView.ViewHolder{
         private TextView mTeamName;
@@ -225,7 +226,7 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             mCollegeName = itemView.findViewById(R.id.tv_Clg_Name);
             mEventType = itemView.findViewById(R.id.tv_Event);
             mCheckinStatus = itemView.findViewById(R.id.tv_CheckinStatus);
-            mTeamLeadName =  itemView.findViewById(R.id.tv_Team_Lead_Name);
+            mTeamLeadName =  itemView.findViewById(R.id.tv_Team_Lead_Name_Robo);
             mTeamLeadPhone =  itemView.findViewById(R.id.tv_Lead_Phone);
             mCheckPointsCleared = itemView.findViewById(R.id.tv_CheckPoints_Cleared);
             mHandtouches = itemView.findViewById(R.id.tv_HandTouches);

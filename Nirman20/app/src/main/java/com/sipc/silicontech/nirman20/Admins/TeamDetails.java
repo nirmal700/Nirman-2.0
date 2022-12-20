@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,6 +48,7 @@ public class TeamDetails extends AppCompatActivity {
         mEventType = findViewById(R.id.autoCompleteEvent);
         et_search = findViewById(R.id.et_search);
         btn_back = findViewById(R.id.btn_back);
+        et_search = findViewById(R.id.et_search);
         //Initialize ProgressDialog
         progressDialog = new ProgressDialog(TeamDetails.this);
         progressDialog.show();
@@ -109,6 +112,7 @@ public class TeamDetails extends AppCompatActivity {
                 });
             }
         });
+       
 
     }
 }
