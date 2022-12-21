@@ -20,12 +20,36 @@ import java.util.List;
 
 public class MultiViewAdapter extends RecyclerView.Adapter {
 
-    private Context context;
-    private List list;
+    private final Context context;
+    private final List list;
+    private final List<NewIdeateTeamData> newIdeateTeamData = new ArrayList<>();
+    private final List<NewHackNationTeamData> newHackNationTeamData= new ArrayList<>();
+    private final List<NewRoboRaceTeamData> newRoboRaceTeamData= new ArrayList<>();
+    private final List copyList;
+    private final List<NewLineFollowerTeamData> newLineFollowerTeamData= new ArrayList<>();
 
     public MultiViewAdapter(Context context, List list) {
         this.context = context;
         this.list = list;
+        this.copyList = new ArrayList<>();
+        copyList.addAll(list);
+        int n = list.size();
+        newLineFollowerTeamData.clear();
+        newRoboRaceTeamData.clear();
+        newIdeateTeamData.clear();
+        newHackNationTeamData.clear();
+        for(int i=0;i<n;i++)
+        {
+            if(this.list.get(i) instanceof NewHackNationTeamData){
+                newHackNationTeamData.add((NewHackNationTeamData) this.list.get(i));
+            }else if(this.list.get(i) instanceof NewIdeateTeamData){
+                newIdeateTeamData.add((NewIdeateTeamData) this.list.get(i));
+            }else if(this.list.get(i) instanceof NewRoboRaceTeamData){
+                newRoboRaceTeamData.add((NewRoboRaceTeamData) this.list.get(i));
+            }else {
+                newLineFollowerTeamData.add((NewLineFollowerTeamData)this.list.get(i));
+            }
+        }
     }
 
     @Override
@@ -80,20 +104,20 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         {
             NewHackNationTeamData hackNationTeamData = (NewHackNationTeamData) list.get(position);
             HackNation HackNationHolder = (HackNation)holder;
-            ((HackNation) HackNationHolder).mTeamName.setText(hackNationTeamData.getmTeamName());
-            ((HackNation) HackNationHolder).mCollegeName.setText(hackNationTeamData.getmCollegeName());
-            ((HackNation) HackNationHolder).mTeamLeadName.setText(hackNationTeamData.getmTeamLead());
-            ((HackNation) HackNationHolder).mFinalMark.setText(""+ hackNationTeamData.getmFinalMark());
-            ((HackNation) HackNationHolder).mApproach.setText(hackNationTeamData.getmApproach());
-            ((HackNation) HackNationHolder).mProblemStatement.setText(hackNationTeamData.getmProblemStat());
-            ((HackNation) HackNationHolder).mTeamLeadPhone.setText(hackNationTeamData.getmTeamLeadPhone());
-            ((HackNation) HackNationHolder).mEventType.setText(hackNationTeamData.getmEventParticipating());
-            ((HackNation) HackNationHolder).foldingCell.initialize(1000, Color.DKGRAY, 2);
+            HackNationHolder.mTeamName.setText(hackNationTeamData.getmTeamName());
+            HackNationHolder.mCollegeName.setText(hackNationTeamData.getmCollegeName());
+            HackNationHolder.mTeamLeadName.setText(hackNationTeamData.getmTeamLead());
+            HackNationHolder.mFinalMark.setText(""+ hackNationTeamData.getmFinalMark());
+            HackNationHolder.mApproach.setText(hackNationTeamData.getmApproach());
+            HackNationHolder.mProblemStatement.setText(hackNationTeamData.getmProblemStat());
+            HackNationHolder.mTeamLeadPhone.setText(hackNationTeamData.getmTeamLeadPhone());
+            HackNationHolder.mEventType.setText(hackNationTeamData.getmEventParticipating());
+            HackNationHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
 
-            ((HackNation) HackNationHolder).foldingCell.setOnClickListener(new View.OnClickListener() {
+            HackNationHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((HackNation) HackNationHolder).foldingCell.toggle(false);
+                    HackNationHolder.foldingCell.toggle(false);
                 }
             });
 
@@ -102,67 +126,67 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         {
             NewIdeateTeamData ideateTeamData = (NewIdeateTeamData) list.get(position);
             Ideate IdeateHolder = (Ideate) holder;
-            ((Ideate) IdeateHolder).mTeamName.setText(ideateTeamData.getmTeamName());
-            ((Ideate) IdeateHolder).mTeamName.setText(ideateTeamData.getmTeamName());
-            ((Ideate) IdeateHolder).mCollegeName.setText(ideateTeamData.getmCollegeName());
-            ((Ideate) IdeateHolder).mTeamLeadName.setText(ideateTeamData.getmTeamLead());
-            ((Ideate) IdeateHolder).mFinalMark.setText(""+ ideateTeamData.getmFinalMark());
-            ((Ideate) IdeateHolder).mApproach.setText(ideateTeamData.getmApproach());
-            ((Ideate) IdeateHolder).mProblemStatement.setText(ideateTeamData.getmProblemStat());
-            ((Ideate) IdeateHolder).mTeamLeadPhone.setText(ideateTeamData.getmTeamLeadPhone());
-            ((Ideate) IdeateHolder).mEventType.setText(ideateTeamData.getmEventParticipating());
-            ((Ideate) IdeateHolder).foldingCell.initialize(1000, Color.DKGRAY, 2);
-            ((Ideate) IdeateHolder).foldingCell.setOnClickListener(new View.OnClickListener() {
+            IdeateHolder.mTeamName.setText(ideateTeamData.getmTeamName());
+            IdeateHolder.mTeamName.setText(ideateTeamData.getmTeamName());
+            IdeateHolder.mCollegeName.setText(ideateTeamData.getmCollegeName());
+            IdeateHolder.mTeamLeadName.setText(ideateTeamData.getmTeamLead());
+            IdeateHolder.mFinalMark.setText(""+ ideateTeamData.getmFinalMark());
+            IdeateHolder.mApproach.setText(ideateTeamData.getmApproach());
+            IdeateHolder.mProblemStatement.setText(ideateTeamData.getmProblemStat());
+            IdeateHolder.mTeamLeadPhone.setText(ideateTeamData.getmTeamLeadPhone());
+            IdeateHolder.mEventType.setText(ideateTeamData.getmEventParticipating());
+            IdeateHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
+            IdeateHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((Ideate) IdeateHolder).foldingCell.toggle(false);
+                    IdeateHolder.foldingCell.toggle(false);
                 }
             });
         }
         else if(this.getItemViewType(position) == 2){
             NewRoboRaceTeamData roboRaceTeamData = (NewRoboRaceTeamData) list.get(position);
             RoboRace RoboHolder = (RoboRace) holder;
-            ((RoboRace) RoboHolder).mTeamName.setText(roboRaceTeamData.getmTeamName());
-           ((RoboRace) RoboHolder).mTeamLeadName.setText(""+roboRaceTeamData.getmTeamLead());
-            ((RoboRace) RoboHolder).mTeamLeadPhone.setText(roboRaceTeamData.getmTeamLeadPhone());
-            ((RoboRace) RoboHolder).mCollegeName.setText(roboRaceTeamData.getmCollegeName());
-            ((RoboRace) RoboHolder).mEventType.setText(roboRaceTeamData.getmEventParticipating());
-            ((RoboRace) RoboHolder).mBonus.setText(""+roboRaceTeamData.getmBonus());
-            ((RoboRace) RoboHolder).mCheckPointsCleared.setText(""+roboRaceTeamData.getmCheckPointCleared());
-            ((RoboRace) RoboHolder).mCheckPointsSkipped.setText(""+roboRaceTeamData.getmCheckPointSkipped());
-            ((RoboRace) RoboHolder).mHandtouches.setText(""+roboRaceTeamData.getmHandTouches());
-            ((RoboRace) RoboHolder).mTotalTimeTaken.setText(""+roboRaceTeamData.getmTotalTimeTaken());
-            ((RoboRace) RoboHolder).mTotal.setText(""+roboRaceTeamData.getmTotal());
-            ((RoboRace) RoboHolder).mTimeOutTaken.setText(""+roboRaceTeamData.ismTimeOutTaken());
-            ((RoboRace) RoboHolder).foldingCell.initialize(1000, Color.DKGRAY, 2);
-            ((RoboRace) RoboHolder).foldingCell.setOnClickListener(new View.OnClickListener() {
+            RoboHolder.mTeamName.setText(roboRaceTeamData.getmTeamName());
+           RoboHolder.mTeamLeadName.setText(""+roboRaceTeamData.getmTeamLead());
+            RoboHolder.mTeamLeadPhone.setText(roboRaceTeamData.getmTeamLeadPhone());
+            RoboHolder.mCollegeName.setText(roboRaceTeamData.getmCollegeName());
+            RoboHolder.mEventType.setText(roboRaceTeamData.getmEventParticipating());
+            RoboHolder.mBonus.setText(""+roboRaceTeamData.getmBonus());
+            RoboHolder.mCheckPointsCleared.setText(""+roboRaceTeamData.getmCheckPointCleared());
+            RoboHolder.mCheckPointsSkipped.setText(""+roboRaceTeamData.getmCheckPointSkipped());
+            RoboHolder.mHandtouches.setText(""+roboRaceTeamData.getmHandTouches());
+            RoboHolder.mTotalTimeTaken.setText(""+roboRaceTeamData.getmTotalTimeTaken());
+            RoboHolder.mTotal.setText(""+roboRaceTeamData.getmTotal());
+            RoboHolder.mTimeOutTaken.setText(""+roboRaceTeamData.ismTimeOutTaken());
+            RoboHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
+            RoboHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((RoboRace) RoboHolder).foldingCell.toggle(false);
+                    RoboHolder.foldingCell.toggle(false);
                 }
             });
         }
         else{
             NewLineFollowerTeamData lineFollowerTeamData = (NewLineFollowerTeamData) list.get(position);
             LineFollower LineHolder = (LineFollower) holder;
-            ((LineFollower) LineHolder).mTeamName.setText(lineFollowerTeamData.getmTeamName());
-            ((LineFollower) LineHolder).mTeamName.setText(lineFollowerTeamData.getmTeamName());
-            ((LineFollower) LineHolder).mTeamLeadName.setText(lineFollowerTeamData.getmTeamLead());
-            ((LineFollower) LineHolder).mTeamLeadPhone.setText(lineFollowerTeamData.getmTeamLeadPhone());
-            ((LineFollower) LineHolder).mCollegeName.setText(lineFollowerTeamData.getmCollegeName());
-            ((LineFollower) LineHolder).mEventType.setText(lineFollowerTeamData.getmEventParticipating());
-            ((LineFollower) LineHolder).mBonus.setText(""+lineFollowerTeamData.getmBonus());
-            ((LineFollower) LineHolder).mCheckPointsCleared.setText(""+lineFollowerTeamData.getmCheckPointCleared());
-            ((LineFollower) LineHolder).mCheckPointsSkipped.setText(""+lineFollowerTeamData.getmCheckPointSkipped());
-            ((LineFollower) LineHolder).mHandtouches.setText(""+lineFollowerTeamData.getmHandTouches());
-            ((LineFollower) LineHolder).mTotalTimeTaken.setText(""+lineFollowerTeamData.getmTotalTimeTaken());
-            ((LineFollower) LineHolder).mTotal.setText(""+lineFollowerTeamData.getmTotal());
-            ((LineFollower) LineHolder).mTimeOutTaken.setText(""+lineFollowerTeamData.ismTimeOutTaken());
-            ((LineFollower) LineHolder).foldingCell.initialize(1000, Color.DKGRAY, 2);
-            ((LineFollower) LineHolder).foldingCell.setOnClickListener(new View.OnClickListener() {
+            LineHolder.mTeamName.setText(lineFollowerTeamData.getmTeamName());
+            LineHolder.mTeamName.setText(lineFollowerTeamData.getmTeamName());
+            LineHolder.mTeamLeadName.setText(lineFollowerTeamData.getmTeamLead());
+            LineHolder.mTeamLeadPhone.setText(lineFollowerTeamData.getmTeamLeadPhone());
+            LineHolder.mCollegeName.setText(lineFollowerTeamData.getmCollegeName());
+            LineHolder.mEventType.setText(lineFollowerTeamData.getmEventParticipating());
+            LineHolder.mBonus.setText(""+lineFollowerTeamData.getmBonus());
+            LineHolder.mCheckPointsCleared.setText(""+lineFollowerTeamData.getmCheckPointCleared());
+            LineHolder.mCheckPointsSkipped.setText(""+lineFollowerTeamData.getmCheckPointSkipped());
+            LineHolder.mHandtouches.setText(""+lineFollowerTeamData.getmHandTouches());
+            LineHolder.mTotalTimeTaken.setText(""+lineFollowerTeamData.getmTotalTimeTaken());
+            LineHolder.mTotal.setText(""+lineFollowerTeamData.getmTotal());
+            LineHolder.mTimeOutTaken.setText(""+lineFollowerTeamData.ismTimeOutTaken());
+            LineHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
+            LineHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((LineFollower) LineHolder).foldingCell.toggle(false);
+                    LineHolder.foldingCell.toggle(false);
                 }
             });
         }
@@ -175,10 +199,16 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
 
 
     static class HackNation extends RecyclerView.ViewHolder{
-        private TextView mTeamName;
-        private TextView mCollegeName;
-        private FoldingCell foldingCell;
-        private TextView mEventType,mTeamLeadName,mTeamLeadPhone,mProblemStatement,mApproach,mFinalMark,mCheckinStatus;
+        private final TextView mTeamName;
+        private final TextView mCollegeName;
+        private final FoldingCell foldingCell;
+        private final TextView mEventType;
+        private final TextView mTeamLeadName;
+        private final TextView mTeamLeadPhone;
+        private final TextView mProblemStatement;
+        private final TextView mApproach;
+        private final TextView mFinalMark;
+        private final TextView mCheckinStatus;
         public HackNation(@NonNull View itemView) {
             super(itemView);
             mTeamName = itemView.findViewById(R.id.tv_team_Name);
@@ -196,10 +226,16 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
     static class Ideate extends RecyclerView.ViewHolder{
 
 
-        private TextView mTeamName;
-        private TextView mCollegeName;
-        private FoldingCell foldingCell;
-        private TextView mEventType,mTeamLeadName,mTeamLeadPhone,mProblemStatement,mApproach,mFinalMark,mCheckinStatus;
+        private final TextView mTeamName;
+        private final TextView mCollegeName;
+        private final FoldingCell foldingCell;
+        private final TextView mEventType;
+        private final TextView mTeamLeadName;
+        private final TextView mTeamLeadPhone;
+        private final TextView mProblemStatement;
+        private final TextView mApproach;
+        private final TextView mFinalMark;
+        private final TextView mCheckinStatus;
         public Ideate(@NonNull View itemView) {
             super(itemView);
             mTeamName = itemView.findViewById(R.id.tv_team_Name);
@@ -216,10 +252,20 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
     }
     static class RoboRace extends RecyclerView.ViewHolder{
 
-        private TextView mTeamName;
-        private TextView mCollegeName;
-        private FoldingCell foldingCell;
-        private TextView mEventType,mTeamLeadName,mTeamLeadPhone,mCheckinStatus,mCheckPointsCleared,mHandtouches,mBonus,mTimeOutTaken,mCheckPointsSkipped,mTotalTimeTaken,mTotal;
+        private final TextView mTeamName;
+        private final TextView mCollegeName;
+        private final FoldingCell foldingCell;
+        private final TextView mEventType;
+        private final TextView mTeamLeadName;
+        private final TextView mTeamLeadPhone;
+        private final TextView mCheckinStatus;
+        private final TextView mCheckPointsCleared;
+        private final TextView mHandtouches;
+        private final TextView mBonus;
+        private final TextView mTimeOutTaken;
+        private final TextView mCheckPointsSkipped;
+        private final TextView mTotalTimeTaken;
+        private final TextView mTotal;
         public RoboRace(@NonNull View itemView) {
             super(itemView);
             mTeamName = itemView.findViewById(R.id.tv_team_Name);
@@ -240,10 +286,20 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
     }
     static class LineFollower extends RecyclerView.ViewHolder{
 
-        private TextView mTeamName;
-        private TextView mCollegeName;
-        private FoldingCell foldingCell;
-        private TextView mEventType,mTeamLeadName,mTeamLeadPhone,mCheckinStatus,mCheckPointsCleared,mHandtouches,mBonus,mTimeOutTaken,mCheckPointsSkipped,mTotalTimeTaken,mTotal;
+        private final TextView mTeamName;
+        private final TextView mCollegeName;
+        private final FoldingCell foldingCell;
+        private final TextView mEventType;
+        private final TextView mTeamLeadName;
+        private final TextView mTeamLeadPhone;
+        private final TextView mCheckinStatus;
+        private final TextView mCheckPointsCleared;
+        private final TextView mHandtouches;
+        private final TextView mBonus;
+        private final TextView mTimeOutTaken;
+        private final TextView mCheckPointsSkipped;
+        private final TextView mTotalTimeTaken;
+        private final TextView mTotal;
         public LineFollower(@NonNull View itemView) {
             super(itemView);
             mTeamName = itemView.findViewById(R.id.tv_team_Name);
@@ -261,5 +317,39 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             mTotal = itemView.findViewById(R.id.tv_Final_Mark);
             foldingCell = itemView.findViewById(R.id.folding_cell);
         }
+    }
+    public void Search(CharSequence txt) {
+        txt = txt.toString().toLowerCase();
+        List searchList = new ArrayList<>();
+
+
+        if (!TextUtils.isEmpty(txt)){
+            for (NewHackNationTeamData data : newHackNationTeamData){
+                if (data.getmTeamName().toLowerCase().contains(txt) || data.getmCollegeName().toLowerCase().contains(txt)){
+                    searchList.add(data);
+                }
+            }
+            for (NewIdeateTeamData data : newIdeateTeamData){
+                if (data.getmTeamName().toLowerCase().contains(txt) || data.getmCollegeName().toLowerCase().contains(txt)){
+                    searchList.add(data);
+                }
+            }
+            for (NewRoboRaceTeamData data : newRoboRaceTeamData){
+                if (data.getmTeamName().toLowerCase().contains(txt) || data.getmCollegeName().toLowerCase().contains(txt)){
+                    searchList.add(data);
+                }
+            }
+            for (NewLineFollowerTeamData data : newLineFollowerTeamData){
+                if (data.getmTeamName().toLowerCase().contains(txt) || data.getmCollegeName().toLowerCase().contains(txt)){
+                    searchList.add(data);
+                }
+            }
+        }else {
+            searchList.addAll(copyList);
+        }
+        list.clear();
+        list.addAll(searchList);
+        notifyDataSetChanged();
+        searchList.clear();
     }
 }

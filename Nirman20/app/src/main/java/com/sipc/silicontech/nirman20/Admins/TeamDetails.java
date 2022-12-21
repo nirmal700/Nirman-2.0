@@ -76,6 +76,8 @@ public class TeamDetails extends AppCompatActivity {
         multiViewAdapter = new MultiViewAdapter(TeamDetails.this,list);
         recyclerView.setAdapter(multiViewAdapter);
 
+        search();
+
 
         mEventType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,5 +116,24 @@ public class TeamDetails extends AppCompatActivity {
         });
 
 
+    }
+
+    private void search() {
+        if (et_search != null){
+
+            et_search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    multiViewAdapter.Search(s);
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+        }
     }
 }
