@@ -15,12 +15,12 @@ android {
             keyPassword 'Nirmal@16584'
         }
     }
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.sipc.silicontech.nirman20"
         minSdk 22
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

@@ -173,6 +173,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Users.ToDoList.UserToDoList"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Admins.AdminSignin"
             android:exported="false">
             <meta-data

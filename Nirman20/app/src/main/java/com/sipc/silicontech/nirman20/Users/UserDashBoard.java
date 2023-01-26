@@ -33,6 +33,7 @@ import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorReviewEvaluation;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    MaterialCardView mGenQR,btn_RequestHelp,btn_TodoList;
+    MaterialCardView mGenQR,btn_RequestHelp,btn_TodoList,btn_FoodCoupouns;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
@@ -76,6 +77,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         mGenQR = findViewById(R.id.btn_generateQR);
         btn_RequestHelp = findViewById(R.id.btn_RequestHelp);
         btn_TodoList = findViewById(R.id.btn_TodoList);
+        btn_FoodCoupouns = findViewById(R.id.btn_FoodCoupouns);
 
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
         managerAdmin = new SessionManagerAdmin(getApplicationContext());
@@ -118,7 +120,13 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_TodoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TeamDetails.class));
+                startActivity(new Intent(getApplicationContext(), UserToDoList.class));
+            }
+        });
+        btn_FoodCoupouns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Food_Coupouns.class));
             }
         });
 

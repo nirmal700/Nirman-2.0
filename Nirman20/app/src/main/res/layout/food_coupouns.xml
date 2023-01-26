@@ -7,9 +7,9 @@
     android:layout_marginHorizontal="5dp"
     android:layout_marginBottom="10dp"
     android:layout_weight="1"
-    android:background="@color/Primary_light"
+    android:background="@color/Primary"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/Primary_light"
+    app:cardBackgroundColor="@color/Primary"
     app:cardCornerRadius="12dp"
     app:cardElevation="10dp"
     app:strokeColor="@color/hintBlack"
@@ -139,10 +139,11 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Food Preference"
+                        android:text="@string/food_preference"
+                        android:textAlignment="center"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                         android:textColor="@color/black"
-                        android:textSize="18dp"
+                        android:textSize="20dp"
                         android:textStyle="bold"
                         tools:ignore="SpUsage" />
 

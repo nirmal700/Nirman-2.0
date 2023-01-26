@@ -25,7 +25,10 @@
     <string name="password">Password</string>
     <string name="phone_number">Phone Number</string>
     <string name="add_teams">Add Teams</string>
-
+    <string name="addNew">Add New</string>
+    <string name="save">save</string>
+    <string name="hint_Title">Title</string>
+    <string name="hint_selectDate">Select date</string>
 
     <string name="id">ID : </string>
     <string name="updateShop">Update your shop or Organization details</string>
@@ -69,5 +72,6 @@
     <string name="silicon_institute_of_technology">Silicon Institute Of Technology</string>
     <string name="check_in_status">Check-in Status:</string>
     <string name="not_checked_in">Not Checked-In</string>
+    <string name="food_preference">Food Preference</string>
 
 </resources>
