@@ -283,9 +283,9 @@ tools:targetApi="o">
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="How market impressive was the pitch? Was the technical problem the team tackled difficult? Did it use a particularly clever technique or did it use many different components? Did the technology involved make you go 'Wow'?"
-            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:text="How impressive is the problem statement Choosen"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
         <com.ramotion.fluidslider.FluidSlider
@@ -302,8 +302,8 @@ tools:targetApi="o">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Did the team put thought into the user experience? How well designed is the interface? For a website, this might be about how beautiful the CSS or graphics are. For a hardware project, it might be more about how good the human-computer interaction is (e.g. is it easy to use or does it use a cool interface?)"
-            android:textSize="16sp"
+            android:text="Is the solution feasible to implement ?"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
         <com.ramotion.fluidslider.FluidSlider
@@ -321,8 +321,8 @@ tools:targetApi="o">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Is the idea ready for market? Did the team achieve everything they wanted?"
-            android:textSize="16sp"
+            android:text="Is the idea ready for market? Did the team achieve the required Business Model?"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
         <com.ramotion.fluidslider.FluidSlider
@@ -340,12 +340,31 @@ tools:targetApi="o">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Did the team stretch themselves? Did they try to learn something new? What kind of projects have they worked on before?"
-            android:textSize="16sp"
+            android:text="Presentation"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
         <com.ramotion.fluidslider.FluidSlider
             android:id="@+id/fluidSlider4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:elevation="2dp"
+            app:size="small"
+            app:duration="400"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Skill"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <com.ramotion.fluidslider.FluidSlider
+            android:id="@+id/fluidSlider5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

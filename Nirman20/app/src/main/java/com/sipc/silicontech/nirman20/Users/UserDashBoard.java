@@ -26,12 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
-import com.sipc.silicontech.nirman20.Admins.PublishResults;
 import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
-import com.sipc.silicontech.nirman20.Admins.TeamDetails;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorReviewEvaluation;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
 

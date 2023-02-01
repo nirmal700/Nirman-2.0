@@ -17,6 +17,8 @@ import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.Admins.AdminPhoneVerification;
 import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
+import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
+import com.sipc.silicontech.nirman20.Evaluators.SessionManagerEvaluator;
 import com.sipc.silicontech.nirman20.Users.SessionManagerParticipant;
 import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     SessionManagerAdmin managerAdmin;
     SessionManagerParticipant managerParticipant;
+    SessionManagerEvaluator managerEvaluator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 //Initialize SessionManager
                 managerAdmin = new SessionManagerAdmin(getApplicationContext());
                 managerParticipant = new SessionManagerParticipant(getApplicationContext());
+                managerEvaluator = new SessionManagerEvaluator(getApplicationContext());
 
                 if (managerAdmin.getAdminLogin()){
                     startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
@@ -73,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 else if(managerParticipant.getParticipantLogin())
                 {
                     startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+                }
+                else if(managerEvaluator.getEvaluatorLogin())
+                {
+                    startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
                 }
                 else {
                     Intent intent = new Intent(MainActivity.this, UsersSignUp.class);

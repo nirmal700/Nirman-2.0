@@ -197,18 +197,21 @@
             </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/time"
+            <Chronometer
+                android:id="@+id/timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00:00:00"
-                android:autoSizeTextType="uniform"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:format="00:00:00"
                 android:textColor="@color/black"
-                android:layout_marginVertical="25dp"
                 android:layout_gravity="center_horizontal"
                 android:textSize="55dp"
-                android:fontFamily="@font/astronaut"
-                tools:targetApi="o" />
+                android:layout_marginBottom="25dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/astronaut" />
+
+
 
 
             <LinearLayout
@@ -226,7 +229,7 @@
                     app:backgroundTint="@color/light_red"
                     android:text="Reset"
                     android:layout_margin="10dp"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     app:strokeColor="@color/black"
                     app:strokeWidth=".5dp" />
@@ -239,7 +242,7 @@
                     android:layout_margin="10dp"
                     app:backgroundTint="@color/pink"
                     android:text="Stop"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     app:strokeColor="@color/black"
                     app:strokeWidth=".5dp" />
@@ -251,15 +254,51 @@
                     android:layout_margin="10dp"
                     app:backgroundTint="@color/light_green"
                     android:text="Start"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
                     app:strokeColor="@color/black"
                     app:strokeWidth=".5dp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Techincal Time-out "
+                    android:textColor="@color/Primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="264dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:textSize="35dp"
+                android:fontFamily="@font/astronaut" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_timeout"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="20dp"
                 android:text="Time-Out"
@@ -322,7 +361,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:autoSizeTextType="uniform"
-                    android:text=""
+                    android:text="0"
                     android:gravity="center"
                     android:id="@+id/disp1"
                     android:textColor="@color/black"
@@ -398,7 +437,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:autoSizeTextType="uniform"
-                    android:text=""
+                    android:text="0"
                     android:gravity="center"
                     android:id="@+id/disp2"
                     android:textColor="@color/black"
@@ -421,6 +460,83 @@
                     app:strokeWidth=".5dp" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="Bonus"
+                    android:textColor="@color/Primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="264dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/decrementer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/Primary"
+                    android:text="-"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth=".5dp" />
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="0"
+                    android:gravity="center"
+                    android:id="@+id/disp3"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/incrementer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/Primary"
+                    android:text="+"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth=".5dp" />
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

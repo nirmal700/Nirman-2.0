@@ -159,7 +159,7 @@ public class AddNewTeams extends AppCompatActivity {
                         CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
                         if(event.equals("Line Follower"))
                         {
-                            NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,  0,  0,false,false,0,0,0,0);
                             mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -187,7 +187,7 @@ public class AddNewTeams extends AppCompatActivity {
                         }
                         else if(event.equals("Robo Race"))
                         {
-                            NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,  0,0,false,false, 0L, 0L, 0L, 0L);
                             mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -215,7 +215,7 @@ public class AddNewTeams extends AppCompatActivity {
                         }
                         else if(event.equals("Ideate"))
                         {
-                            NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,false);
+                            NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0,false);
                             mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -243,7 +243,7 @@ public class AddNewTeams extends AppCompatActivity {
                         }
                         else if(event.equals("HackNation"))
                         {
-                            NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
+                            NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0,false);
                             mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -290,7 +290,7 @@ public class AddNewTeams extends AppCompatActivity {
                         CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
                         if(event.equals("Line Follower"))
                         {
-                            NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0,0,false,false,0,0,0,0);
                             mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -318,7 +318,7 @@ public class AddNewTeams extends AppCompatActivity {
                         }
                         else if(event.equals("Robo Race"))
                         {
-                            NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,false,false,0,0,0,0);
+                            NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event,teamname,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0,0,false,false,0,0,0,0);
                             mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -346,7 +346,7 @@ public class AddNewTeams extends AppCompatActivity {
                         }
                         else if(event.equals("Ideate"))
                         {
-                            NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,false);
+                            NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0,false);
                             mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -374,7 +374,7 @@ public class AddNewTeams extends AppCompatActivity {
                         }
                         else if(event.equals("HackNation"))
                         {
-                            NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0.00,0.00,0.00,0.00,0.00,false);
+                            NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0,false);
                             mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

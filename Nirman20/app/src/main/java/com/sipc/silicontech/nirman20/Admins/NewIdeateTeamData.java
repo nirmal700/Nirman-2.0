@@ -2,13 +2,13 @@ package com.sipc.silicontech.nirman20.Admins;
 
 public class NewIdeateTeamData {
     String mEventParticipating,mTeamName,mProblemStat,mApproach,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
-    double mEvaluation,mCoParticipant,mFinalMark;
+    double mFinalMark;
     boolean mCheckedIn;
 
     public NewIdeateTeamData() {
     }
 
-    public NewIdeateTeamData(String mEventParticipating, String mTeamName, String mProblemStat, String mApproach, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, double mEvaluation, double mCoParticipant, double mFinalMark, boolean mCheckedIn) {
+    public NewIdeateTeamData(String mEventParticipating, String mTeamName, String mProblemStat, String mApproach, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone,  double mFinalMark, boolean mCheckedIn) {
         this.mEventParticipating = mEventParticipating;
         this.mTeamName = mTeamName;
         this.mProblemStat = mProblemStat;
@@ -22,8 +22,6 @@ public class NewIdeateTeamData {
         this.mMem2Phone = mMem2Phone;
         this.mMem3Name = mMem3Name;
         this.mMem3Phone = mMem3Phone;
-        this.mEvaluation = mEvaluation;
-        this.mCoParticipant = mCoParticipant;
         this.mFinalMark = mFinalMark;
         this.mCheckedIn = mCheckedIn;
     }
@@ -130,22 +128,6 @@ public class NewIdeateTeamData {
 
     public void setmMem3Phone(String mMem3Phone) {
         this.mMem3Phone = mMem3Phone;
-    }
-
-    public double getmEvaluation() {
-        return mEvaluation;
-    }
-
-    public void setmEvaluation(double mEvaluation) {
-        this.mEvaluation = mEvaluation;
-    }
-
-    public double getmCoParticipant() {
-        return mCoParticipant;
-    }
-
-    public void setmCoParticipant(double mCoParticipant) {
-        this.mCoParticipant = mCoParticipant;
     }
 
     public double getmFinalMark() {

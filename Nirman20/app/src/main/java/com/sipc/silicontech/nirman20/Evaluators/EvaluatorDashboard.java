@@ -29,6 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 
@@ -37,13 +40,14 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class EvaluatorDashboard extends AppCompatActivity {
 
-    MaterialCardView btn_evaluate;
+    MaterialCardView btn_evaluate,btn_demo;
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
     CollectionReference mCollectionReference;
@@ -54,6 +58,13 @@ public class EvaluatorDashboard extends AppCompatActivity {
         setContentView(R.layout.evaluator_dashboard);
 
         btn_evaluate = findViewById(R.id.btn_evaluate);
+        btn_demo = findViewById(R.id.btn_FoodCoupouns);
+        btn_demo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), DownloadResults.class));
+            }
+        });
 
 
         btn_evaluate.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +123,7 @@ public class EvaluatorDashboard extends AppCompatActivity {
                     String name = separateData[1];
                     String teamname = separateData[2];
                     String phoneNo = separateData[3];
+                    Log.e("7565", "onActivityResult: "+event+""+teamname );
                     mCollectionReference = FirebaseFirestore.getInstance().collection(event);
 
 //                    if (email.equals(" ")) {
@@ -132,14 +144,13 @@ public class EvaluatorDashboard extends AppCompatActivity {
                                 String clgname = newHackNationTeamData.getmCollegeName().toString();
                                 String problemstat = newHackNationTeamData.getmProblemStat().toString();
                                 String approach = newHackNationTeamData.getmApproach().toString();
-                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, EvaluatorReviewEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, HackNationEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 mEvaluatorIntent.putExtra("mTeamName",teamname);
                                 mEvaluatorIntent.putExtra("mCollegeName",clgname);
                                 mEvaluatorIntent.putExtra("mProblemStat",problemstat);
                                 mEvaluatorIntent.putExtra("mApproach",approach);
                                 startActivity(mEvaluatorIntent);
                                 finish();
-
 
 
                             }
@@ -152,24 +163,22 @@ public class EvaluatorDashboard extends AppCompatActivity {
                     }
                     else if(event.equals("Ideate"))
                     {
+                        Log.e("3432", "onActivityResult: '"+teamname+"'" );
                         DocumentReference documentReference = mCollectionReference.document(teamname);
                         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                NewHackNationTeamData newHackNationTeamData = documentSnapshot.toObject(NewHackNationTeamData.class);
-                                String clgname = newHackNationTeamData.getmCollegeName().toString();
-                                String problemstat = newHackNationTeamData.getmProblemStat().toString();
-                                String approach = newHackNationTeamData.getmApproach().toString();
-                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, EvaluatorReviewEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                NewIdeateTeamData newIdeateTeamData = documentSnapshot.toObject(NewIdeateTeamData.class);
+                                String clgname = Objects.requireNonNull(newIdeateTeamData).getmCollegeName().toString();
+                                String problemstat = newIdeateTeamData.getmProblemStat().toString();
+                                String approach = newIdeateTeamData.getmApproach().toString();
+                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, IdeateEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 mEvaluatorIntent.putExtra("mTeamName",teamname);
                                 mEvaluatorIntent.putExtra("mCollegeName",clgname);
                                 mEvaluatorIntent.putExtra("mProblemStat",problemstat);
                                 mEvaluatorIntent.putExtra("mApproach",approach);
                                 startActivity(mEvaluatorIntent);
                                 finish();
-
-
-
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -178,11 +187,47 @@ public class EvaluatorDashboard extends AppCompatActivity {
                             }
                         });
                     }
-                    else
+                    else if(event.equals("Robo Race"))
                     {
-
+                        DocumentReference documentReference = mCollectionReference.document(teamname);
+                        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                NewRoboRaceTeamData newRoboRaceTeamData = documentSnapshot.toObject(NewRoboRaceTeamData.class);
+                                String clgname = Objects.requireNonNull(newRoboRaceTeamData).getmCollegeName().toString();
+                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, RoboRaceEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                mEvaluatorIntent.putExtra("mTeamName",teamname);
+                                mEvaluatorIntent.putExtra("mCollegeName",clgname);
+                                startActivity(mEvaluatorIntent);
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EvaluatorDashboard.this, "Error!!"+e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
-
+                    else {
+                        DocumentReference documentReference = mCollectionReference.document(teamname);
+                        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                NewLineFollowerTeamData newLineFollowerTeamData = documentSnapshot.toObject(NewLineFollowerTeamData.class);
+                                String clgname = Objects.requireNonNull(newLineFollowerTeamData).getmCollegeName().toString();
+                                Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, LineFollowerEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                mEvaluatorIntent.putExtra("mTeamName",teamname);
+                                mEvaluatorIntent.putExtra("mCollegeName",clgname);
+                                startActivity(mEvaluatorIntent);
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EvaluatorDashboard.this, "Error!!"+e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                     //Initialize Dialog box
                     AlertDialog.Builder builder = new AlertDialog.Builder(EvaluatorDashboard.this);
 

@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.Admins.AdminSignin;
+import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class UserSignIn extends AppCompatActivity {
         mSipc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AdminSignin.class);
+                Intent intent = new Intent(getApplicationContext(), EvaluatorSignIn.class);
 
                 Pair[] pairs = new Pair[1];
                 pairs[0] = new Pair<View,String>(findViewById(R.id.btn_backSignUp),"transition_signUp");

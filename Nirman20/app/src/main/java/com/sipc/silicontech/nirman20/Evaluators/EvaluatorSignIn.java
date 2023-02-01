@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.UserSignIn;
 
@@ -41,6 +43,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
     String evaluator_name;
     ProgressDialog progressDialog;
     SessionManagerEvaluator managerEvaluator;
+    TextView sipc;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
@@ -51,6 +54,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
         autoCompleteEvaluator = findViewById(R.id.autoCompleteEvaluator);
         et_password = findViewById(R.id.et_password);
         btn_login = findViewById(R.id.btn_login);
+        sipc = findViewById(R.id.sipc);
         managerEvaluator = new SessionManagerEvaluator(getApplicationContext());
         arrayListEvaluatorName = new ArrayList<>();
         arrayAdapterEvaluatorName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEvaluatorName);
@@ -93,6 +97,14 @@ public class EvaluatorSignIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Evaluatorlogin();
+            }
+        });
+
+        sipc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AdminSignin.class));
+                finish();
             }
         });
         autoCompleteEvaluator.setOnItemClickListener(new AdapterView.OnItemClickListener() {

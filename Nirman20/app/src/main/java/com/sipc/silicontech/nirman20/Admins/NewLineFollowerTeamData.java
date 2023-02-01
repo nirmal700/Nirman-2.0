@@ -2,14 +2,14 @@ package com.sipc.silicontech.nirman20.Admins;
 
 public class NewLineFollowerTeamData {
     String mEventParticipating,mTeamName,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
-    double mTotalTimeTaken,mTotal;
+    long mTotalTimeTaken,mTotal;
     boolean mCheckedIn,mTimeOutTaken;
-    int mCheckPointCleared,mHandTouches,mBonus,mCheckPointSkipped;
+    long mCheckPointCleared,mHandTouches,mBonus,mCheckPointSkipped;
 
     public NewLineFollowerTeamData() {
     }
 
-    public NewLineFollowerTeamData(String mEventParticipating, String mTeamName, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, double mTotalTimeTaken, double mTotal, boolean mCheckedIn, boolean mTimeOutTaken, int mCheckPointCleared, int mHandTouches, int mBonus, int mCheckPointSkipped) {
+    public NewLineFollowerTeamData(String mEventParticipating, String mTeamName, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, long mTotalTimeTaken, long mTotal, boolean mCheckedIn, boolean mTimeOutTaken, long mCheckPointCleared, long mHandTouches, long mBonus, long mCheckPointSkipped) {
         this.mEventParticipating = mEventParticipating;
         this.mTeamName = mTeamName;
         this.mCollegeName = mCollegeName;
@@ -123,7 +123,7 @@ public class NewLineFollowerTeamData {
         return mTotalTimeTaken;
     }
 
-    public void setmTotalTimeTaken(double mTotalTimeTaken) {
+    public void setmTotalTimeTaken(long mTotalTimeTaken) {
         this.mTotalTimeTaken = mTotalTimeTaken;
     }
 
@@ -131,7 +131,7 @@ public class NewLineFollowerTeamData {
         return mTotal;
     }
 
-    public void setmTotal(double mTotal) {
+    public void setmTotal(long mTotal) {
         this.mTotal = mTotal;
     }
 
@@ -151,7 +151,7 @@ public class NewLineFollowerTeamData {
         this.mTimeOutTaken = mTimeOutTaken;
     }
 
-    public int getmCheckPointCleared() {
+    public long getmCheckPointCleared() {
         return mCheckPointCleared;
     }
 
@@ -159,7 +159,7 @@ public class NewLineFollowerTeamData {
         this.mCheckPointCleared = mCheckPointCleared;
     }
 
-    public int getmHandTouches() {
+    public long getmHandTouches() {
         return mHandTouches;
     }
 
@@ -167,7 +167,7 @@ public class NewLineFollowerTeamData {
         this.mHandTouches = mHandTouches;
     }
 
-    public int getmBonus() {
+    public long getmBonus() {
         return mBonus;
     }
 
@@ -175,7 +175,7 @@ public class NewLineFollowerTeamData {
         this.mBonus = mBonus;
     }
 
-    public int getmCheckPointSkipped() {
+    public long getmCheckPointSkipped() {
         return mCheckPointSkipped;
     }
 
