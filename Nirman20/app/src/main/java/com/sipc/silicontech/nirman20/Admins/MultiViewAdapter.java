@@ -171,6 +171,46 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             IdeateHolder.mProblemStatement.setText(ideateTeamData.getmProblemStat());
             IdeateHolder.mTeamLeadPhone.setText(ideateTeamData.getmTeamLeadPhone());
             IdeateHolder.mEventType.setText(ideateTeamData.getmEventParticipating());
+            if (ideateTeamData.ismCheckedIn()) {
+                IdeateHolder.mCheckinStatus.setText("Checked-In");
+                IdeateHolder.mCheckinStatus.setBackgroundColor(Color.GREEN);
+            } else {
+                IdeateHolder.mCheckinStatus.setText("Not Checked-In");
+                IdeateHolder.mCheckinStatus.setBackgroundColor(Color.RED);
+            }
+            IdeateHolder.mWhatsApp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String phone = ideateTeamData.getmTeamLeadPhone();
+
+                    Intent whatsapp = new Intent(Intent.ACTION_VIEW);
+
+                    try {
+                        String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
+                        whatsapp.setPackage("com.whatsapp");
+                        whatsapp.setData(Uri.parse(url));
+                        context.startActivity(whatsapp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(context, "Contact " + ideateTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
+                }
+            });
+            IdeateHolder.mCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String dail = "tel:" + ideateTeamData.getmTeamLeadPhone();
+                        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(context, "Contact " + ideateTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
             IdeateHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
             IdeateHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -193,6 +233,46 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             RoboHolder.mTotalTimeTaken.setText("" + roboRaceTeamData.getmTotalTimeTaken());
             RoboHolder.mTotal.setText("" + roboRaceTeamData.getmTotal());
             RoboHolder.mTimeOutTaken.setText("" + roboRaceTeamData.ismTimeOutTaken());
+            if (roboRaceTeamData.ismCheckedIn()) {
+                RoboHolder.mCheckinStatus.setText("Checked-In");
+                RoboHolder.mCheckinStatus.setBackgroundColor(Color.GREEN);
+            } else {
+                RoboHolder.mCheckinStatus.setText("Not Checked-In");
+                RoboHolder.mCheckinStatus.setBackgroundColor(Color.RED);
+            }
+            RoboHolder.mWhatsApp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String phone = roboRaceTeamData.getmTeamLeadPhone();
+
+                    Intent whatsapp = new Intent(Intent.ACTION_VIEW);
+
+                    try {
+                        String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
+                        whatsapp.setPackage("com.whatsapp");
+                        whatsapp.setData(Uri.parse(url));
+                        context.startActivity(whatsapp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(context, "Contact " + roboRaceTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
+                }
+            });
+            RoboHolder.mCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String dail = "tel:" + roboRaceTeamData.getmTeamLeadPhone();
+                        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(context, "Contact " + roboRaceTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
             RoboHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
             RoboHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -217,6 +297,46 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             LineHolder.mTotalTimeTaken.setText("" + lineFollowerTeamData.getmTotalTimeTaken());
             LineHolder.mTotal.setText("" + lineFollowerTeamData.getmTotal());
             LineHolder.mTimeOutTaken.setText("" + lineFollowerTeamData.ismTimeOutTaken());
+            if (lineFollowerTeamData.ismCheckedIn()) {
+                LineHolder.mCheckinStatus.setText("Checked-In");
+                LineHolder.mCheckinStatus.setBackgroundColor(Color.GREEN);
+            } else {
+                LineHolder.mCheckinStatus.setText("Not Checked-In");
+                LineHolder.mCheckinStatus.setBackgroundColor(Color.RED);
+            }
+            LineHolder.mWhatsApp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String phone = lineFollowerTeamData.getmTeamLeadPhone();
+
+                    Intent whatsapp = new Intent(Intent.ACTION_VIEW);
+
+                    try {
+                        String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
+                        whatsapp.setPackage("com.whatsapp");
+                        whatsapp.setData(Uri.parse(url));
+                        context.startActivity(whatsapp);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(context, "Contact " + lineFollowerTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
+                }
+            });
+            LineHolder.mCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String dail = "tel:" + lineFollowerTeamData.getmTeamLeadPhone();
+                        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(context, "Contact " + lineFollowerTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
             LineHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
             LineHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -311,6 +431,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         private final TextView mApproach;
         private final TextView mFinalMark;
         private final TextView mCheckinStatus;
+        private Button mCall;
+        private ImageView mWhatsApp;
 
         public Ideate(@NonNull View itemView) {
             super(itemView);
@@ -324,6 +446,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             mApproach = itemView.findViewById(R.id.tv_Approach);
             mFinalMark = itemView.findViewById(R.id.tv_Final_Mark);
             foldingCell = itemView.findViewById(R.id.folding_cell);
+            mCall = itemView.findViewById(R.id.btn_call);
+            mWhatsApp = itemView.findViewById(R.id.btn_whatsapp);
         }
     }
 
@@ -343,6 +467,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         private final TextView mCheckPointsSkipped;
         private final TextView mTotalTimeTaken;
         private final TextView mTotal;
+        private Button mCall;
+        private ImageView mWhatsApp;
 
         public RoboRace(@NonNull View itemView) {
             super(itemView);
@@ -360,6 +486,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             mTotalTimeTaken = itemView.findViewById(R.id.tv_TotalTimeTaken);
             mTotal = itemView.findViewById(R.id.tv_Final_Mark);
             foldingCell = itemView.findViewById(R.id.folding_cell);
+            mCall = itemView.findViewById(R.id.btn_call);
+            mWhatsApp = itemView.findViewById(R.id.btn_whatsapp);
         }
     }
 
@@ -379,6 +507,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         private final TextView mCheckPointsSkipped;
         private final TextView mTotalTimeTaken;
         private final TextView mTotal;
+        private Button mCall;
+        private ImageView mWhatsApp;
 
         public LineFollower(@NonNull View itemView) {
             super(itemView);
@@ -396,6 +526,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
             mTotalTimeTaken = itemView.findViewById(R.id.tv_TotalTimeTaken);
             mTotal = itemView.findViewById(R.id.tv_Final_Mark);
             foldingCell = itemView.findViewById(R.id.folding_cell);
+            mCall = itemView.findViewById(R.id.btn_call);
+            mWhatsApp = itemView.findViewById(R.id.btn_whatsapp);
         }
     }
 

@@ -250,7 +250,7 @@
 
 
                         <ImageView
-                            android:id="@+id/btn_whatsapp1"
+                            android:id="@+id/btn_whatsapp"
                             android:layout_width="35dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center_vertical"
