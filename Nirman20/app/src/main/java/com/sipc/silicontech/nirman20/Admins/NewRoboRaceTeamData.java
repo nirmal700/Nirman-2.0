@@ -4,12 +4,12 @@ public class NewRoboRaceTeamData {
     String mEventParticipating,mTeamName,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
     long mTotalTimeTaken,mTotal;
     boolean mCheckedIn,mTimeOutTaken;
-    long mCheckPointCleared,mHandTouches,mBonus,mCheckPointSkipped;
+    long mCheckPointCleared,mHandTouches,mBonus,mCheckPointSkipped,mPenalty;
 
     public NewRoboRaceTeamData() {
     }
 
-    public NewRoboRaceTeamData(String mEventParticipating, String mTeamName, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, long mTotalTimeTaken, long mTotal, boolean mCheckedIn, boolean mTimeOutTaken, long mCheckPointCleared, long mHandTouches, long mBonus, long mCheckPointSkipped) {
+    public NewRoboRaceTeamData(String mEventParticipating, String mTeamName, String mCollegeName, String mTeamLead, String mTeamLeadPhone, String mMem1Name, String mMem1Phone, String mMem2Name, String mMem2Phone, String mMem3Name, String mMem3Phone, long mTotalTimeTaken, long mTotal, boolean mCheckedIn, boolean mTimeOutTaken, long mCheckPointCleared, long mHandTouches, long mBonus, long mCheckPointSkipped, long mPenalty) {
         this.mEventParticipating = mEventParticipating;
         this.mTeamName = mTeamName;
         this.mCollegeName = mCollegeName;
@@ -29,6 +29,7 @@ public class NewRoboRaceTeamData {
         this.mHandTouches = mHandTouches;
         this.mBonus = mBonus;
         this.mCheckPointSkipped = mCheckPointSkipped;
+        this.mPenalty = mPenalty;
     }
 
     public String getmEventParticipating() {
@@ -181,5 +182,13 @@ public class NewRoboRaceTeamData {
 
     public void setmCheckPointSkipped(int mCheckPointSkipped) {
         this.mCheckPointSkipped = mCheckPointSkipped;
+    }
+
+    public long getmPenalty() {
+        return mPenalty;
+    }
+
+    public void setmPenalty(long mPenalty) {
+        this.mPenalty = mPenalty;
     }
 }
