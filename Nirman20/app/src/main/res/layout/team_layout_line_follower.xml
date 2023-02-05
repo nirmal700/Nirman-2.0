@@ -28,7 +28,7 @@
             app:cardElevation="8dp"
             app:strokeWidth=".5dp"
             app:strokeColor="@color/hintBlack"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -416,7 +416,7 @@
             app:cardElevation="8dp"
             app:strokeWidth=".5dp"
             app:strokeColor="@color/hintBlack"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
