@@ -1,7 +1,6 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Help;
-import com.sipc.silicontech.nirman20.Users.RequestHelpAdapter;
-import com.sipc.silicontech.nirman20.Users.SessionManagerParticipant;
 
 import java.util.List;
 
@@ -45,55 +42,45 @@ public class AddressIssuesAdapter extends RecyclerView.Adapter<AddressIssuesAdap
         Help help = mHelp.get(position);
         holder.mTag.setText(help.getmIssueType());
         holder.mDesc.setText(help.getmDescription());
-        holder.tv_EventName.setText("Event: "+help.getmEvent());
-        holder.tv_TeamName.setText("Team: "+help.getmTeamname());
-        holder.mDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.tv_EventName.setText(String.format("Event: %s",help.getmEvent()));
+        holder.tv_TeamName.setText(String.format("Team: %s",help.getmTeamname()));
+        holder.mDelete.setOnClickListener(v -> {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                builder.setTitle("Confirm");
-                builder.setMessage("Are you sure?");
+            builder.setTitle("Confirm");
+            builder.setMessage("Are you sure?");
 
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("YES", (dialog, which) -> {
 
-                    public void onClick(DialogInterface dialog, int which) {
+                String idUpdate = help.getmId();
+                FirebaseDatabase.getInstance().getReference("EventIssues").child(help.getmEvent()).child(help.getmTeamname()).child("Issues").child(idUpdate)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                snapshot.getRef().removeValue();
+                                notifyDataSetChanged();
+                                Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
+                            }
 
-                        String idUpdate = help.getmId();
-                        FirebaseDatabase.getInstance().getReference("EventIssues").child(help.getmEvent()).child(help.getmTeamname()).child("Issues").child(idUpdate)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        snapshot.getRef().removeValue();
-                                        notifyDataSetChanged();
-                                        Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
-                                    }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
 
-                                    }
-                                });
+                dialog.dismiss();
+            });
 
-                        dialog.dismiss();
-                    }
-                });
+            builder.setNegativeButton("NO", (dialog, which) -> {
 
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                // Do nothing
+                dialog.dismiss();
+            });
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            AlertDialog alert = builder.create();
+            alert.show();
 
-                        // Do nothing
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog alert = builder.create();
-                alert.show();
-
-            }
         });
     }
 
@@ -102,7 +89,7 @@ public class AddressIssuesAdapter extends RecyclerView.Adapter<AddressIssuesAdap
         return mHelp.size();
     }
 
-    public class AddressIssueViewHolder extends RecyclerView.ViewHolder {
+    public static class AddressIssueViewHolder extends RecyclerView.ViewHolder {
         TextView mTag,mDesc,tv_TeamName,tv_EventName;
         Button mDelete;
         public AddressIssueViewHolder(@NonNull View itemView) {
@@ -111,7 +98,7 @@ public class AddressIssuesAdapter extends RecyclerView.Adapter<AddressIssuesAdap
             mDesc = itemView.findViewById(R.id.tv_description);
             mDelete = itemView.findViewById(R.id.btn_delete);
             tv_TeamName = itemView.findViewById(R.id.tv_TeamName);
-            tv_EventName = itemView.findViewById(R.id.tv_TeamName);
+            tv_EventName = itemView.findViewById(R.id.tv_EventName);
         }
     }
 }
