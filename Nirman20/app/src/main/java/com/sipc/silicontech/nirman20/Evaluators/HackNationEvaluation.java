@@ -1,8 +1,5 @@
 package com.sipc.silicontech.nirman20.Evaluators;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ramotion.fluidslider.FluidSlider;
 import com.sipc.silicontech.nirman20.R;
@@ -28,15 +22,14 @@ import com.sipc.silicontech.nirman20.Users.Suggestion;
 import java.util.Objects;
 
 import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 public class HackNationEvaluation extends AppCompatActivity {
-    String mTeamName,mCollegeName,mProblemStat,mSugApp;
-    TextInputLayout et_teamName,et_collegeName,et_Problem_Statement,et_description,et_suggestion;
+    String mTeamName, mCollegeName, mProblemStat, mSugApp;
+    TextInputLayout et_teamName, et_collegeName, et_Problem_Statement, et_description, et_suggestion;
     ProgressDialog progressDialog;
     CollectionReference mCollectionReference;
     Button next;
-    int ev1,ev2,ev3,ev4;
+    int ev1, ev2, ev3, ev4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +68,6 @@ public class HackNationEvaluation extends AppCompatActivity {
         final int total4 = max4 - min4;
 
 
-
         mTeamName = getIntent().getStringExtra("mTeamName");
         mCollegeName = getIntent().getStringExtra("mCollegeName");
         mProblemStat = getIntent().getStringExtra("mProblemStat");
@@ -91,30 +83,23 @@ public class HackNationEvaluation extends AppCompatActivity {
         et_description.setEnabled(false);
 
 
-
         final FluidSlider slider1 = findViewById(R.id.fluidSlider1);
         final FluidSlider slider2 = findViewById(R.id.fluidSlider2);
         final FluidSlider slider3 = findViewById(R.id.fluidSlider3);
         final FluidSlider slider4 = findViewById(R.id.fluidSlider4);
-        slider1.setBeginTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.INVISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider1.setBeginTrackingListener(() -> {
+            textView.setVisibility(View.INVISIBLE);
+            return Unit.INSTANCE;
         });
 
-        slider1.setEndTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.VISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider1.setEndTrackingListener(() -> {
+            textView.setVisibility(View.VISIBLE);
+            return Unit.INSTANCE;
         });
 
         // Java 8 lambda
         slider1.setPositionListener(pos -> {
-            final String value = String.valueOf( (int)(min1 + total1 * pos) );
+            final String value = String.valueOf((int) (min1 + total1 * pos));
             slider1.setBubbleText(value);
             ev1 = Integer.parseInt(value);
             return Unit.INSTANCE;
@@ -125,25 +110,19 @@ public class HackNationEvaluation extends AppCompatActivity {
         slider1.setEndText(String.valueOf(max1));
 
 
-        slider2.setBeginTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.INVISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider2.setBeginTrackingListener(() -> {
+            textView.setVisibility(View.INVISIBLE);
+            return Unit.INSTANCE;
         });
 
-        slider2.setEndTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.VISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider2.setEndTrackingListener(() -> {
+            textView.setVisibility(View.VISIBLE);
+            return Unit.INSTANCE;
         });
 
         // Java 8 lambda
         slider2.setPositionListener(pos -> {
-            final String value = String.valueOf( (int)(min2 + total2 * pos) );
+            final String value = String.valueOf((int) (min2 + total2 * pos));
             slider1.setBubbleText(value);
             ev2 = Integer.parseInt(value);
             return Unit.INSTANCE;
@@ -153,25 +132,19 @@ public class HackNationEvaluation extends AppCompatActivity {
         slider2.setStartText(String.valueOf(min2));
         slider2.setEndText(String.valueOf(max2));
 
-        slider3.setBeginTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.INVISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider3.setBeginTrackingListener(() -> {
+            textView.setVisibility(View.INVISIBLE);
+            return Unit.INSTANCE;
         });
 
-        slider3.setEndTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.VISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider3.setEndTrackingListener(() -> {
+            textView.setVisibility(View.VISIBLE);
+            return Unit.INSTANCE;
         });
 
         // Java 8 lambda
         slider3.setPositionListener(pos -> {
-            final String value = String.valueOf( (int)(min3 + total3 * pos) );
+            final String value = String.valueOf((int) (min3 + total3 * pos));
             slider1.setBubbleText(value);
             ev3 = Integer.parseInt(value);
             return Unit.INSTANCE;
@@ -181,25 +154,19 @@ public class HackNationEvaluation extends AppCompatActivity {
         slider3.setStartText(String.valueOf(min3));
         slider3.setEndText(String.valueOf(max3));
 
-        slider4.setBeginTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.INVISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider4.setBeginTrackingListener(() -> {
+            textView.setVisibility(View.INVISIBLE);
+            return Unit.INSTANCE;
         });
 
-        slider4.setEndTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView.setVisibility(View.VISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider4.setEndTrackingListener(() -> {
+            textView.setVisibility(View.VISIBLE);
+            return Unit.INSTANCE;
         });
 
         // Java 8 lambda
         slider4.setPositionListener(pos -> {
-            final String value = String.valueOf( (int)(min4 + total4 * pos) );
+            final String value = String.valueOf((int) (min4 + total4 * pos));
             slider1.setBubbleText(value);
             ev4 = Integer.parseInt(value);
             return Unit.INSTANCE;
@@ -210,45 +177,32 @@ public class HackNationEvaluation extends AppCompatActivity {
         slider4.setEndText(String.valueOf(max4));
 
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progressDialog.show();
-                String sugg = et_suggestion.getEditText().getText().toString();
-                final double average = (double) (ev1+ev2+ev3+ev4)/4;
-                DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Robo Race").child(mTeamName).child("Suggestions");
-                String id = mSugDB.push().getKey();
-                if(sugg.length() >0 & id!=null){
-                    Suggestion suggestion = new Suggestion(mTeamName,mCollegeName,sugg,id,true,false,0L);
-                    mSugDB.child(id).setValue(suggestion);
-                }
-                mCollectionReference = FirebaseFirestore.getInstance().collection("HackNation Evaluation");
-                HackNationEvaluation_POJO hackNationEvaluationPOJO = new HackNationEvaluation_POJO(mTeamName,mCollegeName,mProblemStat,mSugApp,sugg,ev1,ev2,ev3,ev4,average,null);
-                mCollectionReference.add(hackNationEvaluationPOJO).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(HackNationEvaluation.this, "Makring Done!!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(HackNationEvaluation.this, EvaluatorDashboard.class);
-                            progressDialog.dismiss();
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(HackNationEvaluation.this, "Error Occured!!"+e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        next.setOnClickListener(view -> {
+            progressDialog.show();
+            String sugg = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
+            final double average = (double) (ev1 + ev2 + ev3 + ev4) / 4;
+            DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Robo Race").child(mTeamName).child("Suggestions");
+            String id = mSugDB.push().getKey();
+            if (sugg.length() > 0 & id != null) {
+                Suggestion suggestion = new Suggestion(mTeamName, mCollegeName, sugg, id, true, false, 0L);
+                mSugDB.child(id).setValue(suggestion);
             }
+            mCollectionReference = FirebaseFirestore.getInstance().collection("HackNation Evaluation");
+            HackNationEvaluation_POJO hackNationEvaluationPOJO = new HackNationEvaluation_POJO(mTeamName, mCollegeName, mProblemStat, mSugApp, sugg, ev1, ev2, ev3, ev4, average, null);
+            mCollectionReference.add(hackNationEvaluationPOJO).addOnSuccessListener(documentReference -> {
+
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(HackNationEvaluation.this, "Makring Done!!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(HackNationEvaluation.this, EvaluatorDashboard.class);
+                    progressDialog.dismiss();
+                    startActivity(intent);
+                    finish();
+                }
+            }).addOnFailureListener(e -> {
+                progressDialog.dismiss();
+                Toast.makeText(HackNationEvaluation.this, "Error Occured!!" + e, Toast.LENGTH_SHORT).show();
+            });
         });
 
     }
