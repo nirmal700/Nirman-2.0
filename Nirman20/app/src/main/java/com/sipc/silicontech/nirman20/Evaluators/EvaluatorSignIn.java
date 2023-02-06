@@ -1,24 +1,21 @@
 package com.sipc.silicontech.nirman20.Evaluators;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +26,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.UserSignIn;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -67,7 +63,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.dismiss();
 
-        if (!isConnected(EvaluatorSignIn.this)){
+        if (!isConnected(EvaluatorSignIn.this)) {
             showCustomDialog();
         }
 
@@ -75,9 +71,9 @@ public class EvaluatorSignIn extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String name = ds.child("eName").getValue(String.class);
-                    Log.e("TAG", "onDataChange: "+name );
+                    Log.e("TAG", "onDataChange: " + name);
                     arrayListEvaluatorName.add(name);
                     arrayAdapterEvaluatorName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEvaluatorName);
                     autoCompleteEvaluator.setAdapter(arrayAdapterEvaluatorName);
@@ -87,45 +83,31 @@ public class EvaluatorSignIn extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(EvaluatorSignIn.this, "Error!!"+error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EvaluatorSignIn.this, "Error!!" + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
 
+        btn_login.setOnClickListener(v -> Evaluatorlogin());
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Evaluatorlogin();
-            }
+        sipc.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), AdminSignin.class));
+            finish();
         });
-
-        sipc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AdminSignin.class));
-                finish();
-            }
-        });
-        autoCompleteEvaluator.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                evaluator_name = arrayAdapterEvaluatorName.getItem(position).toString();
-            }
-        });
+        autoCompleteEvaluator.setOnItemClickListener((parent, view, position, id) -> evaluator_name = arrayAdapterEvaluatorName.getItem(position));
 
 
     }
 
     private void Evaluatorlogin() {
         progressDialog.show();
-        if (!validatePassword()  ) {
+        if (!validatePassword()) {
             Toast.makeText(EvaluatorSignIn.this, "Invalid Inputs", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;
         }
 
-        String _password1 = et_password.getEditText().getText().toString().trim();
+        String _password1 = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
         Query checkUser = FirebaseDatabase.getInstance().getReference("Evaluator").orderByChild("eName").equalTo(evaluator_name);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -136,7 +118,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
 
                     String systemPassword = snapshot.child(evaluator_name).child("ePassword").getValue(String.class);
 
-                    if (systemPassword.equals(_password1)) {
+                    if (Objects.requireNonNull(systemPassword).equals(_password1)) {
                         autoCompleteEvaluator.setError(null);
 
                         //Get User data From DataBase
@@ -146,9 +128,8 @@ public class EvaluatorSignIn extends AppCompatActivity {
                         String _event = snapshot.child(evaluator_name).child("eEventAssigned").getValue(String.class);
 
 
-
                         managerEvaluator.setEvaluatorLogin(true); //Set User Login Session
-                        managerEvaluator.setEvaluatorDetails(_name,_event,_password,_phoneNo); //Add Data To User Session manager
+                        managerEvaluator.setEvaluatorDetails(_name, _event, _password, _phoneNo); //Add Data To User Session manager
                         progressDialog.dismiss();
                         // Intent to Next Activity
                         startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
@@ -171,6 +152,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
             }
         });
     }
+
     private boolean validatePassword() {
         String val = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
@@ -189,28 +171,21 @@ public class EvaluatorSignIn extends AppCompatActivity {
         }
 
     }
+
     private void showCustomDialog() {
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(EvaluatorSignIn.this);
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),EvaluatorSignIn.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class));
+                    finish();
                 });
         android.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
     }
+
     //--------------- Check Internet Is Connected -----------
     private boolean isConnected(EvaluatorSignIn userLogin) {
 
