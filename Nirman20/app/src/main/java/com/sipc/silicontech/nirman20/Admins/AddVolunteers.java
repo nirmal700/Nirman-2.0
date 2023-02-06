@@ -25,8 +25,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
-import com.sipc.silicontech.nirman20.Users.UserPhoneVerification;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -39,19 +37,16 @@ public class AddVolunteers extends AppCompatActivity {
     ArrayList<String> mStudentMCAName;
     ArrayList<String> mStudentMSCName;
     ArrayList<String> mStudentsmscSIC;
+    AutoCompleteTextView autoCompleteUserType;
+    Button mGen;
+    ImageView btn_back;
+    ProgressDialog progressDialog;
+    String mAccessLevel = "";
+    String SIC, mName, mPassword, mUserRole, mPhoneNo;
     private TextInputLayout et_userName;
     private TextInputLayout et_sic;
     private TextInputLayout et_phoneNumber;
-    private TextInputLayout et_password,et_userRole;
-
-    AutoCompleteTextView autoCompleteUserType;
-
-    Button mGen;
-    ImageView btn_back;
-
-    ProgressDialog progressDialog;
-    String mAccessLevel="";
-    String SIC,mName,mPassword,mUserRole,mPhoneNo;
+    private TextInputLayout et_password, et_userRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -4755,29 +4750,23 @@ public class AddVolunteers extends AppCompatActivity {
         autoCompleteUserType.setAdapter(arrayAdapterUserType);
 
 
-
         if (!isConnected(AddVolunteers.this)) {
             showCustomDialog();
         }
         et_sic.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("TAG", "beforeTextChanged: "+charSequence+i+i1+""+i2 );
+                Log.e("TAG", "beforeTextChanged: " + charSequence + i + i1 + "" + i2);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("TAG", "onTextChanged: "+charSequence+i+i1+""+i2 );
-                if(charSequence.length()==8)
-                {
+                Log.e("TAG", "onTextChanged: " + charSequence + i + i1 + "" + i2);
+                if (charSequence.length() == 8) {
                     validateSIC();
-                }
-                else if(charSequence.length()==9)
-                {
+                } else if (charSequence.length() == 9) {
                     validateSIC();
-                }
-                else
-                {
+                } else {
                     et_userName.getEditText().setText("");
                 }
             }
@@ -4791,14 +4780,14 @@ public class AddVolunteers extends AppCompatActivity {
         autoCompleteUserType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mAccessLevel = ""+i;
+                mAccessLevel = "" + i;
             }
         });
         mGen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (!validatePhoneNumber()  | !validateUserName() | !validUserType() | !validatePassword() | !validateUserRole()  | !validateSIC() ) {
+                if (!validatePhoneNumber() | !validateUserName() | !validUserType() | !validatePassword() | !validateUserRole() | !validateSIC()) {
 
                     return;
                 }
@@ -4809,7 +4798,7 @@ public class AddVolunteers extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddVolunteers.this,AdminDashboard.class));
+                startActivity(new Intent(AddVolunteers.this, AdminDashboard.class));
                 finishAffinity();
             }
         });
@@ -4822,6 +4811,7 @@ public class AddVolunteers extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
         super.onBackPressed();
     }
+
     private void UploadVolunteerData() {
         //Initialize alert dialog
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
@@ -4844,7 +4834,7 @@ public class AddVolunteers extends AppCompatActivity {
             mPhoneNo = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString();
             FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
             DatabaseReference reference = rootNode.getReference("SIPC");
-            AdminData adminData = new AdminData(SIC,mAccessLevel,mName,mPassword,mUserRole,mPhoneNo);
+            AdminData adminData = new AdminData(SIC, mAccessLevel, mName, mPassword, mUserRole, mPhoneNo);
             reference.child(SIC).child("Profile").setValue(adminData);
             reference.child(SIC).child("mPhoneNo").setValue(mPhoneNo);
             reference.child(SIC).child("mSic").setValue(SIC);
@@ -4852,7 +4842,7 @@ public class AddVolunteers extends AppCompatActivity {
 
 
             //Finish Activity
-            startActivity(new Intent(getApplicationContext(), AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
+            startActivity(new Intent(getApplicationContext(), AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
         });
 
@@ -4881,13 +4871,13 @@ public class AddVolunteers extends AppCompatActivity {
     private boolean validateUserRole() {
         String val = et_userRole.getEditText().getText().toString().trim();
 
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             et_userRole.setError("Field can not be empty");
             return false;
-        }else if(val.length()>25){
+        } else if (val.length() > 25) {
             et_userRole.setError("Name is Too Large");
             return false;
-        }else {
+        } else {
             et_userRole.setError(null);
             return true;
         }
@@ -4912,39 +4902,32 @@ public class AddVolunteers extends AppCompatActivity {
             return true;
         }
     }
+
     private boolean validateSIC() {
         String val = Objects.requireNonNull(et_sic.getEditText()).getText().toString().trim();
         et_userName.getEditText().setText("");
-        if(mStudentsSIC.contains(val))
-        {
+        if (mStudentsSIC.contains(val)) {
             int i = mStudentsSIC.indexOf(val);
             et_userName.getEditText().setText(mStudentName.get(i));
             et_userName.setEnabled(false);
             // et_sic.setEnabled(false);
             return true;
-        }
-        else if(mStudentsmcaSIC.contains(val))
-        {
+        } else if (mStudentsmcaSIC.contains(val)) {
             int i = mStudentsmcaSIC.indexOf(val);
             et_userName.getEditText().setText(mStudentMCAName.get(i));
             et_userName.setEnabled(false);
             // et_sic.setEnabled(false);
             return true;
-        }
-        else if(mStudentsmscSIC.contains(val))
-        {
+        } else if (mStudentsmscSIC.contains(val)) {
             int i = mStudentsmscSIC.indexOf(val);
             et_userName.getEditText().setText(mStudentMSCName.get(i));
             et_userName.setEnabled(false);
             // et_sic.setEnabled(false);
             return true;
-        }
-
-        else if (val.isEmpty()) {
+        } else if (val.isEmpty()) {
             et_sic.setError("Field can not be empty");
             return false;
-        }
-        else{
+        } else {
             et_userName.setEnabled(true);
             return false;
         }
@@ -4965,6 +4948,7 @@ public class AddVolunteers extends AppCompatActivity {
             return true;
         }
     }
+
     private boolean validatePassword() {
         String val = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
