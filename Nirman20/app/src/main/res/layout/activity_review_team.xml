@@ -35,38 +35,17 @@ tools:targetApi="o">
         android:layout_gravity="center_horizontal"
         android:contentDescription="@null" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/two"
-        android:textAllCaps="true"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/astronaut"
-        android:layout_marginHorizontal="20dp"
-        android:textSize="30sp"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/white"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Review"
+            android:text="Review Co-Participants"
             android:autoSizeTextType="uniform"
             android:textColor="@color/white"
-            android:layout_marginLeft="135dp"
-            android:layout_marginVertical="25dp"
             android:layout_gravity="center_horizontal"
-            android:textSize="35sp"
-            android:fontFamily="@font/astronaut"
+            android:textSize="30sp"
+            android:textStyle="bold"
             tools:targetApi="o" />
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,21 +53,11 @@ tools:targetApi="o">
         android:layout_marginHorizontal="5dp"
         android:background="@drawable/bg_lower"
         android:orientation="vertical"
+        android:layout_marginTop="45dp"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Review"
-            android:autoSizeTextType="uniform"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/Primary"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp" />
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/four"
+            android:id="@+id/et_teamName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,33 +72,7 @@ tools:targetApi="o">
             app:hintTextColor="@color/black"
             app:startIconDrawable="@drawable/users_type"
             app:startIconTint="@color/black">
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/five"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Team Name"
-                android:textColorHint="@color/black"
-                app:boxStrokeColor="@color/black"
-                app:boxStrokeWidth="1dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/black"
-                app:expandedHintEnabled="false"
-                app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/users_type"
-                app:startIconTint="@color/black">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:hint="Give Review"
-                    android:inputType="textCapSentences"
-                    android:autoSizeTextType="uniform"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintBlack"
-                    android:textSize="20sp" />
-            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -140,60 +83,117 @@ tools:targetApi="o">
                 android:textColorHint="@color/hintBlack"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputEditText
+
+
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Innovation"
-            android:inputType="textCapCharacters"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hintBlack"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="How impressive is the problem statement Choosen"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
         <com.ramotion.fluidslider.FluidSlider
-                android:id="@+id/fluidSliderone"
-                android:layout_width="match_parent"
+            android:id="@+id/fluidSlider1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:elevation="2dp"
+            app:size="small"
+            app:duration="400"/>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Is the solution feasible to implement ?"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <com.ramotion.fluidslider.FluidSlider
+            android:id="@+id/fluidSlider2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:elevation="2dp"
+            app:size="small"
+            app:duration="400"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Is the idea ready for market? Did the team achieve the required Business Model?"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+        <com.ramotion.fluidslider.FluidSlider
+            android:id="@+id/fluidSlider3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:elevation="2dp"
+            app:size="small"
+            app:duration="400"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:elevation="2dp"
-                app:size="small"
-                app:duration="400"/>
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Approach to the problem"
-            android:inputType="textCapCharacters"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hintBlack"
-            android:textSize="20sp" />
-        <com.ramotion.fluidslider.FluidSlider
-            android:id="@+id/fluidSlidertwo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:elevation="2dp"
-            app:size="small"
-            app:duration="400"/>
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Technical Knowledge"
-            android:inputType="textCapCharacters"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hintBlack"
-            android:textSize="20sp" />
-        <com.ramotion.fluidslider.FluidSlider
-            android:id="@+id/fluidSliderthree"
+                android:layout_marginTop="20dp"
+                android:autoSizeTextType="uniform"
+                android:text="Suggestion"
+                android:textColor="@color/Primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="264dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="33dp"
+                android:background="@color/Primary" />
+
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_suggestion"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:elevation="2dp"
-            app:size="small"
-            app:duration="400"/>
+            android:layout_marginTop="20dp"
+            android:hint="Suggestion"
+            android:textColorHint="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:boxStrokeWidth="1dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:expandedHintEnabled="false"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_license"
+            app:startIconTint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:hint="Suggestion To The Team"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                android:autoSizeTextType="uniform"
+                android:textColorHint="@color/hintBlack"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
@@ -207,7 +207,6 @@ tools:targetApi="o">
             android:textStyle="bold"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
-
 
     </LinearLayout>
 

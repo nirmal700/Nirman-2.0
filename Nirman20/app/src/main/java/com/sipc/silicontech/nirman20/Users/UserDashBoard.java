@@ -1,5 +1,7 @@
 package com.sipc.silicontech.nirman20.Users;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,15 +27,29 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
+import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
+import com.sipc.silicontech.nirman20.Evaluators.HackNationEvaluation;
+import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class UserDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -40,12 +57,13 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    MaterialCardView mGenQR,btn_RequestHelp,btn_TodoList,btn_Suggestion;
+    MaterialCardView mGenQR,btn_RequestHelp,btn_TodoList,btn_Suggestion,btn_RateCoParticipant;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
     TextView user_Name,team_name,risk_level;
     View nav_headerView;
+    ProgressDialog progressDialog;
 
     TextView tv_date;
     TextClock tv_time;
@@ -54,7 +72,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     String phoneNo;
     String view_date= new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
     SessionManagerParticipant managerParticipant;
-    SessionManagerAdmin managerAdmin;
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -73,9 +90,17 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_RequestHelp = findViewById(R.id.btn_RequestHelp);
         btn_TodoList = findViewById(R.id.btn_TodoList);
         btn_Suggestion = findViewById(R.id.btn_Suggestion);
+        btn_RateCoParticipant = findViewById(R.id.btn_RateCoParticipant);
+
+        progressDialog = new ProgressDialog(UserDashBoard.this);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        progressDialog.dismiss();
+
 
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
-        managerAdmin = new SessionManagerAdmin(getApplicationContext());
         if (!isConnected(UserDashBoard.this)){
             showCustomDialog();
         }
@@ -122,6 +147,16 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), User_Suggestion.class));
+            }
+        });
+        btn_RateCoParticipant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isConnected(UserDashBoard.this)) {
+                    showCustomDialog();
+                } else {
+                    scanCode();
+                }
             }
         });
 
@@ -257,9 +292,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 managerParticipant.setParticipantLogin(false);
                 managerParticipant.setDetails("","","","","");
 
-                managerAdmin.setAdminLogin(false);
-                managerAdmin.setDetails("","","","","","");
-
                 //activity.finishAffinity();
                 dialog.dismiss();
 
@@ -282,7 +314,105 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         alert.show();
     }
 
+    private void scanCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(UserDashBoard.this); //Initialize intent integrator
 
+        intentIntegrator.setPrompt("For Flash Use Volume Up Key");  //Set Prompt text
+        intentIntegrator.setBeepEnabled(true);  //set beep
+        intentIntegrator.setCameraId(0);  //set Camera
+        intentIntegrator.setOrientationLocked(true);  //Locked Orientation
+        intentIntegrator.setCaptureActivity(QRCodeScanner.class);  //Set Capture Activity
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        intentIntegrator.initiateScan();  //Initiate Scan
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Initiate Intent Result
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+        //Check Condition
+        if (intentResult.getContents() != null && resultCode == RESULT_OK) {
+
+
+            String output = intentResult.getContents();
+
+            if (output.startsWith("Nirman 2.0")) {
+
+                try {
+                    String[] separated = output.split(":");
+
+                    String userDetails = separated[1];
+
+                    String decodedData = (String) decrypt(userDetails);
+
+                    String[] separateData = decodedData.split(":");
+                    String event = separateData[0];
+                    String name = separateData[1];
+                    String teamname = separateData[2];
+                    progressDialog.show();
+                    if(managerParticipant.getEventName().equals(event)){
+                        if(!(managerParticipant.getTeamName() .equals(teamname) )){
+                            progressDialog.dismiss();
+                            Intent mCoPart = new Intent(UserDashBoard.this, ReviewTeam.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            mCoPart.putExtra("mTeamName",teamname);
+                            startActivity(mCoPart);
+                            finish();
+                        }
+                        else {
+                            progressDialog.dismiss();
+                            Toast.makeText(this, "Can't Review Self!!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
+                    builder.setMessage("Wrong QR Code");
+                    builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
+                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                    builder.show();
+                }
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserDashBoard.this);
+                builder.setMessage("Wrong QR Code");
+                builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
+                builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+                builder.show();
+            }
+        } else {
+
+            Toast.makeText(getApplicationContext(), "You did not scan anything", Toast.LENGTH_SHORT).show();
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private Object decrypt(String userDetails) throws Exception {
+
+        SecretKeySpec key = generateKey(keyPass);
+        @SuppressLint("GetInstance") Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE, key);
+        byte[] decodeValue = android.util.Base64.decode(userDetails, android.util.Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodeValue);
+        return new String(decValue);
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private SecretKeySpec generateKey(String keyPass) throws Exception {
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = keyPass.getBytes(StandardCharsets.UTF_8);
+        digest.update(bytes, 0, bytes.length);
+        byte[] key = digest.digest();
+        return new SecretKeySpec(key, "AES");
+    }
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 

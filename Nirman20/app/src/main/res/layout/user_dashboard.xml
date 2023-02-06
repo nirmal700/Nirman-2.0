@@ -308,7 +308,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_CustomerProfile"
+                android:id="@+id/btn_RateCoParticipant"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"

@@ -16,11 +16,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.ramotion.fluidslider.FluidSlider;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.Suggestion;
 
 import java.util.Objects;
 
@@ -246,6 +249,12 @@ public class IdeateEvaluation extends AppCompatActivity {
                 progressDialog.show();
                 String sugg = et_suggestion.getEditText().getText().toString();
                 final double average = (double) (ev1+ev2+ev3+ev4+ev5)/60;
+                DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Robo Race").child(mTeamName).child("Suggestions");
+                String id = mSugDB.push().getKey();
+                if(sugg.length() >0 & id!=null){
+                    Suggestion suggestion = new Suggestion(mTeamName,mCollegeName,sugg,id,true,false,0L);
+                    mSugDB.child(id).setValue(suggestion);
+                }
                 mCollectionReference = FirebaseFirestore.getInstance().collection("Ideate Evaluation");
                 IdeateEvaluation_POJO ideateEvaluation_pojo = new IdeateEvaluation_POJO(mTeamName,mCollegeName,mProblemStat,mSugApp,sugg,managerEvaluator.getEvaluatorName(),ev1,ev2,ev3,ev4,ev5,average,null);
                 mCollectionReference.add(ideateEvaluation_pojo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
