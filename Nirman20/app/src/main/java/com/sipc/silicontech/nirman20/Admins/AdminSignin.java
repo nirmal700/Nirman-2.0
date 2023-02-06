@@ -1,24 +1,22 @@
 package com.sipc.silicontech.nirman20.Admins;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
@@ -34,17 +32,16 @@ import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class AdminSignin extends AppCompatActivity {
 
-    private TextInputLayout et_Sic, et_Password;
     Button mSignIn, mParticipant;
     ProgressDialog progressDialog;
-
     SessionManagerAdmin sessionManagerAdmin;
     String phoneNumber;
-
+    private TextInputLayout et_Sic, et_Password;
     private FirebaseAuth auth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
 
@@ -63,29 +60,21 @@ public class AdminSignin extends AppCompatActivity {
 
         sessionManagerAdmin = new SessionManagerAdmin(getApplicationContext());
 
-        mParticipant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UsersSignUp.class);
+        mParticipant.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), UsersSignUp.class);
 
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View, String>(findViewById(R.id.btn_backSignIn), "transition_signUp");
+            Pair[] pairs = new Pair[1];
+            pairs[0] = new Pair<View, String>(findViewById(R.id.btn_backSignIn), "transition_signUp");
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(AdminSignin.this, pairs);
-                    startActivity(intent, options.toBundle());
-                } else {
-                    finish();
-                }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(AdminSignin.this, pairs);
+                startActivity(intent, options.toBundle());
+            } else {
+                finish();
             }
         });
 
-        mSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SipcLogin();
-            }
-        });
+        mSignIn.setOnClickListener(view -> SipcLogin());
 
         //--------------- Internet Checking -----------
         if (!isConnected(AdminSignin.this)) {
@@ -111,8 +100,8 @@ public class AdminSignin extends AppCompatActivity {
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.setCancelable(false);
 
-        String _sic = et_Sic.getEditText().getText().toString().trim();
-        String _password = et_Password.getEditText().getText().toString().trim();
+        String _sic = Objects.requireNonNull(et_Sic.getEditText()).getText().toString().trim();
+        String _password = Objects.requireNonNull(et_Password.getEditText()).getText().toString().trim();
 
         Query checkUser = FirebaseDatabase.getInstance().getReference("SIPC").orderByChild("mSic").equalTo(_sic);
 
@@ -123,7 +112,7 @@ public class AdminSignin extends AppCompatActivity {
                     et_Sic.getEditText().setError(null);
                     String systemPassword = snapshot.child(_sic).child("Profile").child("mPassword").getValue(String.class);
 
-                    if (systemPassword.equals(_password)) {
+                    if (Objects.requireNonNull(systemPassword).equals(_password)) {
                         et_Sic.getEditText().setError(null);
                         String Name = snapshot.child(_sic).child("Profile").child("mName").getValue(String.class);
                         String AccessLev = snapshot.child(_sic).child("Profile").child("mAccessLevel").getValue(String.class);
@@ -134,8 +123,6 @@ public class AdminSignin extends AppCompatActivity {
                         sessionManagerAdmin.setAdminLogin(true);
                         sessionManagerAdmin.setDetails(Name, SIC, Password, AccessLev, UserRole, Phone);
 
-//                        startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-//                        finish();
                         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
                                 .setPhoneNumber(Phone)
                                 .setTimeout(60L, TimeUnit.SECONDS)
@@ -198,7 +185,7 @@ public class AdminSignin extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        String val = et_Password.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_Password.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()) {
             et_Password.setError("Field can not be empty");
@@ -218,18 +205,10 @@ public class AdminSignin extends AppCompatActivity {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AdminSignin.this);
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), AdminSignin.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), AdminSignin.class));
+                    finish();
                 });
         android.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();
