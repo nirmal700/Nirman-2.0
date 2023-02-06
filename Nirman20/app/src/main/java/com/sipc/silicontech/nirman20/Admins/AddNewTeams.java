@@ -3,7 +3,6 @@ package com.sipc.silicontech.nirman20.Admins;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,10 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -281,12 +277,9 @@ public class AddNewTeams extends AppCompatActivity {
                         mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(unused -> {
                             progressDialog.cancel();
                             Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
-                            }
+                        }).addOnFailureListener(e -> {
+                            progressDialog.cancel();
+                            Toast.makeText(AddNewTeams.this, "Failed! Try Again"+ e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
@@ -303,50 +296,38 @@ public class AddNewTeams extends AppCompatActivity {
                         mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> {
                             progressDialog.cancel();
                             Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(AddNewTeams.this, "Failed! Try Again"+ e, Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
-                                    progressDialog.dismiss();
-                                    startActivity(intent);
-                                    finish();
-                                }
+                        }).addOnFailureListener(e -> {
+                            progressDialog.cancel();
+                            Toast.makeText(AddNewTeams.this, "Failed! Try Again"+ e, Toast.LENGTH_SHORT).show();
+                        }).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                progressDialog.dismiss();
+                                startActivity(intent);
+                                finish();
                             }
                         });
                     }
                     else if(event.equals("HackNation"))
                     {
                         NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement,approach,clgname,teamleadname,teamleadph,mem1name,mem1phone,mem2name,mem2phone,mem3name,mem3phone,0,false);
-                        mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                progressDialog.cancel();
-                                Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
-                            }
+                        mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(unused -> {
+                            progressDialog.cancel();
+                            Log.e("TAG", "onSuccess: "+"Successfully Updated new team details" );
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 progressDialog.cancel();
-                                Toast.makeText(AddNewTeams.this, "Failed! Try Again"+e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddNewTeams.this, "Failed! Try Again"+ e, Toast.LENGTH_SHORT).show();
                             }
-                        }).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
-                                    progressDialog.dismiss();
-                                    startActivity(intent);
-                                    finish();
-                                }
+                        }).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(AddNewTeams.this, teamname+"Added Successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                progressDialog.dismiss();
+                                startActivity(intent);
+                                finish();
                             }
                         });
                     }
@@ -442,7 +423,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName1() {
-        if(mTeamLeadName.getEditText().getText().toString().length() <= 35 && mTeamLeadName.getEditText().getText().toString().length() >= 3 )
+        if(Objects.requireNonNull(mTeamLeadName.getEditText()).getText().toString().length() <= 35 && mTeamLeadName.getEditText().getText().toString().length() >= 3 )
         {
             mTeamLeadName.setError(null);
             return true;
@@ -455,7 +436,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName2() {
-        if(mMember1Name.getEditText().getText().toString().length() <= 35 && mMember1Name.getEditText().getText().toString().length() >= 3 )
+        if(Objects.requireNonNull(mMember1Name.getEditText()).getText().toString().length() <= 35 && mMember1Name.getEditText().getText().toString().length() >= 3 )
         {
             mMember1Name.setError(null);
             return true;
@@ -468,7 +449,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName3() {
-        if(mMember2Name.getEditText().getText().toString().length() <= 35 && mMember2Name.getEditText().getText().toString().length() >= 3 )
+        if(Objects.requireNonNull(mMember2Name.getEditText()).getText().toString().length() <= 35 && mMember2Name.getEditText().getText().toString().length() >= 3 )
         {
             mMember2Name.setError(null);
             return true;
@@ -481,7 +462,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidName4() {
-        if(mMember3Name.getEditText().getText().toString().length() <= 35 && mMember3Name.getEditText().getText().toString().length() >= 3)
+        if(Objects.requireNonNull(mMember3Name.getEditText()).getText().toString().length() <= 35 && mMember3Name.getEditText().getText().toString().length() >= 3)
         {
             mMember3Name.setError(null);
             return true;
@@ -555,18 +536,10 @@ public class AddNewTeams extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(AddNewTeams.this);
         builder.setMessage("Please connect to the internet")
                 //   .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),AddNewTeams.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(),AddNewTeams.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
