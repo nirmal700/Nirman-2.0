@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -27,7 +26,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -47,15 +45,14 @@ public class AdminDashboard extends AppCompatActivity {
     SessionManagerAdmin managerAdmin;
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    Boolean mCb1 = false, mCb2= false, mCb3= false, mCb4= false;
+    Boolean mCb1 = false, mCb2 = false, mCb3 = false, mCb4 = false;
     Button btCancel, btOk;
     CheckBox checkBox1, checkBox2, checkBox3, checkBox4;
-
-    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails,mFoodCoupoun,btn_AddressIssues;
+    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails, mFoodCoupoun, btn_AddressIssues;
     Dialog dialog;
-    private CollectionReference mCollectionReference;
-    String name,teamname,event;
+    String name, teamname, event;
     ProgressDialog progressDialog;
+    private CollectionReference mCollectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +64,10 @@ public class AdminDashboard extends AppCompatActivity {
         mAddNewTeams = findViewById(R.id.btn_AddNewTeams);
         btn_ViewTeamDetails = findViewById(R.id.btn_ViewTeams);
         mCheckIn = findViewById(R.id.btn_CheckIn);
-        mFoodCoupoun  = findViewById(R.id.btn_FoodCoupouns);
+        mFoodCoupoun = findViewById(R.id.btn_FoodCoupouns);
         btn_AddressIssues = findViewById(R.id.btn_AddressIssues);
 
-        mFoodCoupoun.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AdminDashboard.this, FoodCoupoun.class));
-            }
-        });
+        mFoodCoupoun.setOnClickListener(v -> startActivity(new Intent(AdminDashboard.this, FoodCoupoun.class)));
 
 
         progressDialog = new ProgressDialog(AdminDashboard.this);
@@ -84,7 +76,7 @@ public class AdminDashboard extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.dismiss();
-        
+
         dialog = new Dialog(AdminDashboard.this);
         dialog.setContentView(R.layout.id_alert_dialog);
         checkBox1 = dialog.findViewById(R.id.check_box1);
@@ -94,14 +86,11 @@ public class AdminDashboard extends AppCompatActivity {
         btCancel = dialog.findViewById(R.id.bt_cancel);
         btOk = dialog.findViewById(R.id.bt_ok);
 
-        mCheckIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isConnected(AdminDashboard.this)) {
-                    showCustomDialog();
-                } else {
-                    scanCode();
-                }
+        mCheckIn.setOnClickListener(v -> {
+            if (!isConnected(AdminDashboard.this)) {
+                showCustomDialog();
+            } else {
+                scanCode();
             }
         });
 
@@ -110,30 +99,10 @@ public class AdminDashboard extends AppCompatActivity {
         mUserRole.setText(managerAdmin.getUserRole());
         mName.setText(managerAdmin.getName());
 
-        mAddVolunteer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminDashboard.this, AddVolunteers.class));
-            }
-        });
-        btn_AddressIssues.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AdminDashboard.this, AddressIssues.class));
-            }
-        });
-        mAddNewTeams.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminDashboard.this, AddNewTeams.class));
-            }
-        });
-        btn_ViewTeamDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminDashboard.this, TeamDetails.class));
-            }
-        });
+        mAddVolunteer.setOnClickListener(view -> startActivity(new Intent(AdminDashboard.this, AddVolunteers.class)));
+        btn_AddressIssues.setOnClickListener(v -> startActivity(new Intent(AdminDashboard.this, AddressIssues.class)));
+        mAddNewTeams.setOnClickListener(view -> startActivity(new Intent(AdminDashboard.this, AddNewTeams.class)));
+        btn_ViewTeamDetails.setOnClickListener(view -> startActivity(new Intent(AdminDashboard.this, TeamDetails.class)));
 
 
     }
@@ -174,61 +143,38 @@ public class AdminDashboard extends AppCompatActivity {
                     String decodedData = (String) decrypt(userDetails);
 
                     String[] separateData = decodedData.split(":");
-                     event = separateData[0];
-                     name = separateData[1];
-                     teamname = separateData[2];
+                    event = separateData[0];
+                    name = separateData[1];
+                    teamname = separateData[2];
                     progressDialog.show();
                     mCollectionReference = FirebaseFirestore.getInstance().collection(event);
-                    mCollectionReference.document(teamname).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if(Boolean.FALSE.equals(documentSnapshot.getBoolean("mCheckedIn"))){
-                                progressDialog.dismiss();
-                                dialog.show();
-                            }
-                            else {
-                                progressDialog.dismiss();
-                                Toast.makeText(AdminDashboard.this, "Already Checked-In", Toast.LENGTH_SHORT).show();
-                            }
+                    mCollectionReference.document(teamname).get().addOnSuccessListener(documentSnapshot -> {
+                        if (Boolean.FALSE.equals(documentSnapshot.getBoolean("mCheckedIn"))) {
+                            progressDialog.dismiss();
+                            dialog.show();
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(AdminDashboard.this, "Already Checked-In", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    
-                    btCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.cancel();
-                        }
+
+                    btCancel.setOnClickListener(v -> dialog.cancel());
+                    btOk.setOnClickListener(v1 -> dialog.dismiss());
+                    checkBox2.setOnClickListener(v -> {
+                        mCb2 = checkBox2.isChecked();
+                        CheckIfAllChecked();
                     });
-                    btOk.setOnClickListener(v1 -> {
-                        dialog.dismiss();
+                    checkBox3.setOnClickListener(v -> {
+                        mCb3 = checkBox3.isChecked();
+                        CheckIfAllChecked();
                     });
-                    checkBox2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mCb2 = checkBox2.isChecked();
-                            CheckIfAllChecked();
-                        }
+                    checkBox4.setOnClickListener(v -> {
+                        mCb4 = checkBox4.isChecked();
+                        CheckIfAllChecked();
                     });
-                    checkBox3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mCb3 = checkBox3.isChecked();
-                            CheckIfAllChecked();
-                        }
-                    });
-                    checkBox4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mCb4 = checkBox4.isChecked();
-                            CheckIfAllChecked();
-                        }
-                    });
-                    checkBox1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mCb1 = checkBox1.isChecked();
-                            CheckIfAllChecked();
-                        }
+                    checkBox1.setOnClickListener(v -> {
+                        mCb1 = checkBox1.isChecked();
+                        CheckIfAllChecked();
                     });
 
                 } catch (Exception e) {
@@ -256,35 +202,31 @@ public class AdminDashboard extends AppCompatActivity {
     }
 
     private void CheckIfAllChecked() {
-        Log.e("2342", "CheckIfAllChecked: "+mCb1+" "+mCb2+" "+mCb3+" "+mCb4 );
+        Log.e("2342", "CheckIfAllChecked: " + mCb1 + " " + mCb2 + " " + mCb3 + " " + mCb4);
         if (mCb1 & mCb2 & mCb3 & mCb4) {
             btOk.setBackgroundColor(getResources().getColor(R.color.light_green));
             btOk.setEnabled(true);
-            btOk.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    mCollectionReference = FirebaseFirestore.getInstance().collection(event);
-                    progressDialog.show();
-                    mCollectionReference.document(teamname).update("mCheckedIn", true).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(AdminDashboard.this, "Success!", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            dialog.dismiss();
-                            checkBox1.setChecked(false);
-                            checkBox2.setChecked(false);
-                            checkBox3.setChecked(false);
-                            checkBox4.setChecked(false);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AdminDashboard.this, e.toString(), Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        }
-                    });
-                }
+            btOk.setOnClickListener(v -> {
+                mCollectionReference = FirebaseFirestore.getInstance().collection(event);
+                progressDialog.show();
+                mCollectionReference.document(teamname).update("mCheckedIn", true).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(AdminDashboard.this, "Success!", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        dialog.dismiss();
+                        checkBox1.setChecked(false);
+                        checkBox2.setChecked(false);
+                        checkBox3.setChecked(false);
+                        checkBox4.setChecked(false);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AdminDashboard.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
             });
         } else {
             btOk.setEnabled(false);
@@ -320,8 +262,7 @@ public class AdminDashboard extends AppCompatActivity {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AdminDashboard.this);
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
-                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
-                .setNegativeButton("Cancel", (dialog, which) -> {
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
                     startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
                     finish();
                 });
