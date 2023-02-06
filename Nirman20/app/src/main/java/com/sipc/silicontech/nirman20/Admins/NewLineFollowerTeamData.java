@@ -1,10 +1,10 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 public class NewLineFollowerTeamData {
-    String mEventParticipating,mTeamName,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
-    long mTotalTimeTaken,mTotal;
-    boolean mCheckedIn,mTimeOutTaken;
-    long mCheckPointCleared,mHandTouches,mBonus,mCheckPointSkipped,mPenalty;
+    String mEventParticipating, mTeamName, mCollegeName, mTeamLead, mTeamLeadPhone, mMem1Name, mMem1Phone, mMem2Name, mMem2Phone, mMem3Name, mMem3Phone;
+    long mTotalTimeTaken, mTotal;
+    boolean mCheckedIn, mTimeOutTaken;
+    long mCheckPointCleared, mHandTouches, mBonus, mCheckPointSkipped, mPenalty;
 
     public NewLineFollowerTeamData() {
     }
@@ -191,8 +191,6 @@ public class NewLineFollowerTeamData {
     public void setmPenalty(long mPenalty) {
         this.mPenalty = mPenalty;
     }
-
-
 
 
 }

@@ -1,7 +1,7 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 public class NewHackNationTeamData {
-    String mEventParticipating,mTeamName,mProblemStat,mApproach,mCollegeName,mTeamLead,mTeamLeadPhone,mMem1Name,mMem1Phone,mMem2Name,mMem2Phone,mMem3Name,mMem3Phone;
+    String mEventParticipating, mTeamName, mProblemStat, mApproach, mCollegeName, mTeamLead, mTeamLeadPhone, mMem1Name, mMem1Phone, mMem2Name, mMem2Phone, mMem3Name, mMem3Phone;
     double mFinalMark;
     boolean mCheckedIn;
 
