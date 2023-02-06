@@ -75,8 +75,8 @@ public class TeamDetails extends AppCompatActivity {
             mCollectionReference.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     list.clear();
+                    progressDialog.show();
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                        Log.e("TAG7009", "onComplete: " + documentSnapshot.getId() + "=>" + documentSnapshot.getData());
                         if (Objects.requireNonNull(documentSnapshot.getData().get("mEventParticipating")).toString().equals("Robo Race")) {
                             list.add(documentSnapshot.toObject(NewRoboRaceTeamData.class));
                         } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Line Follower")) {
@@ -89,6 +89,7 @@ public class TeamDetails extends AppCompatActivity {
                         recyclerView.setAdapter(multiViewAdapter);
                         multiViewAdapter.notifyDataSetChanged();
                     }
+                    progressDialog.dismiss();
                 } else {
                     list.clear();
                     multiViewAdapter.notifyDataSetChanged();

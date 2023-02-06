@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,26 +67,21 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.e("Fatal", "onCreateViewHolder:View Type " + viewType);
         if (viewType == 0) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_layout_hacknation, parent, false);
             HackNation holder = new HackNation(view);
-            Log.e("2255", "onCreateViewHolder: " + "HAckationCalled" + list.toString());
             return holder;
         } else if (viewType == 1) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_layout_ideate, parent, false);
             Ideate holder = new Ideate(view);
-            Log.e("2255", "onCreateViewHolder: " + "IdeatenCalled");
             return holder;
         } else if (viewType == 2) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_layout_roborace, parent, false);
             RoboRace holder = new RoboRace(view);
-            Log.e("2255", "onCreateViewHolder: " + "RoboRace Called");
             return holder;
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.team_layout_line_follower, parent, false);
             LineFollower holder = new LineFollower(view);
-            Log.e("2255", "onCreateViewHolder: " + "LineFollowerCalled");
             return holder;
         }
     }

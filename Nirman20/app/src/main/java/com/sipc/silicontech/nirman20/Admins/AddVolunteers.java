@@ -1,6 +1,7 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -35,6 +36,7 @@ public class AddVolunteers extends AppCompatActivity {
     ArrayList<String> mStudentMSCName;
     ArrayList<String> mStudentsmscSIC;
     AutoCompleteTextView autoCompleteUserType;
+    ProgressDialog progressDialog;
     Button mGen;
     ImageView btn_back;
     String mAccessLevel = "";
@@ -56,6 +58,13 @@ public class AddVolunteers extends AppCompatActivity {
         mGen = findViewById(R.id.btn_genID);
         et_userRole = findViewById(R.id.et_userRole);
         btn_back = findViewById(R.id.btn_backToSd);
+
+        progressDialog = new ProgressDialog(AddVolunteers.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        progressDialog.dismiss();
 
         mStudentMSCName = new ArrayList<>();
         mStudentsmscSIC = new ArrayList<>();
@@ -4763,7 +4772,7 @@ public class AddVolunteers extends AppCompatActivity {
                 } else if (charSequence.length() == 9) {
                     validateSIC();
                 } else {
-                    et_userName.getEditText().setText("");
+                    Objects.requireNonNull(et_userName.getEditText()).setText("");
                 }
             }
 
@@ -4810,8 +4819,7 @@ public class AddVolunteers extends AppCompatActivity {
         //positive YES button
         builder.setPositiveButton("YES", (dialog, which) -> {
 
-            //activity.finishAffinity();
-            // dialog.dismiss();
+            progressDialog.show();
             SIC = Objects.requireNonNull(et_sic.getEditText()).getText().toString();
             mName = Objects.requireNonNull(et_userName.getEditText()).getText().toString();
             mPassword = Objects.requireNonNull(et_password.getEditText()).getText().toString();
@@ -4824,6 +4832,7 @@ public class AddVolunteers extends AppCompatActivity {
             reference.child(SIC).child("mPhoneNo").setValue(mPhoneNo);
             reference.child(SIC).child("mSic").setValue(SIC);
             Toast.makeText(AddVolunteers.this, "User created Successfully", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
 
 
             //Finish Activity

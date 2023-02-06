@@ -3,14 +3,12 @@ package com.sipc.silicontech.nirman20.Admins;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -155,7 +153,6 @@ public class FoodCoupoun extends AppCompatActivity {
                     e.printStackTrace();
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoodCoupoun.this);
                     builder.setMessage("Wrong QR Code1");
-                    Log.e("2324", "onActivityResult: " + e);
                     builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
                     builder.setNegativeButton("Cancel", (dialog, which) -> {
                         dialog.dismiss();
