@@ -60,14 +60,10 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (list.get(position) instanceof NewHackNationTeamData)
-            return 0;
-        else if (list.get(position) instanceof NewIdeateTeamData)
-            return 1;
-        else if (list.get(position) instanceof NewRoboRaceTeamData)
-            return 2;
-        else
-            return 3;
+        if (list.get(position) instanceof NewHackNationTeamData) return 0;
+        else if (list.get(position) instanceof NewIdeateTeamData) return 1;
+        else if (list.get(position) instanceof NewRoboRaceTeamData) return 2;
+        else return 3;
     }
 
     @NonNull
@@ -141,8 +137,7 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                     try {
                         String dail = "tel:" + hackNationTeamData.getmTeamLeadPhone();
                         context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     Toast.makeText(context, "Contact " + hackNationTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
@@ -202,8 +197,7 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                     try {
                         String dail = "tel:" + ideateTeamData.getmTeamLeadPhone();
                         context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     Toast.makeText(context, "Contact " + ideateTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
@@ -264,8 +258,7 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                     try {
                         String dail = "tel:" + roboRaceTeamData.getmTeamLeadPhone();
                         context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     Toast.makeText(context, "Contact " + roboRaceTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
@@ -328,8 +321,7 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                     try {
                         String dail = "tel:" + lineFollowerTeamData.getmTeamLeadPhone();
                         context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     Toast.makeText(context, "Contact " + lineFollowerTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
@@ -398,8 +390,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         private final TextView mApproach;
         private final TextView mFinalMark;
         private final TextView mCheckinStatus;
-        private Button mCall;
-        private ImageView mWhatsApp;
+        private final Button mCall;
+        private final ImageView mWhatsApp;
 
         public HackNation(@NonNull View itemView) {
             super(itemView);
@@ -431,8 +423,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         private final TextView mApproach;
         private final TextView mFinalMark;
         private final TextView mCheckinStatus;
-        private Button mCall;
-        private ImageView mWhatsApp;
+        private final Button mCall;
+        private final ImageView mWhatsApp;
 
         public Ideate(@NonNull View itemView) {
             super(itemView);
@@ -467,8 +459,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         private final TextView mCheckPointsSkipped;
         private final TextView mTotalTimeTaken;
         private final TextView mTotal;
-        private Button mCall;
-        private ImageView mWhatsApp;
+        private final Button mCall;
+        private final ImageView mWhatsApp;
 
         public RoboRace(@NonNull View itemView) {
             super(itemView);
@@ -507,8 +499,8 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
         private final TextView mCheckPointsSkipped;
         private final TextView mTotalTimeTaken;
         private final TextView mTotal;
-        private Button mCall;
-        private ImageView mWhatsApp;
+        private final Button mCall;
+        private final ImageView mWhatsApp;
 
         public LineFollower(@NonNull View itemView) {
             super(itemView);

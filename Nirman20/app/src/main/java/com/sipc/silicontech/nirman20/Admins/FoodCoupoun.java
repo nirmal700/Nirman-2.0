@@ -25,7 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
@@ -43,7 +42,6 @@ public class FoodCoupoun extends AppCompatActivity {
     String keyPass = "Nirman@2023-SIPC";
     String name, teamname, event;
     ProgressDialog progressDialog;
-    private CollectionReference mCollectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,12 +111,9 @@ public class FoodCoupoun extends AppCompatActivity {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(FoodCoupoun.this);
                                 builder.setMessage("Participant Already Availed Food ");
                                 builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
-                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
-                                    }
+                                builder.setNegativeButton("Cancel", (dialog, which) -> {
+                                    dialog.dismiss();
+                                    startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
                                 });
                                 builder.show();
                                 Toast.makeText(FoodCoupoun.this, "This User already Availed Food", Toast.LENGTH_LONG).show();
@@ -139,17 +134,9 @@ public class FoodCoupoun extends AppCompatActivity {
                                 builder.setMessage("Read Successfully" + "\n" + "Team Name: " + teamname + "\n" + "Participant Name: " + name + "\n" + "Event Name: " + event + "\n");
 
                                 //set Positive Button
-                                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        scanCode();
-                                    }
-                                }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
-                                    }
+                                builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode()).setNegativeButton("OK", (dialog, which) -> {
+                                    dialog.dismiss();
+                                    startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
                                 });
 
                                 //Show Alert Dialog
@@ -170,12 +157,9 @@ public class FoodCoupoun extends AppCompatActivity {
                     builder.setMessage("Wrong QR Code1");
                     Log.e("2324", "onActivityResult: " + e);
                     builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
-                        }
+                    builder.setNegativeButton("Cancel", (dialog, which) -> {
+                        dialog.dismiss();
+                        startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
                     });
                     builder.show();
                 }
@@ -183,12 +167,9 @@ public class FoodCoupoun extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(FoodCoupoun.this);
                 builder.setMessage("Wrong QR Code2");
                 builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
-                    }
+                builder.setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                    startActivity(new Intent(FoodCoupoun.this, AdminDashboard.class));
                 });
                 builder.show();
             }
