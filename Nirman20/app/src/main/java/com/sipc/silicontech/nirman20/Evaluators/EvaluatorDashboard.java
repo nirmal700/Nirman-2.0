@@ -222,8 +222,7 @@ public class EvaluatorDashboard extends AppCompatActivity {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(EvaluatorDashboard.this);
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
-                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
-                .setNegativeButton("Cancel", (dialog, which) -> {
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
                     startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
                     finish();
                 });
