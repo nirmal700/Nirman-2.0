@@ -5,16 +5,15 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Date;
 
 public class Help {
-    boolean IsResolved;
-    String mDescription, mIssueType,mTeamname,mEvent,mName,mPhoneNo,mResolvedby;
-    @ServerTimestamp
-    Date mUpdatedTime;
+    boolean isResolved;
+    String mDescription, mIssueType,mTeamname,mEvent,mName,mPhoneNo,mResolvedby,mId;
+
 
     public Help() {
     }
 
-    public Help(boolean isResolved, String mDescription, String mIssueType, String mTeamname, String mEvent, String mName, String mPhoneNo, String mResolvedby, Date mUpdatedTime) {
-        IsResolved = isResolved;
+    public Help(boolean isResolved, String mDescription, String mIssueType, String mTeamname, String mEvent, String mName, String mPhoneNo, String mResolvedby,String mId) {
+        this.isResolved = isResolved;
         this.mDescription = mDescription;
         this.mIssueType = mIssueType;
         this.mTeamname = mTeamname;
@@ -22,15 +21,15 @@ public class Help {
         this.mName = mName;
         this.mPhoneNo = mPhoneNo;
         this.mResolvedby = mResolvedby;
-        this.mUpdatedTime = mUpdatedTime;
+        this.mId = mId;
     }
 
     public boolean isResolved() {
-        return IsResolved;
+        return isResolved;
     }
 
     public void setResolved(boolean resolved) {
-        IsResolved = resolved;
+        isResolved = resolved;
     }
 
     public String getmDescription() {
@@ -89,11 +88,12 @@ public class Help {
         this.mResolvedby = mResolvedby;
     }
 
-    public Date getmUpdatedTime() {
-        return mUpdatedTime;
+    public String getmId() {
+        return mId;
     }
 
-    public void setmUpdatedTime(Date mUpdatedTime) {
-        this.mUpdatedTime = mUpdatedTime;
+    public void setmId(String mId) {
+        this.mId = mId;
     }
+
 }

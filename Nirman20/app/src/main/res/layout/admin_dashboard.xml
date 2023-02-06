@@ -322,7 +322,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_mapFind1"
+                    android:id="@+id/btn_AddressIssues"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_margin="10dp"
@@ -351,9 +351,9 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="20dp"
                             android:autoSizeTextType="uniform"
-                            android:textAlignment="center"
                             android:fontFamily="@font/my_fav_sans_number"
-                            android:text="@string/check_leaderboard"
+                            android:text="Address Issues"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
