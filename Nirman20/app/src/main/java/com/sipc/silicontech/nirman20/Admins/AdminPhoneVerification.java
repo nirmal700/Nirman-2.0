@@ -1,8 +1,5 @@
 package com.sipc.silicontech.nirman20.Admins;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -20,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -34,11 +34,11 @@ public class AdminPhoneVerification extends AppCompatActivity {
     Button btn_signIn;
     TextView tv_phoneNo;
     ImageView btn_back;
-    String phoneNumber,getOtp;
+    String phoneNumber, getOtp;
 
     SessionManagerAdmin managerAdmin;
 
-    private TextView btn_resend,tv_counter,tv_resend;
+    private TextView btn_resend, tv_counter, tv_resend;
     private EditText et_otp;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
@@ -63,7 +63,7 @@ public class AdminPhoneVerification extends AppCompatActivity {
         btn_resend.setVisibility(View.INVISIBLE);
         tv_resend.setVisibility(View.INVISIBLE);
 
-        if (!isConnected(AdminPhoneVerification.this)){
+        if (!isConnected(AdminPhoneVerification.this)) {
             showCustomDialog();
         }
         managerAdmin = new SessionManagerAdmin(getApplicationContext());
@@ -76,49 +76,46 @@ public class AdminPhoneVerification extends AppCompatActivity {
             finish();
         });
         CountTimer();
-        btn_signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_signIn.setOnClickListener(v -> {
 
-                if (!validateOtp()) {
-                    return;
-                }
-                //Initialize ProgressDialog
-                progressDialog = new ProgressDialog(AdminPhoneVerification.this);
-                progressDialog.show();
-                progressDialog.setCancelable(false);
-                progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            if (!validateOtp()) {
+                return;
+            }
+            //Initialize ProgressDialog
+            progressDialog = new ProgressDialog(AdminPhoneVerification.this);
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                String enteredOtp = et_otp.getText().toString();
+            String enteredOtp = et_otp.getText().toString();
 
-                /*                if(getOtp != null){
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                nodeId = String.valueOf(node+1000);
-            */
+            /*                if(getOtp != null){
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
+                FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            nodeId = String.valueOf(node+1000);
+        */
 
-                if (getOtp != null) {
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
+            if (getOtp != null) {
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);
+                FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
 
-                            startActivity(new Intent(getApplicationContext(), AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                            finish();
+                        startActivity(new Intent(getApplicationContext(), AdminDashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                        finish();
 
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(AdminPhoneVerification.this, "Error occur", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(AdminPhoneVerification.this, "Error occur", Toast.LENGTH_SHORT).show();
+                    }
 
-                    });
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(AdminPhoneVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
-                }
+                });
+            } else {
+                progressDialog.dismiss();
+                Toast.makeText(AdminPhoneVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
             }
         });
         btn_resend.setOnClickListener(v -> {
@@ -166,10 +163,10 @@ public class AdminPhoneVerification extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 long counter = millisUntilFinished / 1000;
-                tv_counter.setText( counter + " Sec");
-                if (counter<=15){
+                tv_counter.setText(counter + " Sec");
+                if (counter <= 15) {
                     tv_counter.setTextColor(getResources().getColor(R.color.light_red));
-                }else {
+                } else {
                     tv_counter.setTextColor(getResources().getColor(R.color.light_green));
                 }
             }
@@ -183,6 +180,7 @@ public class AdminPhoneVerification extends AppCompatActivity {
 
         }.start();
     }
+
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 
@@ -212,6 +210,7 @@ public class AdminPhoneVerification extends AppCompatActivity {
         alertDialog.show();
 
     }
+
     //--------------- Check Internet Is Connected -----------
     private boolean isConnected(AdminPhoneVerification verification) {
 
@@ -225,13 +224,13 @@ public class AdminPhoneVerification extends AppCompatActivity {
 
     }
 
-    private boolean validateOtp(){
+    private boolean validateOtp() {
         String val = et_otp.getText().toString().trim();
 
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             et_otp.setError("Field can not be empty");
             return false;
-        }else {
+        } else {
             et_otp.setError(null);
             return true;
         }
