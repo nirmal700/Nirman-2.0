@@ -1,7 +1,7 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 public class Food_POJO {
-    String mParticipantName,mPhoneNumber,mTeamName;
+    String mParticipantName, mPhoneNumber, mTeamName;
     Boolean mFoodAvailed;
 
     public Food_POJO() {
