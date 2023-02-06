@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +19,6 @@ import com.sipc.silicontech.nirman20.R;
 import java.util.Objects;
 
 import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 public class ReviewTeam extends AppCompatActivity {
     String mTeamName;
@@ -68,20 +66,14 @@ public class ReviewTeam extends AppCompatActivity {
         final int min3 = 0;
         final int total3 = max3 - min3;
 
-        slider1.setBeginTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView1.setVisibility(View.INVISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider1.setBeginTrackingListener(() -> {
+            textView1.setVisibility(View.INVISIBLE);
+            return Unit.INSTANCE;
         });
 
-        slider1.setEndTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView1.setVisibility(View.VISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider1.setEndTrackingListener(() -> {
+            textView1.setVisibility(View.VISIBLE);
+            return Unit.INSTANCE;
         });
 
         // Java 8 lambda
@@ -97,20 +89,14 @@ public class ReviewTeam extends AppCompatActivity {
         slider1.setEndText(String.valueOf(max1));
 
 
-        slider2.setBeginTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView2.setVisibility(View.INVISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider2.setBeginTrackingListener(() -> {
+            textView2.setVisibility(View.INVISIBLE);
+            return Unit.INSTANCE;
         });
 
-        slider2.setEndTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView2.setVisibility(View.VISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider2.setEndTrackingListener(() -> {
+            textView2.setVisibility(View.VISIBLE);
+            return Unit.INSTANCE;
         });
 
         // Java 8 lambda
@@ -125,20 +111,14 @@ public class ReviewTeam extends AppCompatActivity {
         slider2.setStartText(String.valueOf(min2));
         slider2.setEndText(String.valueOf(max2));
 
-        slider3.setBeginTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView3.setVisibility(View.INVISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider3.setBeginTrackingListener(() -> {
+            textView3.setVisibility(View.INVISIBLE);
+            return Unit.INSTANCE;
         });
 
-        slider3.setEndTrackingListener(new Function0<Unit>() {
-            @Override
-            public Unit invoke() {
-                textView3.setVisibility(View.VISIBLE);
-                return Unit.INSTANCE;
-            }
+        slider3.setEndTrackingListener(() -> {
+            textView3.setVisibility(View.VISIBLE);
+            return Unit.INSTANCE;
         });
 
         // Java 8 lambda
@@ -154,29 +134,23 @@ public class ReviewTeam extends AppCompatActivity {
         slider3.setEndText(String.valueOf(max3));
 
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String sugg = et_suggestion.getEditText().getText().toString();
-                if (sugg.isEmpty()) {
-                    Toast.makeText(ReviewTeam.this, "Fill the Suggestion!", Toast.LENGTH_SHORT).show();
-                } else {
-                    progressDialog.show();
-                    DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(managerParticipant.getEventName()).child(mTeamName).child("Suggestions");
-                    String id = mSugDB.push().getKey();
-                    final int average = (ev1 + ev2 + ev3) / 4;
-                    if (id != null) {
-                        Suggestion suggestion = new Suggestion(mTeamName, "", sugg, id, false, true, average);
-                        mSugDB.child(id).setValue(suggestion).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                progressDialog.dismiss();
-                                Toast.makeText(ReviewTeam.this, "Thanks!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
-                                finish();
-                            }
-                        });
-                    }
+        next.setOnClickListener(v -> {
+            String sugg = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
+            if (sugg.isEmpty()) {
+                Toast.makeText(ReviewTeam.this, "Fill the Suggestion!", Toast.LENGTH_SHORT).show();
+            } else {
+                progressDialog.show();
+                DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(managerParticipant.getEventName()).child(mTeamName).child("Suggestions");
+                String id = mSugDB.push().getKey();
+                final int average = (ev1 + ev2 + ev3) / 4;
+                if (id != null) {
+                    Suggestion suggestion = new Suggestion(mTeamName, "", sugg, id, false, true, average);
+                    mSugDB.child(id).setValue(suggestion).addOnSuccessListener(unused -> {
+                        progressDialog.dismiss();
+                        Toast.makeText(ReviewTeam.this, "Thanks!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+                        finish();
+                    });
                 }
             }
         });

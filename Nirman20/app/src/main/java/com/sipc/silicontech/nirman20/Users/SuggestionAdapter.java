@@ -1,7 +1,6 @@
 package com.sipc.silicontech.nirman20.Users;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoAdapter;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoModel;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -39,7 +34,7 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.Su
     @NonNull
     @Override
     public SuggestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.list_suggestion,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.list_suggestion, parent, false);
         return new SuggestionViewHolder(v);
 
     }
@@ -53,52 +48,41 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.Su
         SessionManagerParticipant managerParticipant = new SessionManagerParticipant(mContext.getApplicationContext());
         String teamname = managerParticipant.getTeamName();
         String event = managerParticipant.getEventName();
-        holder.btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        holder.btn_delete.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                builder.setTitle("Confirm");
-                builder.setMessage("Are you sure?");
+            builder.setTitle("Confirm");
+            builder.setMessage("Are you sure?");
 
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("YES", (dialog, which) -> {
 
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        String idUpdate = suggestion.getmId();
-                        FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(event).child(teamname).child("Suggestions").child(idUpdate)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        snapshot.getRef().removeValue();
-                                        notifyDataSetChanged();
-                                        Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-
-                        dialog.dismiss();
+                String idUpdate = suggestion.getmId();
+                FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(event).child(teamname).child("Suggestions").child(idUpdate).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().removeValue();
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
                     }
-                });
-
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        // Do nothing
-                        dialog.dismiss();
                     }
                 });
 
-                AlertDialog alert = builder.create();
-                alert.show();
+                dialog.dismiss();
+            });
 
-            }
+            builder.setNegativeButton("NO", (dialog, which) -> {
+
+                // Do nothing
+                dialog.dismiss();
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
         });
 
     }
@@ -108,8 +92,8 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.Su
         return mSuggestion.size();
     }
 
-    public class SuggestionViewHolder extends RecyclerView.ViewHolder{
-        TextView mTextSuggestion,mTagLine;
+    public static class SuggestionViewHolder extends RecyclerView.ViewHolder {
+        TextView mTextSuggestion, mTagLine;
         Button btn_delete;
 
         public SuggestionViewHolder(@NonNull View itemView) {

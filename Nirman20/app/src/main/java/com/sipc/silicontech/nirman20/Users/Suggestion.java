@@ -1,14 +1,14 @@
 package com.sipc.silicontech.nirman20.Users;
 
 public class Suggestion {
-    String mTeamName,mCollegeName,mSuggestion,mId;
-    Boolean isEvaluatorSug,isParticipantSug;
+    String mTeamName, mCollegeName, mSuggestion, mId;
+    Boolean isEvaluatorSug, isParticipantSug;
     long mAvg;
 
     public Suggestion() {
     }
 
-    public Suggestion(String mTeamName, String mCollegeName, String mSuggestion,String mId, Boolean isEvaluatorSug, Boolean isParticipantSug, long mAvg) {
+    public Suggestion(String mTeamName, String mCollegeName, String mSuggestion, String mId, Boolean isEvaluatorSug, Boolean isParticipantSug, long mAvg) {
         this.mTeamName = mTeamName;
         this.mCollegeName = mCollegeName;
         this.mSuggestion = mSuggestion;

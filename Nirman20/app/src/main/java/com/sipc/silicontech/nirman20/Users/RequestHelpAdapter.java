@@ -1,7 +1,6 @@
 package com.sipc.silicontech.nirman20.Users;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoAdapter;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoModel;
 
 import java.util.List;
 
@@ -35,7 +32,7 @@ public class RequestHelpAdapter extends RecyclerView.Adapter<RequestHelpAdapter.
     @NonNull
     @Override
     public RequestHelpViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.list_help,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.list_help, parent, false);
         return new RequestHelpViewHolder(v);
     }
 
@@ -46,53 +43,42 @@ public class RequestHelpAdapter extends RecyclerView.Adapter<RequestHelpAdapter.
         holder.mDesc.setText(help.getmDescription());
         SessionManagerParticipant managerUser;
         managerUser = new SessionManagerParticipant(mContext.getApplicationContext());
-        holder.mDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.mDelete.setOnClickListener(v -> {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                builder.setTitle("Confirm");
-                builder.setMessage("Are you sure?");
+            builder.setTitle("Confirm");
+            builder.setMessage("Are you sure?");
 
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("YES", (dialog, which) -> {
 
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        String idUpdate = help.getmId();
-                        FirebaseDatabase.getInstance().getReference("EventIssues").child(managerUser.getEventName()).child(managerUser.getTeamName()).child("Issues").child(idUpdate)
-                                .addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        snapshot.getRef().removeValue();
-                                        notifyDataSetChanged();
-                                        Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-
-                        dialog.dismiss();
+                String idUpdate = help.getmId();
+                FirebaseDatabase.getInstance().getReference("EventIssues").child(managerUser.getEventName()).child(managerUser.getTeamName()).child("Issues").child(idUpdate).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().removeValue();
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
                     }
-                });
-
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        // Do nothing
-                        dialog.dismiss();
                     }
                 });
 
-                AlertDialog alert = builder.create();
-                alert.show();
+                dialog.dismiss();
+            });
 
-            }
+            builder.setNegativeButton("NO", (dialog, which) -> {
+
+                // Do nothing
+                dialog.dismiss();
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
         });
 
     }
@@ -102,9 +88,10 @@ public class RequestHelpAdapter extends RecyclerView.Adapter<RequestHelpAdapter.
         return mHelp.size();
     }
 
-    public class RequestHelpViewHolder extends RecyclerView.ViewHolder {
-        TextView mTag,mDesc;
+    public static class RequestHelpViewHolder extends RecyclerView.ViewHolder {
+        TextView mTag, mDesc;
         Button mDelete;
+
         public RequestHelpViewHolder(@NonNull View itemView) {
             super(itemView);
             mTag = itemView.findViewById(R.id.tv_Tag);
