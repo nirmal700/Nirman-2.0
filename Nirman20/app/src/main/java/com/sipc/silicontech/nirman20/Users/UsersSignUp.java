@@ -1,8 +1,5 @@
 package com.sipc.silicontech.nirman20.Users;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -25,6 +22,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -55,7 +55,7 @@ public class UsersSignUp extends AppCompatActivity {
     ImageView bckBtn;
     Button next, login;
     TextView title;
-    AutoCompleteTextView mEventType,mTeam,mParticipants;
+    AutoCompleteTextView mEventType, mTeam, mParticipants;
     NewHackNationTeamData teamData;
     ArrayList<String> arrayListPartcipantTeamName;
     ArrayAdapter<String> arrayAdapterPartcipantTeamName;
@@ -63,7 +63,7 @@ public class UsersSignUp extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterPartcipantNames;
     ProgressDialog progressDialog;
     TextInputLayout et_password;
-    String phone,password,teamname,event,participantName;
+    String phone, teamname, event, participantName;
     private FirebaseAuth auth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
 
@@ -101,7 +101,7 @@ public class UsersSignUp extends AppCompatActivity {
         mEventType.setAdapter(arrayAdapterEventType);
 
         //--------------- Internet Checking -----------
-        if (!isConnected(UsersSignUp.this)){
+        if (!isConnected(UsersSignUp.this)) {
             showCustomDialog();
         }
 
@@ -111,137 +111,117 @@ public class UsersSignUp extends AppCompatActivity {
                 mTeam.setText("Select Team Name");
                 mParticipants.setText("Select Your Name");
                 progressDialog.show();
-                CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(arrayAdapterEventType.getItem(i).toString());
-                event = arrayAdapterEventType.getItem(i).toString();
+                CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(arrayAdapterEventType.getItem(i));
+                event = arrayAdapterEventType.getItem(i);
                 mCollectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         progressDialog.cancel();
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             arrayListPartcipantTeamName = new ArrayList<>();
                             arrayAdapterPartcipantTeamName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantTeamName);
-                            for(QueryDocumentSnapshot document : task.getResult())
-                            {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
                                 teamData = document.toObject(NewHackNationTeamData.class);
-                                Log.e("TAG", "onComplete: "+document.getId() +"=>"+document.getData() );
+                                Log.e("TAG", "onComplete: " + document.getId() + "=>" + document.getData());
                                 arrayListPartcipantTeamName.add(teamData.getmTeamName());
                                 arrayAdapterPartcipantTeamName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantTeamName);
                                 mTeam.setAdapter(arrayAdapterPartcipantTeamName);
                             }
-                            mTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    mParticipants.setText("Select Your Name");
-                                    arrayListPartcipantNames = new ArrayList<>();
-                                    arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(),R.layout.text_menu,arrayListPartcipantNames);
-                                    for(QueryDocumentSnapshot documentSnapshot : task.getResult())
-                                    {
-                                        teamData = documentSnapshot.toObject(NewHackNationTeamData.class);
-                                        if(teamData.getmTeamName() == arrayAdapterPartcipantTeamName.getItem(i))
-                                        {
-                                            teamname = arrayAdapterPartcipantTeamName.getItem(i).toString();
-                                            arrayListPartcipantNames.add(teamData.getmTeamLead());
-                                            arrayListPartcipantNames.add(teamData.getmMem1Name());
-                                            arrayListPartcipantNames.add(teamData.getmMem2Name());
-                                            if(!(teamData.getmMem3Name().length() <1))
-                                            {
-                                                arrayListPartcipantNames.add(teamData.getmMem3Name());
+                            mTeam.setOnItemClickListener((adapterView1, view1, i1, l1) -> {
+                                mParticipants.setText("Select Your Name");
+                                arrayListPartcipantNames = new ArrayList<>();
+                                arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantNames);
+                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                    teamData = documentSnapshot.toObject(NewHackNationTeamData.class);
+                                    if (teamData.getmTeamName().equals(arrayAdapterPartcipantTeamName.getItem(i1))) {
+                                        teamname = arrayAdapterPartcipantTeamName.getItem(i1);
+                                        arrayListPartcipantNames.add(teamData.getmTeamLead());
+                                        arrayListPartcipantNames.add(teamData.getmMem1Name());
+                                        arrayListPartcipantNames.add(teamData.getmMem2Name());
+                                        if (!(teamData.getmMem3Name().length() < 1)) {
+                                            arrayListPartcipantNames.add(teamData.getmMem3Name());
+                                        }
+                                        arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListPartcipantNames);
+                                        mParticipants.setAdapter(arrayAdapterPartcipantNames);
+                                        Log.e("TAG", "onItemClick: " + arrayListPartcipantNames.toString());
+                                    }
+                                }
+                            });
+                            mParticipants.setOnItemClickListener((adapterView12, view12, i12, l12) -> {
+                                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                                    teamData = documentSnapshot.toObject(NewHackNationTeamData.class);
+                                    participantName = arrayAdapterPartcipantNames.getItem(i12);
+                                    if (teamData.getmTeamLead().equals(arrayAdapterPartcipantNames.getItem(i12))) {
+                                        phone = "+91" + teamData.getmTeamLeadPhone();
+                                        Log.e("TAG phone1", "onItemClick: " + phone);
+                                    } else if (teamData.getmMem1Name().equals(arrayAdapterPartcipantNames.getItem(i12))) {
+                                        phone = "+91" + teamData.getmMem1Phone();
+                                        Log.e("TAG phone2", "onItemClick: " + phone);
+                                    } else if (teamData.getmMem2Name().equals(arrayAdapterPartcipantNames.getItem(i12))) {
+                                        phone = "+91" + teamData.getmMem2Phone();
+                                        Log.e("TAG phone3", "onItemClick: " + phone);
+                                    } else if (teamData.getmMem3Name().equals(arrayAdapterPartcipantNames.getItem(i12))) {
+                                        phone = "+91" + teamData.getmMem3Phone();
+                                        Log.e("TAG phone4", "onItemClick: " + phone);
+                                    }
+                                }
+                            });
+                            next.setOnClickListener(view13 -> {
+                                if (!validatePassword() | (teamname.length() < 1) | (event.length() < 3) | (participantName.length() < 3) | (phone.length() < 9)) {
+                                    Toast.makeText(UsersSignUp.this, "Invalid Inputs", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                progressDialog = new ProgressDialog(UsersSignUp.this);
+                                progressDialog.show();
+                                progressDialog.setContentView(R.layout.progress_dialog);
+                                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                                progressDialog.setCancelable(false);
+
+                                String phoneNo = phone.substring(3);
+                                if (!phoneNo.isEmpty()) {
+                                    if (phoneNo.length() == 10) {
+
+                                        Query checkUser = FirebaseDatabase.getInstance().getReference("Participants").child(event).orderByChild("mPhoneNo").equalTo(phone);
+
+                                        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                if (snapshot.exists()) {
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(UsersSignUp.this, "This User already Exist  Please Login", Toast.LENGTH_LONG).show();
+
+                                                } else {
+
+                                                    PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
+                                                            .setPhoneNumber(phone)
+                                                            .setTimeout(60L, TimeUnit.SECONDS)
+                                                            .setActivity(UsersSignUp.this)
+                                                            .setCallbacks(mCallBacks)
+                                                            .build();
+                                                    PhoneAuthProvider.verifyPhoneNumber(options);
+
+                                                }
                                             }
-                                            arrayAdapterPartcipantNames = new ArrayAdapter<>(getApplicationContext(),R.layout.text_menu,arrayListPartcipantNames);
-                                            mParticipants.setAdapter(arrayAdapterPartcipantNames);
-                                            Log.e("TAG", "onItemClick: "+arrayListPartcipantNames.toString() );
-                                        }
-                                    } 
-                                }
-                            });
-                            mParticipants.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    for(QueryDocumentSnapshot documentSnapshot :task.getResult())
-                                    {
-                                        teamData = documentSnapshot.toObject(NewHackNationTeamData.class);
-                                        participantName = arrayAdapterPartcipantNames.getItem(i).toString();
-                                        if(teamData.getmTeamLead() == arrayAdapterPartcipantNames.getItem(i).toString())
-                                        {
-                                            phone = "+91"+teamData.getmTeamLeadPhone().toString();
-                                            Log.e("TAG phone1", "onItemClick: "+phone );
-                                        }
-                                        else if(teamData.getmMem1Name() == arrayAdapterPartcipantNames.getItem(i).toString()){
-                                            phone = "+91"+teamData.getmMem1Phone().toString();
-                                            Log.e("TAG phone2", "onItemClick: "+phone );
-                                        }
-                                        else if(teamData.getmMem2Name() == arrayAdapterPartcipantNames.getItem(i).toString()){
-                                            phone = "+91"+teamData.getmMem2Phone().toString();
-                                            Log.e("TAG phone3", "onItemClick: "+phone );
-                                        }
-                                        else if(teamData.getmMem3Name() == arrayAdapterPartcipantNames.getItem(i).toString())
-                                        {
-                                            phone = "+91"+teamData.getmMem3Phone().toString();
-                                            Log.e("TAG phone4", "onItemClick: "+phone );
-                                        }
-                                    }
-                                }
-                            });
-                            next.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (!validatePassword() | (teamname.length() <1) | (event.length() < 3) | (participantName.length() < 3) | (phone.length() < 9)) {
-                                        Toast.makeText(UsersSignUp.this, "Invalid Inputs", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
 
-                                    progressDialog = new ProgressDialog(UsersSignUp.this);
-                                    progressDialog.show();
-                                    progressDialog.setContentView(R.layout.progress_dialog);
-                                    progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                                    progressDialog.setCancelable(false);
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                    String phoneNo = phone.substring(3);
-                                    if (!phoneNo.isEmpty()) {
-                                        if (phoneNo.length() == 10) {
+                                            }
+                                        });
 
-                                            Query checkUser = FirebaseDatabase.getInstance().getReference("Participants").child(event).orderByChild("mPhoneNo").equalTo(phone);
-
-                                            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                                    if (snapshot.exists()) {
-                                                        progressDialog.dismiss();
-                                                        Toast.makeText(UsersSignUp.this, "This User already Exist  Please Login", Toast.LENGTH_LONG).show();
-
-                                                    } else {
-
-                                                        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(auth)
-                                                                .setPhoneNumber(phone)
-                                                                .setTimeout(60L, TimeUnit.SECONDS)
-                                                                .setActivity(UsersSignUp.this)
-                                                                .setCallbacks(mCallBacks)
-                                                                .build();
-                                                        PhoneAuthProvider.verifyPhoneNumber(options);
-
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                                }
-                                            });
-
-                                        } else {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(UsersSignUp.this, "Please Enter Correct Mobile Number", Toast.LENGTH_SHORT).show();
-                                        }
                                     } else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(UsersSignUp.this, "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UsersSignUp.this, "Please Enter Correct Mobile Number", Toast.LENGTH_SHORT).show();
                                     }
-
-
-                                    Log.e("TAG345", "onComplete: "+teamname+event+participantName+phone );
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(UsersSignUp.this, "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
                                 }
+
+
+                                Log.e("TAG345", "onComplete: " + teamname + event + participantName + phone);
                             });
                             mCallBacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                                 @Override
@@ -280,32 +260,20 @@ public class UsersSignUp extends AppCompatActivity {
                             };
 
 
-
-                        }
-                        else
-                        {
-                            Log.e("TAG", "onComplete: Error Getting Documents"+task.getException() );
+                        } else {
+                            Log.e("TAG", "onComplete: Error Getting Documents" + task.getException());
                         }
 
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.cancel();
-                        Toast.makeText(UsersSignUp.this, "Error! "+e.toString(), Toast.LENGTH_SHORT).show();
-                    }
+                }).addOnFailureListener(e -> {
+                    progressDialog.cancel();
+                    Toast.makeText(UsersSignUp.this, "Error! " + e, Toast.LENGTH_SHORT).show();
                 });
             }
         });
 
 
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), UserSignIn.class));
-            }
-        });
+        login.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), UserSignIn.class)));
 
     }
 
@@ -321,6 +289,7 @@ public class UsersSignUp extends AppCompatActivity {
         ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(UsersSignUp.this, pairs);
         startActivity(intent, activityOptions.toBundle());
     }
+
     private boolean validatePassword() {
         String val = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
@@ -346,18 +315,10 @@ public class UsersSignUp extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(UsersSignUp.this);
         builder.setMessage("Please connect to the internet")
                 //   .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),UsersSignUp.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), UsersSignUp.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();

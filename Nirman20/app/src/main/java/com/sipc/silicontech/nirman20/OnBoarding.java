@@ -1,8 +1,8 @@
 package com.sipc.silicontech.nirman20;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class OnBoarding extends AppCompatActivity {
 
