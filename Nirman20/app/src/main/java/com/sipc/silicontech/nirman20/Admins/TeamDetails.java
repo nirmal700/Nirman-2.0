@@ -5,36 +5,28 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TeamDetails extends AppCompatActivity {
     AutoCompleteTextView mEventType;
     ImageView btn_back;
-    Query eventDb;
     private RecyclerView recyclerView;
-    private ProgressDialog progressDialog;
     private EditText et_search;
     private MultiViewAdapter multiViewAdapter;
     private List list = new ArrayList();
@@ -49,7 +41,7 @@ public class TeamDetails extends AppCompatActivity {
         btn_back = findViewById(R.id.btn_back);
         et_search = findViewById(R.id.et_search);
         //Initialize ProgressDialog
-        progressDialog = new ProgressDialog(TeamDetails.this);
+        ProgressDialog progressDialog = new ProgressDialog(TeamDetails.this);
         progressDialog.show();
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -78,36 +70,30 @@ public class TeamDetails extends AppCompatActivity {
         search();
 
 
-        mEventType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(arrayAdapterEventType.getItem(position));
-                mCollectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            list.clear();
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                Log.e("TAG7009", "onComplete: " + documentSnapshot.getId() + "=>" + documentSnapshot.getData());
-                                if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Robo Race")) {
-                                    list.add(documentSnapshot.toObject(NewRoboRaceTeamData.class));
-                                } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Line Follower")) {
-                                    list.add(documentSnapshot.toObject(NewLineFollowerTeamData.class));
-                                } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate")) {
-                                    list.add(documentSnapshot.toObject(NewIdeateTeamData.class));
-                                } else
-                                    list.add(documentSnapshot.toObject(NewHackNationTeamData.class));
-                                multiViewAdapter = new MultiViewAdapter(TeamDetails.this, list);
-                                recyclerView.setAdapter(multiViewAdapter);
-                                multiViewAdapter.notifyDataSetChanged();
-                            }
-                        } else {
-                            list.clear();
-                            multiViewAdapter.notifyDataSetChanged();
-                        }
+        mEventType.setOnItemClickListener((parent, view, position, id) -> {
+            CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(arrayAdapterEventType.getItem(position));
+            mCollectionReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    list.clear();
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        Log.e("TAG7009", "onComplete: " + documentSnapshot.getId() + "=>" + documentSnapshot.getData());
+                        if (Objects.requireNonNull(documentSnapshot.getData().get("mEventParticipating")).toString().equals("Robo Race")) {
+                            list.add(documentSnapshot.toObject(NewRoboRaceTeamData.class));
+                        } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Line Follower")) {
+                            list.add(documentSnapshot.toObject(NewLineFollowerTeamData.class));
+                        } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate")) {
+                            list.add(documentSnapshot.toObject(NewIdeateTeamData.class));
+                        } else
+                            list.add(documentSnapshot.toObject(NewHackNationTeamData.class));
+                        multiViewAdapter = new MultiViewAdapter(TeamDetails.this, list);
+                        recyclerView.setAdapter(multiViewAdapter);
+                        multiViewAdapter.notifyDataSetChanged();
                     }
-                });
-            }
+                } else {
+                    list.clear();
+                    multiViewAdapter.notifyDataSetChanged();
+                }
+            });
         });
 
 
