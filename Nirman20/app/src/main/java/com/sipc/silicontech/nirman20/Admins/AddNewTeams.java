@@ -36,10 +36,20 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddNewTeams extends AppCompatActivity {
-    TextInputLayout mTeamName, mProblemStatement, mApproach, mCollegeName, mTeamLeadName, mTeamLeadPhone, mMember1Phone, mMember1Name, mMember2Name, mMember2Phone, mMember3Name, mMember3Phone,mMember4Name,mMember4Phone;
-    private RadioButton t3,t4,t5;
-    private Button btnSubmit;
-    int b = -1, flag = 0;
+    TextInputLayout mTeamName;
+    TextInputLayout mProblemStatement;
+    TextInputLayout mApproach;
+    TextInputLayout mCollegeName;
+    TextInputLayout mTeamLeadName;
+    TextInputLayout mTeamLeadPhone;
+    TextInputLayout mMember1Phone;
+    TextInputLayout mMember1Name;
+    TextInputLayout mMember2Name;
+    TextInputLayout mMember2Phone;
+    TextInputLayout mMember3Name;
+    TextInputLayout mMember3Phone;
+    private RadioButton t3,t4;
+    int b = -1;
     ImageView btn_back;
     RadioGroup radio_group;
     AutoCompleteTextView mEventType;
@@ -67,7 +77,7 @@ public class AddNewTeams extends AppCompatActivity {
         mEventType = findViewById(R.id.autoCompleteEventType);
         t3 = findViewById(R.id.single);
         t4 = findViewById(R.id.duo);
-        btnSubmit = findViewById(R.id.btn_AddTeam);
+        Button btnSubmit = findViewById(R.id.btn_AddTeam);
         radio_group = findViewById(R.id.radio_group);
 
         progressDialog = new ProgressDialog(AddNewTeams.this);
