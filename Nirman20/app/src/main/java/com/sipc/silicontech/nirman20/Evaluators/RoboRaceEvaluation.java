@@ -20,9 +20,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.Suggestion;
 
 import java.util.Objects;
 
@@ -214,6 +217,12 @@ public class RoboRaceEvaluation extends AppCompatActivity {
                 mHandTouches = Long.parseLong(disp2.getText().toString());
                 long mBonus = Long.parseLong(disp3.getText().toString());
                 mSuggestion = et_suggestion.getEditText().getText().toString();
+                DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Robo Race").child(mTeamName).child("Suggestions");
+                String id = mSugDB.push().getKey();
+                if(mSuggestion.length() >0 & id!=null){
+                    Suggestion suggestion = new Suggestion(mTeamName,mCollegeName,mSuggestion,id,true,false,0L);
+                    mSugDB.child(id).setValue(suggestion);
+                }
                 mDocumentReference = FirebaseFirestore.getInstance().collection("Robo Race").document(mTeamName);
                 mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime ,"mBonus",mBonus).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

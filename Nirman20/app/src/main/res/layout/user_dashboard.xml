@@ -172,7 +172,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_FoodCoupouns"
+                android:id="@+id/btn_Suggestion"
                 android:layout_width="0dp"
                 android:layout_height="140dp"
                 android:layout_margin="10dp"
@@ -202,7 +202,7 @@
                         android:layout_marginBottom="20dp"
                         android:autoSizeTextType="uniform"
                         android:fontFamily="@font/my_fav_sans_number"
-                        android:text="@string/food_coupoun_s"
+                        android:text="Suggestion's"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />

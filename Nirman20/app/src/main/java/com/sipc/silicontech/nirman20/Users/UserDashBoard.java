@@ -40,7 +40,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    MaterialCardView mGenQR,btn_RequestHelp,btn_TodoList,btn_FoodCoupouns;
+    MaterialCardView mGenQR,btn_RequestHelp,btn_TodoList,btn_Suggestion;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
@@ -72,7 +72,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         mGenQR = findViewById(R.id.btn_generateQR);
         btn_RequestHelp = findViewById(R.id.btn_RequestHelp);
         btn_TodoList = findViewById(R.id.btn_TodoList);
-        btn_FoodCoupouns = findViewById(R.id.btn_FoodCoupouns);
+        btn_Suggestion = findViewById(R.id.btn_Suggestion);
 
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
         managerAdmin = new SessionManagerAdmin(getApplicationContext());
@@ -118,10 +118,10 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 startActivity(new Intent(getApplicationContext(), UserToDoList.class));
             }
         });
-        btn_FoodCoupouns.setOnClickListener(new View.OnClickListener() {
+        btn_Suggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Food_Coupouns.class));
+                startActivity(new Intent(getApplicationContext(), User_Suggestion.class));
             }
         });
 

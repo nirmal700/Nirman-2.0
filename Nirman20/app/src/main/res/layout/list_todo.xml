@@ -97,38 +97,38 @@
                     tools:ignore="SmallSp" />
             </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:autoSizeTextType="uniform"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:autoSizeTextType="uniform"
-                        android:textAllCaps="true"
-                        android:textColor="@color/black"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autoSizeTextType="uniform"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp" />
 
-                    <TextView
-                        android:id="@+id/tv_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:autoSizeTextType="uniform"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp" />
-
-                </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
