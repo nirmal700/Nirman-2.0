@@ -1,7 +1,7 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 public class AdminData {
-    String SIC,mAccessLevel,mName,mPassword,mUserRole,mPhoneNo;
+    String SIC, mAccessLevel, mName, mPassword, mUserRole, mPhoneNo;
 
     public AdminData() {
 
