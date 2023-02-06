@@ -26,7 +26,6 @@ import java.util.List;
 
 public class MultiViewAdapter extends RecyclerView.Adapter {
 
-    static int PERMISSION_CODE = 100;
     private final Context context;
     private final List list;
     private final List<NewIdeateTeamData> newIdeateTeamData = new ArrayList<>();
@@ -113,46 +112,35 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                 HackNationHolder.mCheckinStatus.setText("Not Checked-In");
                 HackNationHolder.mCheckinStatus.setBackgroundColor(Color.RED);
             }
-            HackNationHolder.mWhatsApp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String phone = hackNationTeamData.getmTeamLeadPhone();
+            HackNationHolder.mWhatsApp.setOnClickListener(view -> {
+                String phone = hackNationTeamData.getmTeamLeadPhone();
 
-                    Intent whatsapp = new Intent(Intent.ACTION_VIEW);
+                Intent whatsapp = new Intent(Intent.ACTION_VIEW);
 
-                    try {
-                        String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
-                        whatsapp.setPackage("com.whatsapp");
-                        whatsapp.setData(Uri.parse(url));
-                        context.startActivity(whatsapp);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + hackNationTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
+                try {
+                    String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
+                    whatsapp.setPackage("com.whatsapp");
+                    whatsapp.setData(Uri.parse(url));
+                    context.startActivity(whatsapp);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + hackNationTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
             });
-            HackNationHolder.mCall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        String dail = "tel:" + hackNationTeamData.getmTeamLeadPhone();
-                        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + hackNationTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
-
-
+            HackNationHolder.mCall.setOnClickListener(view -> {
+                try {
+                    String dail = "tel:" + hackNationTeamData.getmTeamLeadPhone();
+                    context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + hackNationTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
+
+
             });
             HackNationHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
 
-            HackNationHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    HackNationHolder.foldingCell.toggle(false);
-                }
-            });
+            HackNationHolder.foldingCell.setOnClickListener(v -> HackNationHolder.foldingCell.toggle(false));
 
         } else if (this.getItemViewType(position) == 1) {
             NewIdeateTeamData ideateTeamData = (NewIdeateTeamData) list.get(position);
@@ -173,45 +161,34 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                 IdeateHolder.mCheckinStatus.setText("Not Checked-In");
                 IdeateHolder.mCheckinStatus.setBackgroundColor(Color.RED);
             }
-            IdeateHolder.mWhatsApp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String phone = ideateTeamData.getmTeamLeadPhone();
+            IdeateHolder.mWhatsApp.setOnClickListener(view -> {
+                String phone = ideateTeamData.getmTeamLeadPhone();
 
-                    Intent whatsapp = new Intent(Intent.ACTION_VIEW);
+                Intent whatsapp = new Intent(Intent.ACTION_VIEW);
 
-                    try {
-                        String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
-                        whatsapp.setPackage("com.whatsapp");
-                        whatsapp.setData(Uri.parse(url));
-                        context.startActivity(whatsapp);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + ideateTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
+                try {
+                    String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
+                    whatsapp.setPackage("com.whatsapp");
+                    whatsapp.setData(Uri.parse(url));
+                    context.startActivity(whatsapp);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + ideateTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
             });
-            IdeateHolder.mCall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        String dail = "tel:" + ideateTeamData.getmTeamLeadPhone();
-                        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + ideateTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
-
-
+            IdeateHolder.mCall.setOnClickListener(view -> {
+                try {
+                    String dail = "tel:" + ideateTeamData.getmTeamLeadPhone();
+                    context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + ideateTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
+
+
             });
             IdeateHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
-            IdeateHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    IdeateHolder.foldingCell.toggle(false);
-                }
-            });
+            IdeateHolder.foldingCell.setOnClickListener(v -> IdeateHolder.foldingCell.toggle(false));
         } else if (this.getItemViewType(position) == 2) {
             NewRoboRaceTeamData roboRaceTeamData = (NewRoboRaceTeamData) list.get(position);
             RoboRace RoboHolder = (RoboRace) holder;
@@ -234,45 +211,34 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                 RoboHolder.mCheckinStatus.setText("Not Checked-In");
                 RoboHolder.mCheckinStatus.setBackgroundColor(Color.RED);
             }
-            RoboHolder.mWhatsApp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String phone = roboRaceTeamData.getmTeamLeadPhone();
+            RoboHolder.mWhatsApp.setOnClickListener(view -> {
+                String phone = roboRaceTeamData.getmTeamLeadPhone();
 
-                    Intent whatsapp = new Intent(Intent.ACTION_VIEW);
+                Intent whatsapp = new Intent(Intent.ACTION_VIEW);
 
-                    try {
-                        String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
-                        whatsapp.setPackage("com.whatsapp");
-                        whatsapp.setData(Uri.parse(url));
-                        context.startActivity(whatsapp);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + roboRaceTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
+                try {
+                    String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
+                    whatsapp.setPackage("com.whatsapp");
+                    whatsapp.setData(Uri.parse(url));
+                    context.startActivity(whatsapp);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + roboRaceTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
             });
-            RoboHolder.mCall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        String dail = "tel:" + roboRaceTeamData.getmTeamLeadPhone();
-                        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + roboRaceTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
-
-
+            RoboHolder.mCall.setOnClickListener(view -> {
+                try {
+                    String dail = "tel:" + roboRaceTeamData.getmTeamLeadPhone();
+                    context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + roboRaceTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
+
+
             });
             RoboHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
-            RoboHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    RoboHolder.foldingCell.toggle(false);
-                }
-            });
+            RoboHolder.foldingCell.setOnClickListener(v -> RoboHolder.foldingCell.toggle(false));
 
         } else {
             NewLineFollowerTeamData lineFollowerTeamData = (NewLineFollowerTeamData) list.get(position);
@@ -297,45 +263,34 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                 LineHolder.mCheckinStatus.setText("Not Checked-In");
                 LineHolder.mCheckinStatus.setBackgroundColor(Color.RED);
             }
-            LineHolder.mWhatsApp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String phone = lineFollowerTeamData.getmTeamLeadPhone();
+            LineHolder.mWhatsApp.setOnClickListener(view -> {
+                String phone = lineFollowerTeamData.getmTeamLeadPhone();
 
-                    Intent whatsapp = new Intent(Intent.ACTION_VIEW);
+                Intent whatsapp = new Intent(Intent.ACTION_VIEW);
 
-                    try {
-                        String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
-                        whatsapp.setPackage("com.whatsapp");
-                        whatsapp.setData(Uri.parse(url));
-                        context.startActivity(whatsapp);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + lineFollowerTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
+                try {
+                    String url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode("Hey,\n", "UTF-8");
+                    whatsapp.setPackage("com.whatsapp");
+                    whatsapp.setData(Uri.parse(url));
+                    context.startActivity(whatsapp);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + lineFollowerTeamData.getmTeamName() + " via Whatsapp", Toast.LENGTH_SHORT).show();
             });
-            LineHolder.mCall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        String dail = "tel:" + lineFollowerTeamData.getmTeamLeadPhone();
-                        context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "Contact " + lineFollowerTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
-
-
+            LineHolder.mCall.setOnClickListener(view -> {
+                try {
+                    String dail = "tel:" + lineFollowerTeamData.getmTeamLeadPhone();
+                    context.startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dail)));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(context, "Contact " + lineFollowerTeamData.getmTeamName() + " via Call", Toast.LENGTH_SHORT).show();
+
+
             });
             LineHolder.foldingCell.initialize(1000, Color.DKGRAY, 2);
-            LineHolder.foldingCell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    LineHolder.foldingCell.toggle(false);
-                }
-            });
+            LineHolder.foldingCell.setOnClickListener(v -> LineHolder.foldingCell.toggle(false));
         }
     }
 
