@@ -40,12 +40,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="13dp"
                     android:autoSizeTextType="uniform"
                     android:fontFamily="@font/astronaut"
-                    android:text="Lan Issue"
+                    android:text="@string/lan_issue_0"
                     android:textColor="@color/black"
                     android:textSize="25sp" />
 
@@ -58,7 +57,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/my_fav_sans_number"
-                    android:text="Delete"
+                    android:text="@string/delete_00"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold"
@@ -72,12 +71,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="13dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/astronaut"
-                android:text="Team Name :The DevLoopers"
+                android:text="@string/team_name_the_devloopers"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
             <TextView
@@ -85,12 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="13dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/astronaut"
-                android:text="Event :HackNation"
+                android:text="@string/event_hacknation"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -112,9 +109,8 @@
                     android:autoSizeTextType="uniform"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:text="There was a issue with the LAN in which we are not able to get the proxt Server"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp" />
+                    android:text="@string/there_was_a_issue_with_the_lan_in_which_we_are_not_able_to_get_the_proxt_server_0"
+                    android:layout_marginStart="8dp" />
 
             </LinearLayout>
         </LinearLayout>

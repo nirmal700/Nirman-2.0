@@ -9,16 +9,16 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_update"
-        android:autoSizeTextType="uniform"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:text="Add Issue"
-        android:textStyle="bold"
+        android:autoSizeTextType="uniform"
+        android:text="@string/add_issue"
         android:textColor="@color/Primary"
         android:textSize="30sp"
-        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
         tools:targetApi="o" />
 
 
@@ -27,9 +27,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/select_type_9"
         android:maxHeight="20dp"
-        android:hint="Select Type"
 
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="8dp"
         android:textColorHint="@color/black"
         app:boxStrokeColor="@color/black"
         app:boxStrokeWidth="1dp"
@@ -37,8 +39,6 @@
         app:endIconTint="@color/black"
         app:errorTextColor="@color/black"
         app:hintTextColor="@color/black"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="20dp"
         app:startIconDrawable="@drawable/ic_user"
         app:startIconTint="@color/black">
 
@@ -51,10 +51,9 @@
             android:inputType="none"
             android:textColor="@color/black"
             android:textSize="20dp"
-            tools:ignore="LabelFor,SpUsage" />
+            tools:ignore="LabelFor,SpUsage,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,15 +62,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:paddingVertical="8dp"
+        android:hint="@string/description_0"
         android:paddingHorizontal="20dp"
-        android:hint="Description"
+        android:paddingVertical="8dp"
         android:textColorHint="@color/black"
+        android:textSize="25sp"
         app:boxStrokeColor="@color/black"
         app:boxStrokeWidth="1dp"
         app:endIconMode="clear_text"
         app:endIconTint="@color/black"
-        android:textSize="25sp"
         app:expandedHintEnabled="false"
         app:hintTextColor="@color/black"
         app:startIconDrawable="@drawable/ic_license"
@@ -80,12 +79,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="175dp"
-            android:hint="Description"
+            android:autoSizeTextType="uniform"
+            android:hint="@string/description_9"
             android:inputType="textMultiLine"
             android:textColor="@color/black"
-            android:autoSizeTextType="uniform"
             android:textColorHint="@color/hintBlack"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="VisualLintTextFieldSize"
+            tools:targetApi="o" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -95,7 +96,7 @@
         android:layout_height="60dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:hint="Submit"
+        android:hint="@string/submit_9"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp"
@@ -105,6 +106,7 @@
         app:startIconTint="@color/black"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp"
+        tools:ignore="VisualLintButtonSize"
         tools:targetApi="o" />
 
 

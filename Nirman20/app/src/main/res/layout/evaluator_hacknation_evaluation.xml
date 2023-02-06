@@ -17,7 +17,6 @@
             android:id="@+id/btn_backToSd"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="25dp"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -58,11 +57,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
-                android:text="Event : "
+                android:text="@string/event"
                 android:autoSizeTextType="uniform"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
@@ -75,7 +73,6 @@
                 android:layout_marginTop="10dp"
                 android:autoSizeTextType="uniform"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="25sp"
@@ -95,11 +92,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Evaluate current project"
+                android:text="@string/evaluate_current_project_0"
                 android:autoSizeTextType="uniform"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"
                 android:textColor="@color/Primary"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp" />
@@ -107,10 +103,9 @@
             <TextView
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
                 android:autoSizeTextType="uniform"
-                android:text="Required"
+                android:text="@string/required_0"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:layout_marginStart="10dp" />
@@ -121,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Team Name"
+                android:hint="@string/team_name_0"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
@@ -135,7 +130,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="Enter Team Name"
+                    android:hint="@string/enter_team_name_0"
                     android:inputType="textCapCharacters"
                     android:autoSizeTextType="uniform"
                     android:textColor="@color/black"
@@ -149,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:hint="College Name"
+                android:hint="@string/college_name_0"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
@@ -163,7 +158,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:hint="Enter College Name"
+                    android:hint="@string/enter_college_name_0"
                     android:inputType="textCapSentences"
                     android:autoSizeTextType="uniform"
                     android:textColor="@color/black"
@@ -181,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:autoSizeTextType="uniform"
-                    android:text="Project Detail's"
+                    android:text="@string/project_detail_s_0"
                     android:textColor="@color/Primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -190,7 +185,6 @@
                     android:layout_width="264dp"
                     android:layout_height="2dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="33dp"
                     android:background="@color/Primary" />
 
@@ -202,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Problem Statement"
+                android:hint="@string/problem_statement_0"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
@@ -216,7 +210,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
-                    android:hint="Problem Statement"
+                    android:hint="@string/problem_statement_8"
                     android:inputType="textCapSentences"
                     android:autoSizeTextType="uniform"
                     android:textColor="@color/black"
@@ -247,7 +241,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="225dp"
-                    android:hint="Suggested Approach"
+                    android:hint="@string/suggested_approach"
                     android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:autoSizeTextType="uniform"
@@ -265,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:autoSizeTextType="uniform"
-                    android:text="Marking's"
+                    android:text="@string/marking_s_0"
                     android:textColor="@color/Primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -274,7 +268,6 @@
                     android:layout_width="264dp"
                     android:layout_height="2dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="33dp"
                     android:background="@color/Primary" />
 
@@ -284,7 +277,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="How technically impressive was the hack? Was the technical problem the team tackled difficult? Did it use a particularly clever technique or did it use many different components? Did the technology involved make you go 'Wow'?"
+                    android:text="@string/how_technically_impressive_was_the_hack_was_the_technical_problem_the_team_tackled_difficult_did_it_use_a_particularly_clever_technique_or_did_it_use_many_different_components_did_the_technology_involved_make_you_go_wow"
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
 
@@ -302,7 +295,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Did the team put thought into the user experience? How well designed is the interface? For a website, this might be about how beautiful the CSS or graphics are. For a hardware project, it might be more about how good the human-computer interaction is (e.g. is it easy to use or does it use a cool interface?)"
+                android:text="@string/did_the_team_put_thought_into_the_user_experience_how_well_designed_is_the_interface_for_a_website_this_might_be_about_how_beautiful_the_css_or_graphics_are_for_a_hardware_project_it_might_be_more_about_how_good_the_human_computer_interaction_is_e_g_is_it_easy_to_use_or_does_it_use_a_cool_interface"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -321,7 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Does the hack work? Did the team achieve everything they wanted?"
+                android:text="@string/does_the_hack_work_did_the_team_achieve_everything_they_wanted"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -340,7 +333,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Did the team stretch themselves? Did they try to learn something new? What kind of projects have they worked on before?"
+                android:text="@string/did_the_team_stretch_themselves_did_they_try_to_learn_something_new_what_kind_of_projects_have_they_worked_on_before"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -363,7 +356,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:autoSizeTextType="uniform"
-                    android:text="Suggestion"
+                    android:text="@string/suggestion_7"
                     android:textColor="@color/Primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -372,7 +365,6 @@
                     android:layout_width="264dp"
                     android:layout_height="2dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="33dp"
                     android:background="@color/Primary" />
 
@@ -383,7 +375,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Suggestion"
+                android:hint="@string/suggestion_8"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1dp"
@@ -397,7 +389,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="175dp"
-                    android:hint="Suggestion To The Team"
+                    android:hint="@string/suggestion_to_the_team_8"
                     android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:autoSizeTextType="uniform"
@@ -412,7 +404,7 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="20dp"
-                android:text="Submit"
+                android:text="@string/submit_6"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/astronaut"

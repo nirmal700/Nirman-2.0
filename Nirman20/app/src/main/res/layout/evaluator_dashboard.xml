@@ -53,7 +53,7 @@
                     android:gravity="center_horizontal"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:text="Nirmal Kumar"
+                    android:text="@string/nirmal_kumar_0"
                     android:textSize="30sp"
                     android:fontFamily="@font/dangrek"
                     android:textStyle="bold" />
@@ -66,7 +66,7 @@
                     android:gravity="center_horizontal"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:text="Developer"
+                    android:text="@string/developer_0"
                     android:textSize="20sp"
                     android:fontFamily="@font/dangrek"/>
 
@@ -136,7 +136,7 @@
                             android:layout_marginBottom="20dp"
                             android:autoSizeTextType="uniform"
                             android:fontFamily="@font/my_fav_sans_number"
-                            android:text="Evaluate Project's"
+                            android:text="@string/evaluate_project_s"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />

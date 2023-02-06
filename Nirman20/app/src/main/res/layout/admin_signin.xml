@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logotext"
-        android:text="Hello There, Welcome Back"
+        android:text="@string/hello_there_welcome_back"
         android:textSize="40sp"
         android:fontFamily="@font/bungee"
         android:textColor="@color/white"/>
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sloganname"
-        android:text="Sign In to Continue"
+        android:text="@string/sign_in_to_continue"
         android:textSize="18sp"
         android:fontFamily="@font/antic"/>
     <LinearLayout
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:autoSizeTextType="uniform"
-            android:hint="SIC"
+            android:hint="@string/sic_0"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="1dp"
@@ -54,7 +54,8 @@
             app:endIconTint="@color/black"
             app:hintTextColor="@color/black"
             app:startIconDrawable="@drawable/id2"
-            app:startIconTint="@color/black">
+            app:startIconTint="@color/black"
+            tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -75,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:autoSizeTextType="uniform"
-            android:hint="Password"
+            android:hint="@string/password_0"
             android:textColorHint="@color/black"
             app:boxStrokeColor="@color/black"
             app:boxStrokeWidth="1dp"
@@ -83,7 +84,8 @@
             app:endIconTint="@color/black"
             app:hintTextColor="@color/black"
             app:startIconDrawable="@drawable/ic_password"
-            app:startIconTint="@color/black">
+            app:startIconTint="@color/black"
+            tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -105,7 +107,7 @@
             android:backgroundTint="@color/black"
             android:fontFamily="@font/astronaut"
             android:gravity="center"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:transitionName="transition_signUp"
@@ -125,7 +127,7 @@
             android:backgroundTint="@color/Primary"
             android:fontFamily="@font/astronaut"
             android:gravity="center"
-            android:text="Participant? Sign-in"
+            android:text="@string/participant_sign_in"
             android:textColor="@color/hintBlack"
             android:textSize="25dp"
             android:transitionName="transition_signUp"
