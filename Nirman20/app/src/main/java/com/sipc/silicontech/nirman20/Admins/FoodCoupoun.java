@@ -1,11 +1,5 @@
 package com.sipc.silicontech.nirman20.Admins;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,10 +11,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,11 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 
@@ -46,10 +41,9 @@ import javax.crypto.spec.SecretKeySpec;
 public class FoodCoupoun extends AppCompatActivity {
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    private CollectionReference mCollectionReference;
-    String name,teamname,event;
+    String name, teamname, event;
     ProgressDialog progressDialog;
-
+    private CollectionReference mCollectionReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +62,7 @@ public class FoodCoupoun extends AppCompatActivity {
             scanCode();
         }
     }
+
     private void scanCode() {
         IntentIntegrator intentIntegrator = new IntentIntegrator(FoodCoupoun.this); //Initialize intent integrator
 
@@ -104,9 +99,9 @@ public class FoodCoupoun extends AppCompatActivity {
                     String decodedData = (String) decrypt(userDetails);
 
                     String[] separateData = decodedData.split(":");
-                     event = separateData[0];
-                     name = separateData[1];
-                     teamname = separateData[2];
+                    event = separateData[0];
+                    name = separateData[1];
+                    teamname = separateData[2];
                     String phone = separateData[3];
                     progressDialog.show();
                     Query checkUser = FirebaseDatabase.getInstance().getReference("Fooding").child(event).orderByChild("mPhoneNumber").equalTo(phone);
@@ -127,10 +122,9 @@ public class FoodCoupoun extends AppCompatActivity {
                                 });
                                 builder.show();
                                 Toast.makeText(FoodCoupoun.this, "This User already Availed Food", Toast.LENGTH_LONG).show();
-                            }
-                            else {
+                            } else {
                                 progressDialog.dismiss();
-                                Food_POJO foodCoupoun = new Food_POJO(name,phone,teamname,true);
+                                Food_POJO foodCoupoun = new Food_POJO(name, phone, teamname, true);
                                 FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = rootNode.getReference("Fooding").child(event);
                                 reference.child(phone).child("Profile").setValue(foodCoupoun);
@@ -142,7 +136,7 @@ public class FoodCoupoun extends AppCompatActivity {
                                 builder.setTitle("Result");
 
                                 //Set Message
-                                builder.setMessage("Read Successfully"+"\n"+"Team Name: "+teamname+"\n"+"Participant Name: "+name+"\n"+"Event Name: "+event+"\n");
+                                builder.setMessage("Read Successfully" + "\n" + "Team Name: " + teamname + "\n" + "Participant Name: " + name + "\n" + "Event Name: " + event + "\n");
 
                                 //set Positive Button
                                 builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
@@ -170,13 +164,11 @@ public class FoodCoupoun extends AppCompatActivity {
                     });
 
 
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     AlertDialog.Builder builder = new AlertDialog.Builder(FoodCoupoun.this);
                     builder.setMessage("Wrong QR Code1");
-                    Log.e("2324", "onActivityResult: "+e.toString() );
+                    Log.e("2324", "onActivityResult: " + e);
                     builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode());
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
@@ -208,6 +200,7 @@ public class FoodCoupoun extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private Object decrypt(String userDetails) throws Exception {
 
