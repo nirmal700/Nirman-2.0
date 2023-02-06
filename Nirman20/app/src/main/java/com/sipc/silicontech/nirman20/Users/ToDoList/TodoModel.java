@@ -1,7 +1,7 @@
 package com.sipc.silicontech.nirman20.Users.ToDoList;
 
 public class TodoModel {
-    private String id,title,description,day,month,year;
+    private String id, title, description, day, month, year;
 
 
     public TodoModel() {
