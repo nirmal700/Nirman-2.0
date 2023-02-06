@@ -5,8 +5,8 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Date;
 
 public class HackNationEvaluation_POJO {
-    String mTeamName,mCollegeName,mProblemStat,mApproach,mSuggestion;
-    int mMark1,mMark2,mMark3,mMark4;
+    String mTeamName, mCollegeName, mProblemStat, mApproach, mSuggestion;
+    int mMark1, mMark2, mMark3, mMark4;
     Double mAvg;
     @ServerTimestamp
     Date mEvaluatedTime;
