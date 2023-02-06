@@ -1,10 +1,5 @@
 package com.sipc.silicontech.nirman20.Admins;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,14 +31,13 @@ import java.util.List;
 
 public class TeamDetails extends AppCompatActivity {
     AutoCompleteTextView mEventType;
+    ImageView btn_back;
+    Query eventDb;
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     private EditText et_search;
     private MultiViewAdapter multiViewAdapter;
-    ImageView btn_back;
-   private List list = new ArrayList();
-    Query eventDb;
-
+    private List list = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class TeamDetails extends AppCompatActivity {
 
 
         list = new ArrayList<>();
-        multiViewAdapter = new MultiViewAdapter(TeamDetails.this,list);
+        multiViewAdapter = new MultiViewAdapter(TeamDetails.this, list);
         recyclerView.setAdapter(multiViewAdapter);
 
         search();
@@ -86,27 +85,23 @@ public class TeamDetails extends AppCompatActivity {
                 mCollectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             list.clear();
-                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                                 Log.e("TAG7009", "onComplete: " + documentSnapshot.getId() + "=>" + documentSnapshot.getData());
-                                if(documentSnapshot.getData().get("mEventParticipating").toString().equals("Robo Race"))
-                                {
+                                if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Robo Race")) {
                                     list.add(documentSnapshot.toObject(NewRoboRaceTeamData.class));
-                                }else if(documentSnapshot.getData().get("mEventParticipating").toString().equals("Line Follower"))
-                                {
+                                } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Line Follower")) {
                                     list.add(documentSnapshot.toObject(NewLineFollowerTeamData.class));
-                                }else if(documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate")){
+                                } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate")) {
                                     list.add(documentSnapshot.toObject(NewIdeateTeamData.class));
-                                }
-                                else
+                                } else
                                     list.add(documentSnapshot.toObject(NewHackNationTeamData.class));
-                                multiViewAdapter = new MultiViewAdapter(TeamDetails.this,list);
+                                multiViewAdapter = new MultiViewAdapter(TeamDetails.this, list);
                                 recyclerView.setAdapter(multiViewAdapter);
                                 multiViewAdapter.notifyDataSetChanged();
                             }
-                        }else {
+                        } else {
                             list.clear();
                             multiViewAdapter.notifyDataSetChanged();
                         }
@@ -119,17 +114,19 @@ public class TeamDetails extends AppCompatActivity {
     }
 
     private void search() {
-        if (et_search != null){
+        if (et_search != null) {
 
             et_search.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
                 }
+
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     multiViewAdapter.Search(s);
                 }
+
                 @Override
                 public void afterTextChanged(Editable s) {
                 }
