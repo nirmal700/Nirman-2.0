@@ -1,11 +1,5 @@
 package com.sipc.silicontech.nirman20.Users;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,22 +7,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -36,29 +27,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoAdapter;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoModel;
-import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class Request_Help extends AppCompatActivity {
     SessionManagerParticipant managerUser;
 
     FloatingActionButton btn_add;
     ImageView btn_back;
+    String helptype;
     private RecyclerView recyclerView;
-
     private ProgressDialog progressDialog;
     private DatabaseReference mHelpDB;
     private List<Help> mHelp;
-    String helptype;
     private RequestHelpAdapter adapter;
 
     @Override
@@ -80,9 +64,9 @@ public class Request_Help extends AppCompatActivity {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 
-                if (dy>0){
+                if (dy > 0) {
                     btn_add.hide();
-                }else {
+                } else {
                     btn_add.show();
                 }
 
@@ -90,12 +74,9 @@ public class Request_Help extends AppCompatActivity {
 
             }
         });
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Request_Help.this, UserDashBoard.class));
-                finishAffinity();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(Request_Help.this, UserDashBoard.class));
+            finishAffinity();
         });
 
         //Initialize ProgressDialog
@@ -103,83 +84,70 @@ public class Request_Help extends AppCompatActivity {
 
         list(); // Load all data
 
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_add.setOnClickListener(v -> {
 
 
-                final Dialog dialog= new Dialog(Request_Help.this);
+            final Dialog dialog = new Dialog(Request_Help.this);
 
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.add_help);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.add_help);
 
-                dialog.show();
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().setWindowAnimations(R.style.BottomDialog);
-                dialog.getWindow().setGravity(Gravity.BOTTOM);
+            dialog.show();
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setWindowAnimations(R.style.BottomDialog);
+            dialog.getWindow().setGravity(Gravity.BOTTOM);
 
-                AutoCompleteTextView mHelpType  = dialog.findViewById(R.id.autoCompleteHelp);
-                TextInputLayout et_description = dialog.findViewById(R.id.et_description);
+            AutoCompleteTextView mHelpType = dialog.findViewById(R.id.autoCompleteHelp);
+            TextInputLayout et_description = dialog.findViewById(R.id.et_description);
 
-                ArrayList<String> arrayListHelpType;
-                ArrayAdapter<String> arrayAdapterHelpType;
-                arrayListHelpType = new ArrayList<>();
-                arrayListHelpType.add("LAN Problem");
-                arrayListHelpType.add("Internet Connectivity");
-                arrayListHelpType.add("Other");
-                arrayListHelpType.add("Other");
-                arrayAdapterHelpType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListHelpType);
-                mHelpType.setAdapter(arrayAdapterHelpType);
+            ArrayList<String> arrayListHelpType;
+            ArrayAdapter<String> arrayAdapterHelpType;
+            arrayListHelpType = new ArrayList<>();
+            arrayListHelpType.add("LAN Problem");
+            arrayListHelpType.add("Internet Connectivity");
+            arrayListHelpType.add("Other");
+            arrayListHelpType.add("Other");
+            arrayAdapterHelpType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListHelpType);
+            mHelpType.setAdapter(arrayAdapterHelpType);
 
-                mHelpType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        helptype = arrayAdapterHelpType.getItem(position);
+            mHelpType.setOnItemClickListener((parent, view, position, id) -> helptype = arrayAdapterHelpType.getItem(position));
+
+            Button submit = dialog.findViewById(R.id.btn_Submit);
+
+
+            submit.setOnClickListener(v1 -> {
+
+                if (helptype.isEmpty() | Objects.requireNonNull(et_description.getEditText()).getText().toString().trim().isEmpty()) {
+                    Toast.makeText(Request_Help.this, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    String tag = helptype;
+                    String nDesc = et_description.getEditText().getText().toString().trim();
+
+                    String id = mHelpDB.push().getKey();
+
+
+                    if (id != null) {
+                        Help help = new Help(false, nDesc, tag, managerUser.getTeamName(), managerUser.getEventName(), managerUser.getParticipantName(), managerUser.getPhone(), "", id);
+                        mHelpDB.child(id).setValue(help);
                     }
-                });
 
-                Button submit  = dialog.findViewById(R.id.btn_Submit);
+                    dialog.dismiss();
+                    Toast.makeText(Request_Help.this, "New Issue listed", Toast.LENGTH_SHORT).show();
+                    loadProgressDialog();
+                    list();
 
+                }
 
-                submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (helptype.isEmpty() | et_description.getEditText().getText().toString().trim().isEmpty()){
-                            Toast.makeText(Request_Help.this, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
-                        }else {
-
-
-
-                            String tag = helptype;
-                            String nDesc = et_description.getEditText().getText().toString().trim();
-
-                            String id = mHelpDB.push().getKey();
-
-
-                            if (id != null) {
-                                Help help = new Help(false,nDesc,tag,managerUser.getTeamName(),managerUser.getEventName(),managerUser.getParticipantName(),managerUser.getPhone(),"",id);
-                                mHelpDB.child(id).setValue(help);
-                            }
-
-                            dialog.dismiss();
-                            Toast.makeText(Request_Help.this, "New Issue listed", Toast.LENGTH_SHORT).show();
-                            loadProgressDialog();
-                            list();
-
-                        }
-
-                    }
-                });
-
-            }
+            });
 
         });
 
 
-
     }
+
     //-----------------------Progress Dialog-------------------
     private void loadProgressDialog() {
 
@@ -190,6 +158,7 @@ public class Request_Help extends AppCompatActivity {
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
     }
+
     private void list() {
 
         mHelpDB.addValueEventListener(new ValueEventListener() {
@@ -201,7 +170,7 @@ public class Request_Help extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                     Help help = postSnapshot.getValue(Help.class);
-                    mHelp.add(0,help);
+                    mHelp.add(0, help);
                 }
 
                 adapter = new RequestHelpAdapter(Request_Help.this, mHelp);
@@ -209,6 +178,7 @@ public class Request_Help extends AppCompatActivity {
                 recyclerView.smoothScrollToPosition(0);
                 progressDialog.dismiss();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(Request_Help.this, error.getMessage(), Toast.LENGTH_SHORT).show();

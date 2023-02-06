@@ -1,18 +1,14 @@
 package com.sipc.silicontech.nirman20.Users;
 
-import com.google.firebase.firestore.ServerTimestamp;
-
-import java.util.Date;
-
 public class Help {
     boolean isResolved;
-    String mDescription, mIssueType,mTeamname,mEvent,mName,mPhoneNo,mResolvedby,mId;
+    String mDescription, mIssueType, mTeamname, mEvent, mName, mPhoneNo, mResolvedby, mId;
 
 
     public Help() {
     }
 
-    public Help(boolean isResolved, String mDescription, String mIssueType, String mTeamname, String mEvent, String mName, String mPhoneNo, String mResolvedby,String mId) {
+    public Help(boolean isResolved, String mDescription, String mIssueType, String mTeamname, String mEvent, String mName, String mPhoneNo, String mResolvedby, String mId) {
         this.isResolved = isResolved;
         this.mDescription = mDescription;
         this.mIssueType = mIssueType;
