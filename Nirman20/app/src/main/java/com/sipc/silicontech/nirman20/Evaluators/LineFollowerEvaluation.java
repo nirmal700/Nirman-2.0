@@ -1,8 +1,5 @@
 package com.sipc.silicontech.nirman20.Evaluators;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +12,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,24 +25,35 @@ import com.sipc.silicontech.nirman20.Users.Suggestion;
 import java.util.Objects;
 
 public class LineFollowerEvaluation extends AppCompatActivity {
-    Button start, stop, reset, inc1, dec1, inc2, dec2, mTimeOut, mSubmit,inc3, dec3;
+    Button start, stop, reset, inc1, dec1, inc2, dec2, mTimeOut, mSubmit, inc3, dec3;
     TextInputLayout et_teamName, et_collegeName, et_suggestion;
-    TextView disp1, disp2,disp3;
+    TextView disp1, disp2, disp3;
 
-    int  count1, count2,count3;
+    int count1, count2, count3;
+    int sec, min, miliSec;
+    ProgressDialog progressDialog;
+    String mTeamName, mCollegeName;
+    DocumentReference mDocumentReference;
     private int mTechTimeOut = 0;
     private boolean mTechTimeTaken = false;
-
     private Chronometer chronometer, mChronoTimer;
     private long pauseOffset;
     private boolean running, isResume;
     private Handler handler;
     private long tMiliSec, tStart, tBuff, tUpdate = 0L;
-    int sec, min, miliSec;
-
-    ProgressDialog progressDialog;
-    String  mTeamName, mCollegeName;
-    DocumentReference mDocumentReference;
+    public Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            tMiliSec = SystemClock.uptimeMillis() - tStart;
+            tUpdate = tBuff + tMiliSec;
+            sec = (int) (tUpdate / 1000);
+            min = sec / 60;
+            sec = sec % 60;
+            miliSec = (int) (tUpdate % 100);
+            mChronoTimer.setText(String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", miliSec));
+            handler.postDelayed(this, 60);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,157 +97,102 @@ public class LineFollowerEvaluation extends AppCompatActivity {
 
         handler = new Handler();
 
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startTimer();
-            }
+        start.setOnClickListener(view -> startTimer());
+        stop.setOnClickListener(view -> stopTimer());
+        reset.setOnClickListener(view -> resetTimer());
+
+
+        inc1.setOnClickListener(v -> {
+            count1++;
+            disp1.setText(String.format("%d", count1));
         });
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stopTimer();
-            }
+        dec1.setOnClickListener(v -> {
+            if (count1 <= 0) count1 = 0;
+            else count1--;
+            disp1.setText(String.format("%d", count1));
         });
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                resetTimer();
-            }
+
+        inc2.setOnClickListener(v -> {
+            count2++;
+            disp2.setText(String.format("%d", count2));
+        });
+        dec2.setOnClickListener(v -> {
+            if (count2 <= 0) count2 = 0;
+            else count2--;
+            disp2.setText(String.format("%d", count2));
         });
 
 
-        inc1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count1++;
-                disp1.setText(String.format("%d", count1));
-            }
+        inc3.setOnClickListener(v -> {
+            count3++;
+            disp3.setText(String.format("%d", count3));
         });
-        dec1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (count1 <= 0) count1 = 0;
-                else count1--;
-                disp1.setText(String.format("%d", count1));
-            }
-        });
-
-        inc2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count2++;
-                disp2.setText(String.format("%d", count2));
-            }
-        });
-        dec2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (count2 <= 0) count2 = 0;
-                else count2--;
-                disp2.setText(String.format("%d", count2));
-            }
-        });
-
-
-        inc3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count3++;
-                disp3.setText(String.format("%d", count3));
-            }
-        });
-        dec3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (count3 <= 0) count3 = 0;
-                else count3--;
-                disp3.setText(String.format("%d", count3));
-            }
+        dec3.setOnClickListener(v -> {
+            if (count3 <= 0) count3 = 0;
+            else count3--;
+            disp3.setText(String.format("%d", count3));
         });
 
 
         chronometer = findViewById(R.id.chronometer);
         chronometer.setFormat("Time: %s");
         chronometer.setBase(SystemClock.elapsedRealtime());
-        mTimeOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mTimeOut.setClickable(false);
-                mTechTimeOut++;
-                if (mTechTimeOut <= 1) {
-                    stopTimer();
-                    startChronometer(view);
-                    start.setVisibility(View.INVISIBLE);
-                    stop.setVisibility(View.INVISIBLE);
-                    reset.setVisibility(View.INVISIBLE);
-                    mTechTimeTaken = true;
-                } else {
-                    Toast.makeText(LineFollowerEvaluation.this, "No More Technical Timeout!", Toast.LENGTH_SHORT).show();
-                }
+        mTimeOut.setOnClickListener(view -> {
+            mTimeOut.setClickable(false);
+            mTechTimeOut++;
+            if (mTechTimeOut <= 1) {
+                stopTimer();
+                startChronometer(view);
+                start.setVisibility(View.INVISIBLE);
+                stop.setVisibility(View.INVISIBLE);
+                reset.setVisibility(View.INVISIBLE);
+                mTechTimeTaken = true;
+            } else {
+                Toast.makeText(LineFollowerEvaluation.this, "No More Technical Timeout!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000) {
-                    chronometer.setBase(SystemClock.elapsedRealtime());
-                    Toast.makeText(LineFollowerEvaluation.this, "Bing! Time Over!", Toast.LENGTH_SHORT).show();
-                    chronometer.stop();
-                    running = false;
-                    start.setVisibility(View.VISIBLE);
-                    stop.setVisibility(View.VISIBLE);
-                    reset.setVisibility(View.VISIBLE);
-                    mTimeOut.setClickable(true);
-                    startTimer();
-                }
+        chronometer.setOnChronometerTickListener(chronometer -> {
+            if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000) {
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                Toast.makeText(LineFollowerEvaluation.this, "Bing! Time Over!", Toast.LENGTH_SHORT).show();
+                chronometer.stop();
+                running = false;
+                start.setVisibility(View.VISIBLE);
+                stop.setVisibility(View.VISIBLE);
+                reset.setVisibility(View.VISIBLE);
+                mTimeOut.setClickable(true);
+                startTimer();
             }
         });
 
-        mSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progressDialog.show();
-                String mTeamName, mSuggestion;
-                long mTotalTime, mCheckPoints, mHandTouches;
-                mTeamName = et_teamName.getEditText().getText().toString();
+        mSubmit.setOnClickListener(view -> {
+            progressDialog.show();
+            String mTeamName, mSuggestion;
+            long mTotalTime, mCheckPoints, mHandTouches;
+            mTeamName = et_teamName.getEditText().getText().toString();
 
 
-                String[] timeArray = mChronoTimer.getText().toString().split(":");
-                int minutes = Integer.parseInt(timeArray[0]);
-                int seconds = Integer.parseInt(timeArray[1]);
-                mTotalTime =  (minutes * 60L) + seconds;
+            String[] timeArray = mChronoTimer.getText().toString().split(":");
+            int minutes = Integer.parseInt(timeArray[0]);
+            int seconds = Integer.parseInt(timeArray[1]);
+            mTotalTime = (minutes * 60L) + seconds;
 
-                mCheckPoints = Long.parseLong(disp1.getText().toString());
-                mHandTouches = Long.parseLong(disp2.getText().toString());
-                long mBonus = Long.parseLong(disp3.getText().toString());
-                mSuggestion = et_suggestion.getEditText().getText().toString();
-                DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Line Follower").child(mTeamName).child("Suggestions");
-                String id = mSugDB.push().getKey();
-                if(mSuggestion.length() >0 & id!=null){
-                    Suggestion suggestion = new Suggestion(mTeamName,mCollegeName,mSuggestion,id,true,false,0L);
-                    mSugDB.child(id).setValue(suggestion);
-                }
-                mDocumentReference = FirebaseFirestore.getInstance().collection("Line Follower").document(mTeamName);
-                mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime ,"mBonus",mBonus).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
-                        finish();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(LineFollowerEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LineFollowerEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            mCheckPoints = Long.parseLong(disp1.getText().toString());
+            mHandTouches = Long.parseLong(disp2.getText().toString());
+            long mBonus = Long.parseLong(disp3.getText().toString());
+            mSuggestion = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
+            DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Line Follower").child(mTeamName).child("Suggestions");
+            String id = mSugDB.push().getKey();
+            if (mSuggestion.length() > 0 & id != null) {
+                Suggestion suggestion = new Suggestion(mTeamName, mCollegeName, mSuggestion, id, true, false, 0L);
+                mSugDB.child(id).setValue(suggestion);
             }
+            mDocumentReference = FirebaseFirestore.getInstance().collection("Line Follower").document(mTeamName);
+            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime, "mBonus", mBonus).addOnCompleteListener(task -> {
+                startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
+                finish();
+            }).addOnSuccessListener(unused -> Toast.makeText(LineFollowerEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(LineFollowerEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show());
         });
 
 
@@ -306,18 +257,4 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         pauseOffset = 0;
         Log.e("TAG768", "onCreate: " + chronometer.getText().toString());
     }
-
-    public Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            tMiliSec = SystemClock.uptimeMillis() - tStart;
-            tUpdate = tBuff + tMiliSec;
-            sec = (int) (tUpdate / 1000);
-            min = sec / 60;
-            sec = sec % 60;
-            miliSec = (int) (tUpdate % 100);
-            mChronoTimer.setText(String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", miliSec));
-            handler.postDelayed(this, 60);
-        }
-    };
 }

@@ -5,8 +5,8 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Date;
 
 public class IdeateEvaluation_POJO {
-    String mTeamName,mCollegeName,mProblemStat,mApproach,mSuggestion,mEvalatedBy;
-    int mMark1,mMark2,mMark3,mMark4,mMark5;
+    String mTeamName, mCollegeName, mProblemStat, mApproach, mSuggestion, mEvalatedBy;
+    int mMark1, mMark2, mMark3, mMark4, mMark5;
     Double mAvg;
     @ServerTimestamp
     Date mEvaluatedTime;
@@ -14,7 +14,7 @@ public class IdeateEvaluation_POJO {
     public IdeateEvaluation_POJO() {
     }
 
-    public IdeateEvaluation_POJO(String mTeamName, String mCollegeName, String mProblemStat, String mApproach, String mSuggestion,String mEvalatedBy, int mMark1, int mMark2, int mMark3, int mMark4,int mMark5, Double mAvg, Date mEvaluatedTime) {
+    public IdeateEvaluation_POJO(String mTeamName, String mCollegeName, String mProblemStat, String mApproach, String mSuggestion, String mEvalatedBy, int mMark1, int mMark2, int mMark3, int mMark4, int mMark5, Double mAvg, Date mEvaluatedTime) {
         this.mTeamName = mTeamName;
         this.mCollegeName = mCollegeName;
         this.mProblemStat = mProblemStat;
