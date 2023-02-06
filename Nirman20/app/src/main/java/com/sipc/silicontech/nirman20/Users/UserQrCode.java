@@ -1,31 +1,22 @@
 package com.sipc.silicontech.nirman20.Users;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.Settings;
 import android.util.Base64;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,16 +28,10 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.R;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -54,8 +39,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class UserQrCode extends AppCompatActivity {
 
 
-
-    ImageView btn_backToCd,qr_output;
+    ImageView btn_backToCd, qr_output;
     ProgressDialog progressDialog;
     TextView team_name;
 
@@ -70,16 +54,16 @@ public class UserQrCode extends AppCompatActivity {
         setContentView(R.layout.user_qr_code);
 
         qr_output = findViewById(R.id.qr_output);
-        btn_backToCd  = findViewById(R.id.btn_backToCd);
+        btn_backToCd = findViewById(R.id.btn_backToCd);
         team_name = findViewById(R.id.mTeam_name);
         SessionManagerParticipant managerParticipant = new SessionManagerParticipant(getApplicationContext());
         String phoneNo = managerParticipant.getPhone(); //Get Phone Number from session
 
         //--------------- Internet Checking -----------
-        if (!isConnected(UserQrCode.this)){
+        if (!isConnected(UserQrCode.this)) {
             showCustomDialog();
         }
-        team_name.setText(managerParticipant.getTeamName().toString());
+        team_name.setText(managerParticipant.getTeamName());
 
         //--------------- Initialize ProgressDialog -----------
         progressDialog = new ProgressDialog(UserQrCode.this);
@@ -102,18 +86,17 @@ public class UserQrCode extends AppCompatActivity {
                 String teamname = snapshot.child("mTeamName").getValue(String.class);
 
 
-
                 //--------------- Encoding Data -----------
                 try {
                     // assert phoneNumber != null;
-                    String encodedData = encrypt(managerParticipant.getEventName()+ ":" +name+ ":" +teamname+ ":" +phoneNumber);
+                    String encodedData = encrypt(managerParticipant.getEventName() + ":" + name + ":" + teamname + ":" + phoneNumber);
                     MultiFormatWriter writer = new MultiFormatWriter();
 
                     //--------------- Create QR code -----------
                     try {
-                        BitMatrix matrix = writer.encode( appName+":" + encodedData , BarcodeFormat.QR_CODE,350,350);
+                        BitMatrix matrix = writer.encode(appName + ":" + encodedData, BarcodeFormat.QR_CODE, 350, 350);
 
-                        BarcodeEncoder encoder =new BarcodeEncoder();
+                        BarcodeEncoder encoder = new BarcodeEncoder();
                         Bitmap bitmap = encoder.createBitmap(matrix);
                         qr_output.setImageBitmap(bitmap);
 
@@ -136,17 +119,14 @@ public class UserQrCode extends AppCompatActivity {
         });
 
         //--------------- Button for back to User Dashboard -----------
-        btn_backToCd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserQrCode.this,UserDashBoard.class));
-                finishAffinity();
-            }
+        btn_backToCd.setOnClickListener(v -> {
+            startActivity(new Intent(UserQrCode.this, UserDashBoard.class));
+            finishAffinity();
         });
 
 
-
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
@@ -159,18 +139,10 @@ public class UserQrCode extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(UserQrCode.this);
         builder.setMessage("Please connect to the internet")
                 //   .setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),UserDashBoard.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+                    finish();
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -192,12 +164,12 @@ public class UserQrCode extends AppCompatActivity {
 
     //--------------- Encode Data -----------
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private String encrypt(String forEncode) throws Exception{
+    private String encrypt(String forEncode) throws Exception {
         SecretKeySpec key = generateKey(keyPass);
         Cipher c = Cipher.getInstance(AES);
-        c.init(Cipher.ENCRYPT_MODE,key);
+        c.init(Cipher.ENCRYPT_MODE, key);
         byte[] encVal = c.doFinal(forEncode.getBytes());
-        return Base64.encodeToString(encVal,Base64.DEFAULT);
+        return Base64.encodeToString(encVal, Base64.DEFAULT);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -209,9 +181,6 @@ public class UserQrCode extends AppCompatActivity {
         return new SecretKeySpec(key, "AES"); //SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
 
     }
-
-
-
 
 
 }

@@ -10,7 +10,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,9 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.Admins.AdminSignin;
-import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.concurrent.TimeUnit;
@@ -44,11 +41,11 @@ public class UserPhoneVerification extends AppCompatActivity {
     Button btn_signIn;
     TextView tv_phoneNo;
     ImageView btn_back;
-    String phoneNumber,getOtp,event,teamname,participantname,password;
+    String phoneNumber, getOtp, event, teamname, participantname, password;
 
     SessionManagerParticipant managerParticipant;
 
-    private TextView btn_resend,tv_counter,tv_resend;
+    private TextView btn_resend, tv_counter, tv_resend;
     private EditText et_otp;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
@@ -72,12 +69,12 @@ public class UserPhoneVerification extends AppCompatActivity {
         event = getIntent().getStringExtra("event");
         teamname = getIntent().getStringExtra("mTeamName");
         participantname = getIntent().getStringExtra("mParticipant");
-        password = getIntent().getStringExtra("password");;
+        password = getIntent().getStringExtra("password");
 
         btn_resend.setVisibility(View.INVISIBLE);
         tv_resend.setVisibility(View.INVISIBLE);
 
-        if (!isConnected(UserPhoneVerification.this)){
+        if (!isConnected(UserPhoneVerification.this)) {
             showCustomDialog();
         }
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
@@ -90,55 +87,49 @@ public class UserPhoneVerification extends AppCompatActivity {
             finish();
         });
         CountTimer();
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserPhoneVerification.this,UserDashBoard.class));
-                finishAffinity();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(UserPhoneVerification.this, UserDashBoard.class));
+            finishAffinity();
         });
-        btn_signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_signIn.setOnClickListener(v -> {
 
-                if (!validateOtp()) {
-                    return;
-                }
-                //Initialize ProgressDialog
-                progressDialog = new ProgressDialog(UserPhoneVerification.this);
-                progressDialog.show();
-                progressDialog.setCancelable(false);
-                progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            if (!validateOtp()) {
+                return;
+            }
+            //Initialize ProgressDialog
+            progressDialog = new ProgressDialog(UserPhoneVerification.this);
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            progressDialog.setContentView(R.layout.progress_dialog);
+            progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                String enteredOtp = et_otp.getText().toString();
+            String enteredOtp = et_otp.getText().toString();
 
-                /*                if(getOtp != null){
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                nodeId = String.valueOf(node+1000);
-            */
+            /*                if(getOtp != null){
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp,enteredOtp);
+                FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            nodeId = String.valueOf(node+1000);
+        */
 
-                if (getOtp != null) {
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
+            if (getOtp != null) {
+                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enteredOtp);
+                FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
 
-                            storeNewUserData();
+                        storeNewUserData();
 
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(UserPhoneVerification.this, "Error occur", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(UserPhoneVerification.this, "Error occur", Toast.LENGTH_SHORT).show();
+                    }
 
-                    });
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(UserPhoneVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
-                }
+                });
+            } else {
+                progressDialog.dismiss();
+                Toast.makeText(UserPhoneVerification.this, "Enter The Correct OTP", Toast.LENGTH_SHORT).show();
             }
         });
         btn_resend.setOnClickListener(v -> {
@@ -183,7 +174,7 @@ public class UserPhoneVerification extends AppCompatActivity {
     private void storeNewUserData() {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Participants").child(event);
-        UserData userData = new UserData(participantname,password,phoneNumber,teamname,false,false);
+        UserData userData = new UserData(participantname, password, phoneNumber, teamname, false, false);
         reference.child(phoneNumber).child("Profile").setValue(userData);
         reference.child(phoneNumber).child("mPhoneNo").setValue(phoneNumber);
         reference.child(phoneNumber).child("mTeamname").setValue(teamname);
@@ -200,7 +191,7 @@ public class UserPhoneVerification extends AppCompatActivity {
                 String _partpassword = snapshot.child(phoneNumber).child("Profile").child("mPassword").getValue(String.class);
                 String _partteamname = snapshot.child(phoneNumber).child("Profile").child("mTeamName").getValue(String.class);
                 managerParticipant.setParticipantLogin(true);
-                managerParticipant.setDetails(event,_participantname,_partpassword,_partphoneNo,_partteamname);
+                managerParticipant.setDetails(event, _participantname, _partpassword, _partphoneNo, _partteamname);
 
 
                 progressDialog.dismiss();
@@ -222,10 +213,10 @@ public class UserPhoneVerification extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 long counter = millisUntilFinished / 1000;
-                tv_counter.setText( counter + " Sec");
-                if (counter<=15){
+                tv_counter.setText(counter + " Sec");
+                if (counter <= 15) {
                     tv_counter.setTextColor(getResources().getColor(R.color.light_red));
-                }else {
+                } else {
                     tv_counter.setTextColor(getResources().getColor(R.color.light_green));
                 }
             }
@@ -239,6 +230,7 @@ public class UserPhoneVerification extends AppCompatActivity {
 
         }.start();
     }
+
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 
@@ -268,6 +260,7 @@ public class UserPhoneVerification extends AppCompatActivity {
         alertDialog.show();
 
     }
+
     //--------------- Check Internet Is Connected -----------
     private boolean isConnected(UserPhoneVerification verification) {
 
@@ -280,19 +273,20 @@ public class UserPhoneVerification extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
         super.onBackPressed();
     }
 
-    private boolean validateOtp(){
+    private boolean validateOtp() {
         String val = et_otp.getText().toString().trim();
 
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             et_otp.setError("Field can not be empty");
             return false;
-        }else {
+        } else {
             et_otp.setError(null);
             return true;
         }

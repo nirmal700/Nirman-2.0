@@ -1,16 +1,15 @@
 package com.sipc.silicontech.nirman20.Users;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,9 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoAdapter;
-import com.sipc.silicontech.nirman20.Users.ToDoList.TodoModel;
-import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +27,6 @@ public class User_Suggestion extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private String selectedDate;
     private ProgressDialog progressDialog;
     private DatabaseReference mSug;
     private List<Suggestion> suggestions;
@@ -54,12 +49,9 @@ public class User_Suggestion extends AppCompatActivity {
 
         mSug = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(event).child(teamNamae).child("Suggestions");
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(User_Suggestion.this, UserDashBoard.class));
-                finishAffinity();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(User_Suggestion.this, UserDashBoard.class));
+            finishAffinity();
         });
 
         //Initialize ProgressDialog
@@ -67,6 +59,7 @@ public class User_Suggestion extends AppCompatActivity {
 
         list(); // Load all data
     }
+
     //-----------------------Progress Dialog-------------------
     private void loadProgressDialog() {
 
@@ -77,6 +70,7 @@ public class User_Suggestion extends AppCompatActivity {
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
     }
+
     private void list() {
 
         mSug.addValueEventListener(new ValueEventListener() {

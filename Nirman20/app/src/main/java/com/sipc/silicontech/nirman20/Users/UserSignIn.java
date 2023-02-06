@@ -1,12 +1,8 @@
 package com.sipc.silicontech.nirman20.Users;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,12 +10,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Pair;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -27,17 +25,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserSignIn extends AppCompatActivity {
     SessionManagerParticipant managerParticipant;
     ProgressDialog progressDialog;
     TextInputLayout et_phoneNumber, et_password;
-    Button btn_login,btn_backSignUp;
+    Button btn_login, btn_backSignUp;
     AutoCompleteTextView mEventType;
     String event;
     TextView mSipc;
@@ -64,70 +62,52 @@ public class UserSignIn extends AppCompatActivity {
         arrayListEventType.add("HackNation");
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);
-        mEventType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                event = arrayAdapterEventType.getItem(i).toString();
-            }
-        });
+        mEventType.setOnItemClickListener((adapterView, view, i, l) -> event = arrayAdapterEventType.getItem(i));
 
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
 
-        if (!isConnected(UserSignIn.this)){
+        if (!isConnected(UserSignIn.this)) {
             showCustomDialog();
         }
 
-        btn_backSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), UsersSignUp.class);
+        btn_backSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), UsersSignUp.class);
 
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View,String>(findViewById(R.id.btn_backSignUp),"transition_signUp");
+            Pair[] pairs = new Pair[1];
+            pairs[0] = new Pair<View, String>(findViewById(R.id.btn_backSignUp), "transition_signUp");
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignIn.this,pairs);
-                    startActivity(intent,options.toBundle());
-                }
-                else{
-                    finish();
-                }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignIn.this, pairs);
+                startActivity(intent, options.toBundle());
+            } else {
+                finish();
             }
         });
-        mSipc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EvaluatorSignIn.class);
+        mSipc.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), EvaluatorSignIn.class);
 
-                Pair[] pairs = new Pair[1];
-                pairs[0] = new Pair<View,String>(findViewById(R.id.btn_backSignUp),"transition_signUp");
+            Pair[] pairs = new Pair[1];
+            pairs[0] = new Pair<View, String>(findViewById(R.id.btn_backSignUp), "transition_signUp");
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignIn.this,pairs);
-                    startActivity(intent,options.toBundle());
-                }
-                else{
-                    finish();
-                }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UserSignIn.this, pairs);
+                startActivity(intent, options.toBundle());
+            } else {
+                finish();
             }
         });
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userLogin();
-            }
-        });
+        btn_login.setOnClickListener(v -> userLogin());
 
     }
 
     private void userLogin() {
 
-        if (!isConnected(UserSignIn.this)){
+        if (!isConnected(UserSignIn.this)) {
             showCustomDialog();
         }
 
         //EditText Validations
-        if (!validatePhoneNumber() | !validatePassword() | !validateEvent() ) {
+        if (!validatePhoneNumber() | !validatePassword() | !validateEvent()) {
 
             return;
         }
@@ -139,8 +119,8 @@ public class UserSignIn extends AppCompatActivity {
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.setCancelable(false);
 
-        String _phoneNumber = et_phoneNumber.getEditText().getText().toString().trim();
-        String _password = et_password.getEditText().getText().toString().trim();
+        String _phoneNumber = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString().trim();
+        String _password = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
         if (_phoneNumber.charAt(0) == '0') {
 
@@ -160,7 +140,7 @@ public class UserSignIn extends AppCompatActivity {
                     et_phoneNumber.getEditText().setError(null);
                     String systemPassword = snapshot.child(_completePhoneNumber).child("Profile").child("mPassword").getValue(String.class);
 
-                    if (systemPassword.equals(_password)) {
+                    if (Objects.requireNonNull(systemPassword).equals(_password)) {
                         et_phoneNumber.getEditText().setError(null);
 
                         //Get User data From DataBase
@@ -170,9 +150,8 @@ public class UserSignIn extends AppCompatActivity {
                         String _teamname = snapshot.child(_completePhoneNumber).child("Profile").child("mTeamName").getValue(String.class);
 
 
-
                         managerParticipant.setParticipantLogin(true); //Set User Login Session
-                        managerParticipant.setDetails(event,_name,_password,_phoneNo,_teamname); //Add Data To User Session manager
+                        managerParticipant.setDetails(event, _name, _password, _phoneNo, _teamname); //Add Data To User Session manager
                         // Intent to Next Activity
                         startActivity(new Intent(getApplicationContext(), UserDashBoard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         finish();
@@ -214,18 +193,10 @@ public class UserSignIn extends AppCompatActivity {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserSignIn.this);
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),UserSignIn.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), UserSignIn.class));
+                    finish();
                 });
         android.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -233,33 +204,33 @@ public class UserSignIn extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        String val = et_password.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
 
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             et_password.setError("Field can not be empty");
             return false;
-        }else if (!val.matches("\\w*")){
+        } else if (!val.matches("\\w*")) {
             et_password.setError("White spaces not allowed");
             return false;
-        }else {
+        } else {
             et_password.setError(null);
             return true;
         }
     }
 
-    private boolean validatePhoneNumber(){
-        String val = et_phoneNumber.getEditText().getText().toString().trim();
+    private boolean validatePhoneNumber() {
+        String val = Objects.requireNonNull(et_phoneNumber.getEditText()).getText().toString().trim();
 
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             et_phoneNumber.setError("Field can not be empty");
             return false;
-        }else if(val.length()>10 | val.length()<10){
+        } else if (val.length() > 10 | val.length() < 10) {
             et_phoneNumber.setError("Please Enter 10 Digit Phone Number");
             return false;
-        }else if (!val.matches("\\w*")){
+        } else if (!val.matches("\\w*")) {
             et_phoneNumber.setError("White spaces not allowed");
             return false;
-        }else {
+        } else {
             et_phoneNumber.setError(null);
             return true;
         }
