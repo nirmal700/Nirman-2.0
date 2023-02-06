@@ -1,7 +1,6 @@
 package com.sipc.silicontech.nirman20.Admins;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -11,8 +10,6 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -40,7 +37,6 @@ public class AddVolunteers extends AppCompatActivity {
     AutoCompleteTextView autoCompleteUserType;
     Button mGen;
     ImageView btn_back;
-    ProgressDialog progressDialog;
     String mAccessLevel = "";
     String SIC, mName, mPassword, mUserRole, mPhoneNo;
     private TextInputLayout et_userName;
@@ -4753,7 +4749,7 @@ public class AddVolunteers extends AppCompatActivity {
         if (!isConnected(AddVolunteers.this)) {
             showCustomDialog();
         }
-        et_sic.getEditText().addTextChangedListener(new TextWatcher() {
+        Objects.requireNonNull(et_sic.getEditText()).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.e("TAG", "beforeTextChanged: " + charSequence + i + i1 + "" + i2);
@@ -4777,30 +4773,19 @@ public class AddVolunteers extends AppCompatActivity {
             }
         });
 
-        autoCompleteUserType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mAccessLevel = "" + i;
+        autoCompleteUserType.setOnItemClickListener((adapterView, view, i, l) -> mAccessLevel = "" + i);
+        mGen.setOnClickListener(view -> {
+
+            if (!validatePhoneNumber() | !validateUserName() | !validUserType() | !validatePassword() | !validateUserRole() | !validateSIC()) {
+
+                return;
             }
+
+            UploadVolunteerData();
         });
-        mGen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!validatePhoneNumber() | !validateUserName() | !validUserType() | !validatePassword() | !validateUserRole() | !validateSIC()) {
-
-                    return;
-                }
-
-                UploadVolunteerData();
-            }
-        });
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AddVolunteers.this, AdminDashboard.class));
-                finishAffinity();
-            }
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(AddVolunteers.this, AdminDashboard.class));
+            finishAffinity();
         });
 
 
@@ -4869,7 +4854,7 @@ public class AddVolunteers extends AppCompatActivity {
     }
 
     private boolean validateUserRole() {
-        String val = et_userRole.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(et_userRole.getEditText()).getText().toString().trim();
 
         if (val.isEmpty()) {
             et_userRole.setError("Field can not be empty");
@@ -4905,7 +4890,7 @@ public class AddVolunteers extends AppCompatActivity {
 
     private boolean validateSIC() {
         String val = Objects.requireNonNull(et_sic.getEditText()).getText().toString().trim();
-        et_userName.getEditText().setText("");
+        Objects.requireNonNull(et_userName.getEditText()).setText("");
         if (mStudentsSIC.contains(val)) {
             int i = mStudentsSIC.indexOf(val);
             et_userName.getEditText().setText(mStudentName.get(i));
