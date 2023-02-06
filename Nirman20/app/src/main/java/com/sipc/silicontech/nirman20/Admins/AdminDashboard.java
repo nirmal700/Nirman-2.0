@@ -51,7 +51,7 @@ public class AdminDashboard extends AppCompatActivity {
     Button btCancel, btOk;
     CheckBox checkBox1, checkBox2, checkBox3, checkBox4;
 
-    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails;
+    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails,mFoodCoupoun;
     Dialog dialog;
     private CollectionReference mCollectionReference;
     String name,teamname,event;
@@ -67,6 +67,14 @@ public class AdminDashboard extends AppCompatActivity {
         mAddNewTeams = findViewById(R.id.btn_AddNewTeams);
         btn_ViewTeamDetails = findViewById(R.id.btn_ViewTeams);
         mCheckIn = findViewById(R.id.btn_CheckIn);
+        mFoodCoupoun  = findViewById(R.id.btn_FoodCoupouns);
+
+        mFoodCoupoun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminDashboard.this, FoodCoupoun.class));
+            }
+        });
 
 
         progressDialog = new ProgressDialog(AdminDashboard.this);
