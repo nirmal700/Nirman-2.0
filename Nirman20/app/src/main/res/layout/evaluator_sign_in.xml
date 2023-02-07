@@ -135,7 +135,7 @@
                 tools:targetApi="lollipop" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_backSignUp"
+                android:id="@+id/btn_sipc"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
@@ -153,7 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/sipc"
+                android:id="@+id/tv_particiapnt"
                 android:text="@string/participant"
                 android:textAlignment="textEnd"
                 android:layout_gravity="end"

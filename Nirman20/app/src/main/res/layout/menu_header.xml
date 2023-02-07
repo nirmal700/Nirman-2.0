@@ -1,68 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_primary"
     android:paddingStart="15dp"
     android:paddingTop="15dp"
     android:paddingEnd="10dp"
     android:orientation="vertical"
     android:layout_centerVertical="true"
-    android:paddingLeft="15dp"
-    android:paddingRight="10dp"
     tools:targetApi="o">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textStyle="bold"
-        android:autoSizeTextType="uniform"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="30sp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rise With Technology"
-        android:autoSizeTextType="uniform"
-        android:textSize="15sp"
-        android:textColor="@color/white"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:autoSizeTextType="uniform"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/my_fav_sans_number"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <TextClock
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:autoSizeTextType="uniform"
-        android:layout_marginStart="30dp"
-        android:fontFamily="@font/my_fav_sans_number"
-        android:textColor="@color/white"
-        android:layout_marginLeft="30dp"
-        tools:targetApi="o" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:id="@+id/img_nirman"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="-10dp"
         android:src="@drawable/nirmanlogo"
-        android:layout_gravity="end"
-        android:layout_marginTop="-115dp"
-        android:contentDescription="@null" />
+        tools:ignore="ContentDescription"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_nirman"
+            android:id="@+id/RiseWithTech"
+            android:text="Rise With Technology"
+            android:autoSizeTextType="uniform"
+           android:layout_alignParentStart="true"
+            android:fontFamily="@font/astronaut"
+            android:textSize="15sp"
+            android:layout_marginEnd="15dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/splash_robo"
+            android:layout_width="180dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="-20dp"
+            android:layout_centerVertical="true"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="robot_playing.json"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:autoSizeTextType="uniform"
+            android:layout_below="@+id/RiseWithTech"
+            android:layout_alignStart="@+id/img_nirman"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/my_fav_sans_number"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextClock
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:layout_below="@+id/tv_date"
+            android:autoSizeTextType="uniform"
+            android:layout_marginStart="30dp"
+            android:layout_alignStart="@+id/img_nirman"
+            android:fontFamily="@font/my_fav_sans_number"
+            android:textColor="@color/white"
+            android:layout_marginLeft="30dp"
+            tools:targetApi="o" />
+
+
+    </RelativeLayout>
+
+
+
+
 </LinearLayout>

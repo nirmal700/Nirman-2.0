@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.Admins.AdminSignin;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.UserSignIn;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -35,11 +37,11 @@ public class EvaluatorSignIn extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterEvaluatorName;
     AutoCompleteTextView autoCompleteEvaluator;
     TextInputLayout et_password;
-    Button btn_login;
+    Button btn_login,btn_sipc;
     String evaluator_name;
     ProgressDialog progressDialog;
     SessionManagerEvaluator managerEvaluator;
-    TextView sipc;
+    TextView participant;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
@@ -50,7 +52,8 @@ public class EvaluatorSignIn extends AppCompatActivity {
         autoCompleteEvaluator = findViewById(R.id.autoCompleteEvaluator);
         et_password = findViewById(R.id.et_password);
         btn_login = findViewById(R.id.btn_login);
-        sipc = findViewById(R.id.sipc);
+        btn_sipc = findViewById(R.id.btn_sipc);
+        participant = findViewById(R.id.tv_particiapnt);
         managerEvaluator = new SessionManagerEvaluator(getApplicationContext());
         arrayListEvaluatorName = new ArrayList<>();
         arrayAdapterEvaluatorName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEvaluatorName);
@@ -91,10 +94,18 @@ public class EvaluatorSignIn extends AppCompatActivity {
 
         btn_login.setOnClickListener(v -> Evaluatorlogin());
 
-        sipc.setOnClickListener(view -> {
+        btn_sipc.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(), AdminSignin.class));
             finish();
         });
+        participant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), UserSignIn.class));
+                finish();
+            }
+        });
+
         autoCompleteEvaluator.setOnItemClickListener((parent, view, position, id) -> evaluator_name = arrayAdapterEvaluatorName.getItem(position));
 
 
