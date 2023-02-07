@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.ramotion.fluidslider.FluidSlider;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Suggestion;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.Objects;
 
@@ -247,7 +248,7 @@ public class IdeateEvaluation extends AppCompatActivity {
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
                 .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
-                    startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class));
+                    startActivity(new Intent(getApplicationContext(), IdeateEvaluation.class));
                     finish();
                 });
         android.app.AlertDialog alertDialog = builder.create();
@@ -266,5 +267,10 @@ public class IdeateEvaluation extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
+        super.onBackPressed();
     }
 }
