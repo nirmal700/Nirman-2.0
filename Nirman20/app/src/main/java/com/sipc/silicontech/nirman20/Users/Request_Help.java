@@ -87,8 +87,9 @@ public class Request_Help extends AppCompatActivity {
         });
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(Request_Help.this, UserDashBoard.class));
-            finishAffinity();
+            finish();
         });
+
 
         //Initialize ProgressDialog
         loadProgressDialog();
@@ -195,6 +196,11 @@ public class Request_Help extends AppCompatActivity {
                 Toast.makeText(Request_Help.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        super.onBackPressed();
     }
     private void showCustomDialog() {
 

@@ -60,7 +60,7 @@ public class User_Suggestion extends AppCompatActivity {
 
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(User_Suggestion.this, UserDashBoard.class));
-            finishAffinity();
+            finish();
         });
 
         //Initialize ProgressDialog
@@ -131,5 +131,10 @@ public class User_Suggestion extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        super.onBackPressed();
     }
 }

@@ -122,24 +122,28 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserQrCode.class));
+                finish();
             }
         });
         btn_RequestHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Request_Help.class));
+                finish();
             }
         });
         btn_TodoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), UserToDoList.class));
+                finish();
             }
         });
         btn_Suggestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), User_Suggestion.class));
+                finish();
             }
         });
         btn_RateCoParticipant.setOnClickListener(new View.OnClickListener() {
