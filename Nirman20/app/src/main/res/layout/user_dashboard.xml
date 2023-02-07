@@ -170,55 +170,6 @@
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_Suggestion"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                app:cardElevation="10dp"
-                android:backgroundTint="@color/bg_Todo_card">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_card_user">
-
-                    <ImageView
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/burger" />
-
-                    <TextView
-                        style="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginBottom="20dp"
-                        android:autoSizeTextType="uniform"
-                        android:fontFamily="@font/my_fav_sans_number"
-                        android:text="Suggestion's"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_RequestHelp"
                 android:layout_width="0dp"
@@ -259,6 +210,56 @@
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_Suggestion"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardElevation="10dp"
+                android:backgroundTint="@color/bg_Todo_card">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_card_user">
+
+                    <ImageView
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_idea" />
+
+                    <TextView
+                        style="@android:style/TextAppearance.DeviceDefault.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="20dp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="@font/my_fav_sans_number"
+                        android:text="Suggestion's"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_TodoList"
@@ -327,7 +328,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:contentDescription="@null"
-                        android:src="@drawable/satisfaction" />
+                        android:src="@drawable/ic_suggest" />
 
                     <TextView
                         style="@android:style/TextAppearance.DeviceDefault.Medium"
