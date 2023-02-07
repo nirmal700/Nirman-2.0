@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Help;
 import com.sipc.silicontech.nirman20.Users.SessionManagerParticipant;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,7 @@ public class AddressIssues extends AppCompatActivity {
         builder.setMessage("Please connect to the internet")
                 //   .setCancelable(false)
                 .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
-                    startActivity(new Intent(getApplicationContext(), AddNewTeams.class));
+                    startActivity(new Intent(getApplicationContext(), AddressIssues.class));
                     finish();
                 });
         AlertDialog alertDialog = builder.create();
@@ -135,5 +136,10 @@ public class AddressIssues extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
+        super.onBackPressed();
     }
 }

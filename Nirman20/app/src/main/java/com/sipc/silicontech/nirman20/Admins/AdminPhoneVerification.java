@@ -26,6 +26,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.concurrent.TimeUnit;
 
@@ -235,5 +236,10 @@ public class AdminPhoneVerification extends AppCompatActivity {
             return true;
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), AdminSignin.class));
+        super.onBackPressed();
     }
 }

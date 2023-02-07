@@ -274,7 +274,7 @@ public class AdminDashboard extends AppCompatActivity {
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
                 .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
-                    startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
+                    startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
                     finish();
                 });
         android.app.AlertDialog alertDialog = builder.create();

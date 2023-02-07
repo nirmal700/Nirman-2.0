@@ -4794,7 +4794,7 @@ public class AddVolunteers extends AppCompatActivity {
         });
         btn_back.setOnClickListener(v -> {
             startActivity(new Intent(AddVolunteers.this, AdminDashboard.class));
-            finishAffinity();
+            finish();
         });
 
 
@@ -4990,5 +4990,6 @@ public class AddVolunteers extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
 
 }

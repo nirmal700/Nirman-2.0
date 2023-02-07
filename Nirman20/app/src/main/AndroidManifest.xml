@@ -69,13 +69,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Admins.PublishResults"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".Evaluators.EvaluatorSignIn"
             android:exported="false">
             <meta-data
