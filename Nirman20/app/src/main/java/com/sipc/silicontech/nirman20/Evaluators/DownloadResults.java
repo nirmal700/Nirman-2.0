@@ -145,10 +145,8 @@ public class DownloadResults extends AppCompatActivity {
                                     } catch (FileNotFoundException exception) {
                                         exception.printStackTrace();
                                     }
-//        Log.e("FILEPATH",""+pdfPath);
+
                                     Uri uri = Uri.fromFile(file);
-                                    Log.e("URI", "" + uri.toString());
-//        OutputStream outputStream = new FileOutputStream(file);
 
                                     PdfWriter pdfWriter = null;
                                     try {
@@ -230,11 +228,8 @@ public class DownloadResults extends AppCompatActivity {
                                     }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
                                         progressDialog.dismiss();
                                         Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
-                                        Log.e("67546", "GenerateHackNationPDF: " + e);
                                     }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
                                         pdfurl = uri1.toString();
-                                        progressDialog.dismiss();
-                                        Log.e("Uploaded", "onComplete: Results Uploaded");
                                         progressDialog.dismiss();
                                         if (pdfurl != null) {
                                             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -281,10 +276,7 @@ public class DownloadResults extends AppCompatActivity {
                                     } catch (FileNotFoundException exception) {
                                         exception.printStackTrace();
                                     }
-//        Log.e("FILEPATH",""+pdfPath);
                                     Uri uri = Uri.fromFile(file);
-                                    Log.e("URI", "" + uri.toString());
-//        OutputStream outputStream = new FileOutputStream(file);
 
                                     PdfWriter pdfWriter = null;
                                     try {
@@ -366,11 +358,9 @@ public class DownloadResults extends AppCompatActivity {
                                     }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
                                         progressDialog.dismiss();
                                         Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
-                                        Log.e("67546", "Generate Ideate: " + e);
                                     }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
                                         pdfurl = uri1.toString();
                                         progressDialog.dismiss();
-                                        Log.e("Uploaded", "onComplete: Results Uploaded");
                                         progressDialog.dismiss();
                                         if (pdfurl != null) {
                                             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -408,10 +398,7 @@ public class DownloadResults extends AppCompatActivity {
                         } catch (FileNotFoundException exception) {
                             exception.printStackTrace();
                         }
-//        Log.e("FILEPATH",""+pdfPath);
                         Uri uri = Uri.fromFile(file);
-                        Log.e("URI", "" + uri.toString());
-//        OutputStream outputStream = new FileOutputStream(file);
 
                         PdfWriter pdfWriter = null;
                         try {
@@ -505,11 +492,8 @@ public class DownloadResults extends AppCompatActivity {
                         }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
                             progressDialog.dismiss();
                             Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
-                            Log.e("67546", "Generate RoboRace: " + e);
                         }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
                             pdfurl = uri1.toString();
-                            progressDialog.dismiss();
-                            Log.e("Uploaded", "onComplete: Results Uploaded");
                             progressDialog.dismiss();
                             if (pdfurl != null) {
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -544,10 +528,7 @@ public class DownloadResults extends AppCompatActivity {
                         } catch (FileNotFoundException exception) {
                             exception.printStackTrace();
                         }
-//        Log.e("FILEPATH",""+pdfPath);
                         Uri uri = Uri.fromFile(file);
-                        Log.e("URI", "" + uri.toString());
-//        OutputStream outputStream = new FileOutputStream(file);
 
                         PdfWriter pdfWriter = null;
                         try {
@@ -641,11 +622,8 @@ public class DownloadResults extends AppCompatActivity {
                         }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
                             progressDialog.dismiss();
                             Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
-                            Log.e("67546", "Generate RoboRace: " + e);
                         }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
                             pdfurl = uri1.toString();
-                            progressDialog.dismiss();
-                            Log.e("Uploaded", "onComplete: Results Uploaded");
                             progressDialog.dismiss();
                             if (pdfurl != null) {
                                 Intent intent = new Intent(Intent.ACTION_VIEW);

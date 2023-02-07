@@ -1,8 +1,12 @@
 package com.sipc.silicontech.nirman20.Evaluators;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,6 +55,11 @@ public class IdeateEvaluation extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.dismiss();
+
+        if (!isConnected(IdeateEvaluation.this)) {
+            showCustomDialog();
+        }
+
 
         managerEvaluator = new SessionManagerEvaluator(IdeateEvaluation.this);
 
@@ -231,5 +240,31 @@ public class IdeateEvaluation extends AppCompatActivity {
                 Toast.makeText(IdeateEvaluation.this, "Error Occured!!" + e, Toast.LENGTH_SHORT).show();
             });
         });
+    }
+    private void showCustomDialog() {
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(IdeateEvaluation.this);
+        builder.setMessage("Please connect to the internet")
+                //.setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class));
+                    finish();
+                });
+        android.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(IdeateEvaluation userLogin) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) userLogin.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
+
     }
 }

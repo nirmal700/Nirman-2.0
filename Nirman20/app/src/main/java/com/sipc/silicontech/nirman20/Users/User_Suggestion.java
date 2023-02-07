@@ -1,8 +1,12 @@
 package com.sipc.silicontech.nirman20.Users;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
@@ -46,6 +51,10 @@ public class User_Suggestion extends AppCompatActivity {
         managerUser = new SessionManagerParticipant(getApplicationContext());
         String teamNamae = managerUser.getTeamName();
         String event = managerUser.getEventName();
+
+        if (!isConnected(User_Suggestion.this)) {
+            showCustomDialog();
+        }
 
         mSug = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(event).child(teamNamae).child("Suggestions");
 
@@ -96,5 +105,31 @@ public class User_Suggestion extends AppCompatActivity {
                 Toast.makeText(User_Suggestion.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void showCustomDialog() {
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(User_Suggestion.this);
+        builder.setMessage("Please connect to the internet")
+                //.setCancelable(false)
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class));
+                    finish();
+                });
+        android.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    //--------------- Check Internet Is Connected -----------
+    private boolean isConnected(User_Suggestion userLogin) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) userLogin.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo bluetoothConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
+
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
+
     }
 }

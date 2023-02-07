@@ -71,6 +71,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                progressDialog.show();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String name = ds.child("eName").getValue(String.class);
                     Log.e("TAG", "onDataChange: " + name);
@@ -78,7 +79,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
                     arrayAdapterEvaluatorName = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEvaluatorName);
                     autoCompleteEvaluator.setAdapter(arrayAdapterEvaluatorName);
                 }
-
+                progressDialog.dismiss();
             }
 
             @Override
@@ -115,7 +116,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
 
                 if (snapshot.exists()) { //Check User
 
-
+                    progressDialog.show();
                     String systemPassword = snapshot.child(evaluator_name).child("ePassword").getValue(String.class);
 
                     if (Objects.requireNonNull(systemPassword).equals(_password1)) {

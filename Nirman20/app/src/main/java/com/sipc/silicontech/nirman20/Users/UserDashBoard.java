@@ -27,17 +27,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
-import com.sipc.silicontech.nirman20.Admins.SessionManagerAdmin;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
-import com.sipc.silicontech.nirman20.Evaluators.HackNationEvaluation;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
@@ -51,17 +44,17 @@ import java.util.Locale;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-public class UserDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class UserDashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static final float END_SCALE = 0.7f;
 
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    MaterialCardView mGenQR,btn_RequestHelp,btn_TodoList,btn_Suggestion,btn_RateCoParticipant;
+    MaterialCardView mGenQR, btn_RequestHelp, btn_TodoList, btn_Suggestion, btn_RateCoParticipant;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
-    TextView user_Name,team_name,risk_level;
+    TextView user_Name, team_name, risk_level;
     View nav_headerView;
     ProgressDialog progressDialog;
 
@@ -70,7 +63,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
 
     String phoneNo;
-    String view_date= new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
+    String view_date = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
     SessionManagerParticipant managerParticipant;
 
 
@@ -101,7 +94,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
 
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
-        if (!isConnected(UserDashBoard.this)){
+        if (!isConnected(UserDashBoard.this)) {
             showCustomDialog();
         }
         user_Name.setText(managerParticipant.getParticipantName().toString());
@@ -171,9 +164,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         navigationView.setCheckedItem(R.id.nav_home);
 
 
-
         animateNavigationDrawer();
     }
+
     @Override
     public void onBackPressed() {
 
@@ -183,11 +176,12 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         } else
             super.onBackPressed();
     }
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
 
 
             case R.id.nav_home:
@@ -223,6 +217,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
         return true;
     }
+
     private void animateNavigationDrawer() {
 
         //Add any color or remove it to use the default one!
@@ -247,17 +242,18 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             }
         });
     }
+
     private void share() {
 
         try {
 
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
-            i.putExtra(Intent.EXTRA_SUBJECT,"QR Registry");
-            i.putExtra(Intent.EXTRA_TEXT,"https://play.google.com/store/apps/details?id="+getApplicationContext().getPackageName());
-            startActivity(Intent.createChooser(i,"Share With"));
+            i.putExtra(Intent.EXTRA_SUBJECT, "QR Registry");
+            i.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName());
+            startActivity(Intent.createChooser(i, "Share With"));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "Unable to share this app.", Toast.LENGTH_SHORT).show();
         }
 
@@ -271,8 +267,8 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     private void about() {
         //startActivity(new Intent(getApplicationContext(), AboutQrRegistry.class));
     }
-    private void logout() {
 
+    private void logout() {
 
 
         //Initialize alert dialog
@@ -290,7 +286,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             public void onClick(DialogInterface dialog, int which) {
 
                 managerParticipant.setParticipantLogin(false);
-                managerParticipant.setDetails("","","","","");
+                managerParticipant.setDetails("", "", "", "", "");
 
                 //activity.finishAffinity();
                 dialog.dismiss();
@@ -354,15 +350,14 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                     String name = separateData[1];
                     String teamname = separateData[2];
                     progressDialog.show();
-                    if(managerParticipant.getEventName().equals(event)){
-                        if(!(managerParticipant.getTeamName() .equals(teamname) )){
+                    if (managerParticipant.getEventName().equals(event)) {
+                        if (!(managerParticipant.getTeamName().equals(teamname))) {
                             progressDialog.dismiss();
                             Intent mCoPart = new Intent(UserDashBoard.this, ReviewTeam.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            mCoPart.putExtra("mTeamName",teamname);
+                            mCoPart.putExtra("mTeamName", teamname);
                             startActivity(mCoPart);
                             finish();
-                        }
-                        else {
+                        } else {
                             progressDialog.dismiss();
                             Toast.makeText(this, "Can't Review Self!!", Toast.LENGTH_SHORT).show();
                         }
@@ -393,6 +388,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private Object decrypt(String userDetails) throws Exception {
 
@@ -413,6 +409,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         byte[] key = digest.digest();
         return new SecretKeySpec(key, "AES");
     }
+
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 
@@ -428,7 +425,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(),UserDashBoard.class));
+                        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
                         finish();
                     }
                 });
