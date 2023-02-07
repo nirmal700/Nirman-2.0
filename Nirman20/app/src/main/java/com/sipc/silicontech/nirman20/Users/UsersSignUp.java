@@ -72,7 +72,6 @@ public class UsersSignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.users_sign_up);
-        bckBtn = findViewById(R.id.btn_backToCd);
         next = findViewById(R.id.btn_next);
         login = findViewById(R.id.btn_login);
         title = findViewById(R.id.title);

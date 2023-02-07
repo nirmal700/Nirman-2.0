@@ -83,14 +83,10 @@ public class UserPhoneVerification extends AppCompatActivity {
         mobile = mobile.substring(0, 3) + "*****" + mobile.substring(9);
         tv_phoneNo.setText(mobile);
         btn_back.setOnClickListener(v -> {
-            startActivity(new Intent(UserPhoneVerification.this, AdminSignin.class));
+            startActivity(new Intent(UserPhoneVerification.this, UsersSignUp.class));
             finish();
         });
         CountTimer();
-        btn_back.setOnClickListener(v -> {
-            startActivity(new Intent(UserPhoneVerification.this, UserDashBoard.class));
-            finishAffinity();
-        });
         btn_signIn.setOnClickListener(v -> {
 
             if (!validateOtp()) {
@@ -253,7 +249,7 @@ public class UserPhoneVerification extends AppCompatActivity {
                 //.setCancelable(false)
                 .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
                 .setNegativeButton("Cancel", (dialog, which) -> {
-                    startActivity(new Intent(getApplicationContext(), AdminSignin.class));
+                    startActivity(new Intent(getApplicationContext(), UsersSignUp.class));
                     finish();
                 });
         AlertDialog alertDialog = builder.create();
@@ -276,7 +272,7 @@ public class UserPhoneVerification extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        startActivity(new Intent(getApplicationContext(), UsersSignUp.class));
         super.onBackPressed();
     }
 
