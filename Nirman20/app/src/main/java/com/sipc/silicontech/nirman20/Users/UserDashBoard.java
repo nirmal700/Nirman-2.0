@@ -395,7 +395,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
-            i.putExtra(Intent.EXTRA_SUBJECT, "QR Registry");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Nirman 2.0");
             i.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName());
             startActivity(Intent.createChooser(i, "Share With"));
 

@@ -2,6 +2,7 @@ package com.sipc.silicontech.nirman20.Evaluators;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,14 +10,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,6 +38,7 @@ import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -36,12 +47,17 @@ import java.util.Objects;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-public class EvaluatorDashboard extends AppCompatActivity {
+public class EvaluatorDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     MaterialCardView btn_evaluate, btn_demo;
+    static final float END_SCALE = 0.7f;
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
     CollectionReference mCollectionReference;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    LinearLayout contentView;
+    View nav_headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +66,30 @@ public class EvaluatorDashboard extends AppCompatActivity {
 
         btn_evaluate = findViewById(R.id.btn_evaluate);
         btn_demo = findViewById(R.id.btn_FoodCoupouns);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation_view);
+        contentView = findViewById(R.id.linear_content);
+        LottieAnimationView lottieAnimationView1 = findViewById(R.id.drawer_btn);
+        Menu menuNav = navigationView.getMenu();
+
+        nav_headerView = navigationView.inflateHeaderView(R.layout.menu_header);
+        navigationDrawer();
+
+
+
+        lottieAnimationView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                lottieAnimationView1.playAnimation();
+                lottieAnimationView1.loop(true);
+
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
         btn_demo.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), DownloadResults.class)));
 
 
@@ -58,6 +98,43 @@ public class EvaluatorDashboard extends AppCompatActivity {
                 showCustomDialog();
             } else {
                 scanCode();
+            }
+        });
+    }
+
+    private void navigationDrawer() {
+        // Navigation Drawer Functions
+
+
+            navigationView.bringToFront();
+            navigationView.setNavigationItemSelectedListener(this);
+            navigationView.setCheckedItem(R.id.nav_home);
+
+
+            animateNavigationDrawer();
+
+    }
+    private void animateNavigationDrawer() {
+
+        //Add any color or remove it to use the default one!
+        //drawerLayout.setScrimColor(getResources().getColor(R.color.red));
+        //To make it transparent use Color.Transparent in side setScrimColor();
+        //drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                contentView.setScaleX(offsetScale);
+                contentView.setScaleY(offsetScale);
+
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                contentView.setTranslationX(xTranslation);
             }
         });
     }
@@ -242,5 +319,90 @@ public class EvaluatorDashboard extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+
+
+            case R.id.nav_home:
+                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.nav_contactUs:
+                Toast.makeText(getApplicationContext(), "Contact Us", Toast.LENGTH_SHORT).show();
+//                contactUs();
+                break;
+
+            case R.id.nav_share:
+                Toast.makeText(getApplicationContext(), "Share", Toast.LENGTH_SHORT).show();
+//                share();
+                break;
+
+            case R.id.nav_about:
+                Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
+//                about();
+                break;
+
+            case R.id.logout:
+                logout();
+                break;
+
+            case R.id.exit:
+                Toast.makeText(this, "Thank you :)", Toast.LENGTH_SHORT).show();
+                finishAffinity();
+                break;
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    private void logout() {
+
+        SessionManagerEvaluator sessionManagerEvaluator = new SessionManagerEvaluator(EvaluatorDashboard.this);
+
+
+        //Initialize alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //Set Title
+        builder.setTitle("Log out");
+
+        //set Message
+        builder.setMessage("Are you sure to Log out ?");
+
+        //positive YES button
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                sessionManagerEvaluator.setEvaluatorLogin(false);
+                sessionManagerEvaluator.setEvaluatorDetails("", "", "", "");
+
+                //activity.finishAffinity();
+                dialog.dismiss();
+
+                //Finish Activity
+                startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
+            }
+        });
+
+        //Negative NO button
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Dismiss Dialog
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
