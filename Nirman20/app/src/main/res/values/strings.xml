@@ -223,5 +223,7 @@
     <string name="team_name_the_devloopers">Team Name :The DevLoopers</string>
     <string name="event_hacknation">Event :HackNation</string>
     <string name="there_was_a_issue_with_the_lan_in_which_we_are_not_able_to_get_the_proxt_server_0">There was a issue with the LAN in which we are not able to get the proxt Server</string>
+    <string name="download_result_s">Download Result\'s</string>
+    <string name="download_result_s_2">Download Result\'s</string>
 
 </resources>

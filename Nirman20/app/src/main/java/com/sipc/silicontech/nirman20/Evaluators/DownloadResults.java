@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +45,8 @@ import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.Request_Help;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -74,6 +77,7 @@ public class DownloadResults extends AppCompatActivity {
     private ArrayList<NewIdeateTeamData> ideateTeamData;
     private ArrayList<NewLineFollowerTeamData> lineFollowerTeamData;
     private SessionManagerEvaluator managerEvaluator;
+    ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +87,7 @@ public class DownloadResults extends AppCompatActivity {
         Button btn_submit = findViewById(R.id.btn_submit);
         mResult = FirebaseStorage.getInstance().getReference("Results");
         managerEvaluator = new SessionManagerEvaluator(DownloadResults.this);
+        btn_back = findViewById(R.id.btn_backToCd);
 
         progressDialog = new ProgressDialog(DownloadResults.this);
         progressDialog.show();
@@ -112,6 +117,12 @@ public class DownloadResults extends AppCompatActivity {
         ideateTeamData = new ArrayList<>();
         lineFollowerTeamData = new ArrayList<>();
         mEventType.setOnItemClickListener((adapterView, view, i, l) -> event = arrayAdapterEventType.getItem(i));
+
+
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(DownloadResults.this, EvaluatorDashboard.class));
+            finish();
+        });
 
         btn_submit.setOnClickListener(view -> {
             if (event.equals("HackNation")) {
@@ -638,6 +649,11 @@ public class DownloadResults extends AppCompatActivity {
                 });
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
+        super.onBackPressed();
     }
 
 }

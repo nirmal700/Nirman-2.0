@@ -165,7 +165,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
                             android:contentDescription="@null"
-                            android:src="@drawable/burger" />
+                            android:src="@drawable/ic_podium" />
 
                         <TextView
                             style="@android:style/TextAppearance.DeviceDefault.Medium"
@@ -176,7 +176,7 @@
                             android:layout_marginBottom="20dp"
                             android:autoSizeTextType="uniform"
                             android:fontFamily="@font/my_fav_sans_number"
-                            android:text="@string/food_coupoun_s"
+                            android:text="@string/download_result_s"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />

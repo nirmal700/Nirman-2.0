@@ -98,7 +98,18 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
 
         nav_headerView = navigationView.inflateHeaderView(R.layout.menu_header);
         navigationDrawer();
+        lottieAnimationView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                lottieAnimationView1.playAnimation();
+                lottieAnimationView1.loop(true);
+
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
 
         progressDialog = new ProgressDialog(AdminDashboard.this);
@@ -453,5 +464,6 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         AlertDialog alert = builder.create();
         alert.show();
     }
+
 
 }

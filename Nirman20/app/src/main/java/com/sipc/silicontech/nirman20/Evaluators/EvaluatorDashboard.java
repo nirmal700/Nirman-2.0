@@ -38,6 +38,7 @@ import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
 import java.nio.charset.StandardCharsets;
@@ -404,5 +405,10 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        super.onBackPressed();
     }
 }
