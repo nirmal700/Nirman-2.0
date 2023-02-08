@@ -592,4 +592,5 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
 }

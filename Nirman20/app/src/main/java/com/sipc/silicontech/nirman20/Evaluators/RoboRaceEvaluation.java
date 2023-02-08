@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,11 +60,13 @@ public class RoboRaceEvaluation extends AppCompatActivity {
             handler.postDelayed(this, 60);
         }
     };
+    ImageView btn_backToSd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.robo_race_evaluation);
+        btn_backToSd = findViewById(R.id.btn_backToSd);
         start = findViewById(R.id.start);
         stop = findViewById(R.id.stop);
         reset = findViewById(R.id.reset);
@@ -97,6 +100,11 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.dismiss();
+
+        btn_backToSd.setOnClickListener(v -> {
+            startActivity(new Intent(RoboRaceEvaluation.this, EvaluatorDashboard.class));
+            finishAffinity();
+        });
 
 
         handler = new Handler();

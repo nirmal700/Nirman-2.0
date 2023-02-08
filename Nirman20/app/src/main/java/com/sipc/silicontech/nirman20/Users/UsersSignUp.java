@@ -52,7 +52,6 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class UsersSignUp extends AppCompatActivity {
-    ImageView bckBtn;
     Button next, login;
     TextView title;
     AutoCompleteTextView mEventType, mTeam, mParticipants;
@@ -280,7 +279,6 @@ public class UsersSignUp extends AppCompatActivity {
     public void callNextSignpScreen(View view) {
         Intent intent = new Intent(getApplicationContext(), UsersSignup2.class);
         Pair[] pairs = new Pair[4];
-        pairs[0] = new Pair<View, String>(bckBtn, "transition_back_btn");
         pairs[1] = new Pair<View, String>(next, "transition_next_btn");
         pairs[2] = new Pair<View, String>(login, "transition_login_btn");
         pairs[3] = new Pair<View, String>(title, "transition_title_text");
@@ -336,5 +334,11 @@ public class UsersSignUp extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UserSignIn.class));
+        super.onBackPressed();
+    }
+
 
 }

@@ -464,6 +464,15 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         AlertDialog alert = builder.create();
         alert.show();
     }
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+        } else
+            super.onBackPressed();
+    }
 
 
 }

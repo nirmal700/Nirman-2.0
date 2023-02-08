@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.ramotion.fluidslider.FluidSlider;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Suggestion;
 import com.sipc.silicontech.nirman20.Users.UserDashBoard;
+import com.sipc.silicontech.nirman20.Users.UserQrCode;
 
 import java.util.Objects;
 
@@ -35,6 +37,7 @@ public class HackNationEvaluation extends AppCompatActivity {
     CollectionReference mCollectionReference;
     Button next;
     int ev1, ev2, ev3, ev4;
+    ImageView btn_backToCd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         et_Problem_Statement = findViewById(R.id.et_Problem_Statement);
         et_description = findViewById(R.id.et_description);
         et_suggestion = findViewById(R.id.et_suggestion);
+        btn_backToCd = findViewById(R.id.btn_backToCd);
         next = findViewById(R.id.btn_submit);
 
         progressDialog = new ProgressDialog(HackNationEvaluation.this);
@@ -54,6 +58,11 @@ public class HackNationEvaluation extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.dismiss();
+
+        btn_backToCd.setOnClickListener(v -> {
+            startActivity(new Intent(HackNationEvaluation.this, EvaluatorDashboard.class));
+            finishAffinity();
+        });
 
         if (!isConnected(HackNationEvaluation.this)) {
             showCustomDialog();

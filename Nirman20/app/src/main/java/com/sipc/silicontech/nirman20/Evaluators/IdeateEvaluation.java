@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class IdeateEvaluation extends AppCompatActivity {
     SessionManagerEvaluator managerEvaluator;
     Button submit;
     int ev1, ev2, ev3, ev4, ev5;
+    ImageView btn_backToSd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class IdeateEvaluation extends AppCompatActivity {
         et_Problem_Statement = findViewById(R.id.et_Problem_Statement);
         et_description = findViewById(R.id.et_description);
         et_suggestion = findViewById(R.id.et_suggestion);
+        btn_backToSd = findViewById(R.id.btn_backToSd);
         submit = findViewById(R.id.btn_submit);
 
         progressDialog = new ProgressDialog(IdeateEvaluation.this);
@@ -61,6 +64,10 @@ public class IdeateEvaluation extends AppCompatActivity {
             showCustomDialog();
         }
 
+        btn_backToSd.setOnClickListener(v -> {
+            startActivity(new Intent(IdeateEvaluation.this, EvaluatorDashboard.class));
+            finishAffinity();
+        });
 
         managerEvaluator = new SessionManagerEvaluator(IdeateEvaluation.this);
 

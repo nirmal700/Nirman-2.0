@@ -249,5 +249,10 @@ public class UserSignIn extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UsersSignUp.class));
+        super.onBackPressed();
+    }
 
 }

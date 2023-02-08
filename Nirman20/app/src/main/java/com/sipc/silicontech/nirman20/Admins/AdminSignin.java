@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
+import com.sipc.silicontech.nirman20.Users.UserSignIn;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
 import java.util.Objects;
@@ -226,5 +227,9 @@ public class AdminSignin extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
+    }
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UserSignIn.class));
+        super.onBackPressed();
     }
 }

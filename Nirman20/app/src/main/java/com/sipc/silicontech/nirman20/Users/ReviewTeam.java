@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class ReviewTeam extends AppCompatActivity {
     String mTeamName;
     TextInputLayout et_teamName;
     ProgressDialog progressDialog;
+    ImageView btn_back;
     int ev1, ev2, ev3;
     Button next;
     TextInputLayout et_suggestion;
@@ -47,6 +49,7 @@ public class ReviewTeam extends AppCompatActivity {
         final TextView textView1 = findViewById(R.id.textView1);
         final TextView textView2 = findViewById(R.id.textView2);
         final TextView textView3 = findViewById(R.id.textView3);
+        btn_back = findViewById(R.id.btn_backToCd);
         et_suggestion = findViewById(R.id.et_suggestion);
 
         if (!isConnected(ReviewTeam.this)) {
@@ -75,6 +78,11 @@ public class ReviewTeam extends AppCompatActivity {
         final int max3 = 100;
         final int min3 = 0;
         final int total3 = max3 - min3;
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(ReviewTeam.this, UserDashBoard.class));
+            finish();
+        });
+
 
         slider1.setBeginTrackingListener(() -> {
             textView1.setVisibility(View.INVISIBLE);
@@ -192,6 +200,11 @@ public class ReviewTeam extends AppCompatActivity {
 
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+        super.onBackPressed();
     }
 
 }

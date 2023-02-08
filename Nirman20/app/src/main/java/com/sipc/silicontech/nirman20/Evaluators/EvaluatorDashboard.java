@@ -1,6 +1,7 @@
 package com.sipc.silicontech.nirman20.Evaluators;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -61,6 +62,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
     LinearLayout contentView;
     View nav_headerView;
     TextView mEvaluatorName, mEvent;
+    ProgressDialog progressDialog;
     SessionManagerEvaluator sessionManagerEvaluator;
 
     @Override
@@ -80,6 +82,14 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
 
         nav_headerView = navigationView.inflateHeaderView(R.layout.menu_header);
         navigationDrawer();
+
+        //Initialize ProgressDialog
+        progressDialog = new ProgressDialog(EvaluatorDashboard.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        progressDialog.setCancelable(false);
+        progressDialog.dismiss();
 
         sessionManagerEvaluator = new SessionManagerEvaluator(EvaluatorDashboard.this);
         mEvaluatorName.setText(sessionManagerEvaluator.getEvaluatorName());
@@ -190,6 +200,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                     String phoneNo = separateData[3];
                     Log.e("7565", "onActivityResult: " + event + "" + teamname);
                     mCollectionReference = FirebaseFirestore.getInstance().collection(event);
+                    progressDialog.show();
 
                     if (event.equals("HackNation")) {
                         DocumentReference documentReference = mCollectionReference.document(teamname);
@@ -203,11 +214,15 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             mEvaluatorIntent.putExtra("mCollegeName", clgname);
                             mEvaluatorIntent.putExtra("mProblemStat", problemstat);
                             mEvaluatorIntent.putExtra("mApproach", approach);
+                            progressDialog.dismiss();
                             startActivity(mEvaluatorIntent);
                             finish();
 
 
-                        }).addOnFailureListener(e -> Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show());
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        });
                     } else if (event.equals("Ideate")) {
                         Log.e("3432", "onActivityResult: '" + teamname + "'");
                         DocumentReference documentReference = mCollectionReference.document(teamname);
@@ -221,9 +236,13 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             mEvaluatorIntent.putExtra("mCollegeName", clgname);
                             mEvaluatorIntent.putExtra("mProblemStat", problemstat);
                             mEvaluatorIntent.putExtra("mApproach", approach);
+                            progressDialog.dismiss();
                             startActivity(mEvaluatorIntent);
                             finish();
-                        }).addOnFailureListener(e -> Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show());
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        });
                     } else if (event.equals("Robo Race")) {
                         DocumentReference documentReference = mCollectionReference.document(teamname);
                         documentReference.get().addOnSuccessListener(documentSnapshot -> {
@@ -232,9 +251,13 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, RoboRaceEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             mEvaluatorIntent.putExtra("mTeamName", teamname);
                             mEvaluatorIntent.putExtra("mCollegeName", clgname);
+                            progressDialog.dismiss();
                             startActivity(mEvaluatorIntent);
                             finish();
-                        }).addOnFailureListener(e -> Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show());
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        });
                     } else {
                         DocumentReference documentReference = mCollectionReference.document(teamname);
                         documentReference.get().addOnSuccessListener(documentSnapshot -> {
@@ -243,20 +266,14 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             Intent mEvaluatorIntent = new Intent(EvaluatorDashboard.this, LineFollowerEvaluation.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             mEvaluatorIntent.putExtra("mTeamName", teamname);
                             mEvaluatorIntent.putExtra("mCollegeName", clgname);
+                            progressDialog.dismiss();
                             startActivity(mEvaluatorIntent);
                             finish();
-                        }).addOnFailureListener(e -> Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show());
+                        }).addOnFailureListener(e -> {
+                            Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        });
                     }
-                    //Initialize Dialog box
-                    AlertDialog.Builder builder = new AlertDialog.Builder(EvaluatorDashboard.this);
-
-                    builder.setTitle("Result"); //Set Title
-                    builder.setMessage("Read Successfully!!");  //Set Message
-
-                    //set Positive Button
-                    builder.setPositiveButton("Scan Again", (dialog, which) -> scanCode()).setNegativeButton("OK", (dialog, which) -> dialog.dismiss());
-
-                    builder.show();  //Show Alert Dialog
                 } catch (Exception e) {
                     e.printStackTrace();
                     AlertDialog.Builder builder = new AlertDialog.Builder(EvaluatorDashboard.this);
@@ -416,7 +433,11 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
     }
     @Override
     public void onBackPressed() {
-        finishAffinity();
-        super.onBackPressed();
+
+        if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+        } else
+            super.onBackPressed();
     }
 }

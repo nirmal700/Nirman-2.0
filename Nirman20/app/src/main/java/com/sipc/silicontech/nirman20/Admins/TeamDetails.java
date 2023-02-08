@@ -71,6 +71,11 @@ public class TeamDetails extends AppCompatActivity {
 
         search();
 
+        btn_back.setOnClickListener(v -> {
+            startActivity(new Intent(TeamDetails.this, AdminDashboard.class));
+            finish();
+        });
+
 
         mEventType.setOnItemClickListener((parent, view, position, id) -> {
             CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(arrayAdapterEventType.getItem(position));

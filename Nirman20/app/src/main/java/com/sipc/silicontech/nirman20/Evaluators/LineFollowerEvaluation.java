@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,10 +61,13 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         }
     };
 
+    ImageView btn_backToSd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.line_follower_evaluation);
+        btn_backToSd = findViewById(R.id.btn_backToSd);
 
         start = findViewById(R.id.start);
         stop = findViewById(R.id.stop);
@@ -103,6 +107,11 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.dismiss();
+
+        btn_backToSd.setOnClickListener(v -> {
+            startActivity(new Intent(LineFollowerEvaluation.this, EvaluatorDashboard.class));
+            finishAffinity();
+        });
 
 
         handler = new Handler();
