@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -59,6 +60,8 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
     NavigationView navigationView;
     LinearLayout contentView;
     View nav_headerView;
+    TextView mEvaluatorName, mEvent;
+    SessionManagerEvaluator sessionManagerEvaluator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +73,17 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         contentView = findViewById(R.id.linear_content);
+        mEvaluatorName = findViewById(R.id.User_name);
+        mEvent = findViewById(R.id.UserRole);
         LottieAnimationView lottieAnimationView1 = findViewById(R.id.drawer_btn);
         Menu menuNav = navigationView.getMenu();
 
         nav_headerView = navigationView.inflateHeaderView(R.layout.menu_header);
         navigationDrawer();
 
+        sessionManagerEvaluator = new SessionManagerEvaluator(EvaluatorDashboard.this);
+        mEvaluatorName.setText(sessionManagerEvaluator.getEvaluatorName());
+        mEvent.setText(sessionManagerEvaluator.getEventAssigned());
 
 
         lottieAnimationView1.setOnClickListener(new View.OnClickListener() {
