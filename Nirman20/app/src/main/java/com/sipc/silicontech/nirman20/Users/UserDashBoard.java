@@ -5,15 +5,18 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +26,24 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
+import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
@@ -38,7 +51,9 @@ import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.crypto.Cipher;
@@ -57,6 +72,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     TextView user_Name, team_name, risk_level;
     View nav_headerView;
     ProgressDialog progressDialog;
+    RelativeLayout mRelative;
+    LottieAnimationView lottieAnimationView;
+    int mPos;
 
     TextView tv_date;
     TextClock tv_time;
@@ -65,7 +83,11 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     String phoneNo;
     String view_date = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(new Date());
     SessionManagerParticipant managerParticipant;
-
+    NewRoboRaceTeamData frmDb;
+    private ArrayList<NewRoboRaceTeamData> roboRaceTeamData;
+    private ArrayList<NewHackNationTeamData> hackNationTeamData;
+    private ArrayList<NewIdeateTeamData> ideateTeamData;
+    private ArrayList<NewLineFollowerTeamData> lineFollowerTeamData;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -84,6 +106,14 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_TodoList = findViewById(R.id.btn_TodoList);
         btn_Suggestion = findViewById(R.id.btn_Suggestion);
         btn_RateCoParticipant = findViewById(R.id.btn_RateCoParticipant);
+        mRelative = findViewById(R.id.mRealtive);
+        lottieAnimationView = findViewById(R.id.splash_robo);
+
+
+        roboRaceTeamData = new ArrayList<>();
+        hackNationTeamData = new ArrayList<>();
+        lineFollowerTeamData = new ArrayList<>();
+        ideateTeamData = new ArrayList<>();
 
         progressDialog = new ProgressDialog(UserDashBoard.this);
         progressDialog.show();
@@ -156,8 +186,120 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 }
             }
         });
+        if (managerParticipant.getEventName().equals("Robo Race") | managerParticipant.getEventName().equals("Line Follower")) {
+            FirebaseFirestore.getInstance().collection(managerParticipant.getEventName())
+                    .orderBy("mTotalTimeTaken", Query.Direction.ASCENDING).
+                    orderBy("mCheckPointCleared", Query.Direction.DESCENDING).
+                    orderBy("mHandTouches", Query.Direction.ASCENDING).
+                    orderBy("mBonus", Query.Direction.DESCENDING).get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if(managerParticipant.getEventName().equals("Robo Race")){
+                                List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                                for (DocumentSnapshot documentSnapshot : snapshotList) {
+                                    NewRoboRaceTeamData mRoboRace = documentSnapshot.toObject(NewRoboRaceTeamData.class);
+                                    roboRaceTeamData.add(mRoboRace);
+                                }
+                                for (int i = 0; i < roboRaceTeamData.size(); i++) {
+                                    if (roboRaceTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                        mPos = i;
+                                        if(roboRaceTeamData.get(mPos).getmTotalTimeTaken()>1){
+                                            ChangeColor();
+                                        }
+                                    }
+                                }
+                            } else if (managerParticipant.getEventName().equals("Line Follower")) {
+                                List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                                for (DocumentSnapshot documentSnapshot : snapshotList) {
+                                    NewLineFollowerTeamData mLineFollower = documentSnapshot.toObject(NewLineFollowerTeamData.class);
+                                    lineFollowerTeamData.add(mLineFollower);
+                                }
+                                for (int i = 0; i < lineFollowerTeamData.size(); i++) {
+                                    if (lineFollowerTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                        mPos = i;
+                                        if(lineFollowerTeamData.get(mPos).getmTotalTimeTaken()>1){
+                                            ChangeColor();
+                                        }
+                                    }
+                                }
+                            }
 
 
+                        }
+
+                    });
+        } else if (managerParticipant.getEventName().equals("HackNation")| managerParticipant.getEventName().equals("Ideate")) {
+            FirebaseFirestore.getInstance().collection(managerParticipant.getEventName()).orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if(managerParticipant.getEventName().equals("HackNation"))
+                    {
+                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot documentSnapshot : snapshotList) {
+                            NewHackNationTeamData mHackNation = documentSnapshot.toObject(NewHackNationTeamData.class);
+                            hackNationTeamData.add(mHackNation);
+                        }
+                        for (int i = 0; i < hackNationTeamData.size(); i++) {
+                            if (hackNationTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                mPos = i+1;
+                                if(hackNationTeamData.get(mPos).getmFinalMark()>1){
+                                    ChangeColor();
+                                }
+                            }
+                        }
+                    }
+                    else if(managerParticipant.getEventName().equals("Ideate"))
+                    {
+                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot documentSnapshot : snapshotList) {
+                            NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
+                            ideateTeamData.add(mIdeate);
+                        }
+                        for (int i = 0; i < ideateTeamData.size(); i++) {
+                            if (ideateTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                mPos = i;
+                                if(ideateTeamData.get(mPos).getmFinalMark()>1)
+                                {
+                                    ChangeColor();
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+            });
+
+            
+        }
+
+    }
+
+    private void ChangeColor() {
+        Log.e("343535", "ChangeColor: " + mPos);
+        if (mPos >= 0 & mPos <= 3) {
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.bg_primary);
+            mRelative.setBackground(drawable);
+            lottieAnimationView.setAnimation("med.json");
+            lottieAnimationView.playAnimation();
+            lottieAnimationView.loop(true);
+            risk_level.setText("Low");
+        } else if (mPos > 3 & mPos <= 6) {
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_green);
+            mRelative.setBackground(drawable);
+            lottieAnimationView.setAnimation("ic_man_search.json");
+            lottieAnimationView.playAnimation();
+            lottieAnimationView.loop(true);
+            risk_level.setText("Medium");
+        } else if (mPos > 6) {
+            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_red);
+            mRelative.setBackground(drawable);
+            lottieAnimationView.setAnimation("ic_weight_lifting.json");
+            lottieAnimationView.playAnimation();
+            lottieAnimationView.loop(true);
+            risk_level.setText("High");
+        }
     }
 
     // Navigation Drawer Functions
