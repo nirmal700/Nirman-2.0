@@ -243,7 +243,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                         for (int i = 0; i < hackNationTeamData.size(); i++) {
                             if (hackNationTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
                                 mPos = i+1;
-                                if(hackNationTeamData.get(mPos).getmFinalMark()>1){
+                                if(hackNationTeamData.get(mPos-1).getmFinalMark()>1){
                                     ChangeColor();
                                 }
                             }
