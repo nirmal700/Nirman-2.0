@@ -271,7 +271,7 @@ public class UsersSignUp extends AppCompatActivity {
         });
 
 
-        login.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), UserSignIn.class)));
+        login.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), UserSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )));
 
     }
 
@@ -336,7 +336,7 @@ public class UsersSignUp extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), UserSignIn.class));
+        startActivity(new Intent(getApplicationContext(), UserSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
         super.onBackPressed();
     }
 

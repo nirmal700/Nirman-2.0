@@ -251,7 +251,8 @@ public class UserSignIn extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), UsersSignUp.class));
+        startActivity(new Intent(getApplicationContext(), UsersSignUp.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
+        finish();
         super.onBackPressed();
     }
 

@@ -95,14 +95,12 @@ public class EvaluatorSignIn extends AppCompatActivity {
         btn_login.setOnClickListener(v -> Evaluatorlogin());
 
         btn_sipc.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), AdminSignin.class));
-            finish();
+            startActivity(new Intent(getApplicationContext(), AdminSignin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
         });
         participant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserSignIn.class));
-                finish();
+                startActivity(new Intent(getApplicationContext(), UserSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
             }
         });
 

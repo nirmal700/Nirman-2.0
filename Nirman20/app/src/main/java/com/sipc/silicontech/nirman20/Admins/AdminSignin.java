@@ -229,7 +229,7 @@ public class AdminSignin extends AppCompatActivity {
 
     }
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), UserSignIn.class));
+        startActivity(new Intent(getApplicationContext(), UserSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
         super.onBackPressed();
     }
 }
