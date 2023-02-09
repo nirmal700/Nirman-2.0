@@ -31,11 +31,11 @@ import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 import java.util.Objects;
 
 public class RoboRaceEvaluation extends AppCompatActivity {
-    Button start, stop, reset, inc1, dec1, inc2, dec2, mTimeOut, mSubmit, inc3, dec3;
+    Button start, stop, reset, inc10, dec10, inc20, dec20, mTimeOut, mSubmit, inc30, dec30,mHandIncrement,mHandDecrement,mBonusIncrement,mBonusDecrement;
     TextInputLayout et_teamName, et_collegeName, et_suggestion;
-    TextView disp1, disp2, disp3;
+    TextView disp10, disp20, disp30,mHandTouch,mBonus;
 
-    int count1, count2, count3;
+    int count1, count2, count3,countHand,countBonus;
     int sec, min, miliSec;
     ProgressDialog progressDialog;
     String mTeamName, mCollegeName;
@@ -71,15 +71,21 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         stop = findViewById(R.id.stop);
         reset = findViewById(R.id.reset);
         mChronoTimer = findViewById(R.id.timer);
-        inc1 = findViewById(R.id.incrementer1);
-        inc2 = findViewById(R.id.incrementer2);
-        dec1 = findViewById(R.id.decrementer1);
-        dec2 = findViewById(R.id.decrementer2);
-        inc3 = findViewById(R.id.incrementer3);
-        dec3 = findViewById(R.id.decrementer3);
-        disp1 = findViewById(R.id.disp1);
-        disp2 = findViewById(R.id.disp2);
-        disp3 = findViewById(R.id.disp3);
+        inc10 = findViewById(R.id.incrementer10);
+        inc20= findViewById(R.id.incrementer20);
+        dec10 = findViewById(R.id.decrementer10);
+        dec20 = findViewById(R.id.decrementer20);
+        inc30 = findViewById(R.id.incrementer30);
+        dec30 = findViewById(R.id.decrementer30);
+        disp10 = findViewById(R.id.disp10);
+        disp20 = findViewById(R.id.disp20);
+        disp30 = findViewById(R.id.disp30);
+        mBonusIncrement = findViewById(R.id.mBonusIncrement);
+        mBonusDecrement = findViewById(R.id.mBonusDecrement);
+        mHandIncrement = findViewById(R.id.mHandIncrement);
+        mHandDecrement = findViewById(R.id.mHandDecrement);
+        mBonus = findViewById(R.id.mBonus);
+        mHandTouch = findViewById(R.id.mHandTouch);
         mSubmit = findViewById(R.id.btn_submit);
         mTimeOut = findViewById(R.id.btn_timeout);
         et_teamName = findViewById(R.id.et_teamName);
@@ -119,35 +125,54 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         reset.setOnClickListener(view -> resetTimer());
 
 
-        inc1.setOnClickListener(v -> {
+        inc10.setOnClickListener(v -> {
             count1++;
-            disp1.setText(String.format("%d", count1));
+            disp10.setText(String.format("%d", count1));
         });
-        dec1.setOnClickListener(v -> {
+        dec10.setOnClickListener(v -> {
             if (count1 <= 0) count1 = 0;
             else count1--;
-            disp1.setText(String.format("%d", count1));
+            disp10.setText(String.format("%d", count1));
         });
 
-        inc2.setOnClickListener(v -> {
+        inc20.setOnClickListener(v -> {
             count2++;
-            disp2.setText(String.format("%d", count2));
+            disp20.setText(String.format("%d", count2));
         });
-        dec2.setOnClickListener(v -> {
+        dec20.setOnClickListener(v -> {
             if (count2 <= 0) count2 = 0;
             else count2--;
-            disp2.setText(String.format("%d", count2));
+            disp20.setText(String.format("%d", count2));
         });
 
 
-        inc3.setOnClickListener(v -> {
+        inc30.setOnClickListener(v -> {
             count3++;
-            disp3.setText(String.format("%d", count3));
+            disp30.setText(String.format("%d", count3));
         });
-        dec3.setOnClickListener(v -> {
+        dec30.setOnClickListener(v -> {
             if (count3 <= 0) count3 = 0;
             else count3--;
-            disp3.setText(String.format("%d", count3));
+            disp30.setText(String.format("%d", count3));
+        });
+        mHandIncrement.setOnClickListener(v -> {
+            countHand++;
+            mHandTouch.setText(String.format("%d", countHand));
+        });
+        mHandDecrement.setOnClickListener(v -> {
+            if (countHand <= 0) countHand = 0;
+            else countHand--;
+            mHandTouch.setText(String.format("%d", countHand));
+        });
+
+        mBonusIncrement.setOnClickListener(v -> {
+            countBonus++;
+            mBonus.setText(String.format("%d", countBonus));
+        });
+        mBonusDecrement.setOnClickListener(v -> {
+            if (countBonus <= 0) countBonus = 0;
+            else countBonus--;
+            mBonus.setText(String.format("%d", countBonus));
         });
 
 
@@ -155,7 +180,6 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         chronometer.setFormat("Time: %s");
         chronometer.setBase(SystemClock.elapsedRealtime());
         mTimeOut.setOnClickListener(view -> {
-            mTimeOut.setClickable(false);
             mTechTimeOut++;
             if (mTechTimeOut <= 1) {
                 stopTimer();
@@ -164,13 +188,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
                 stop.setVisibility(View.INVISIBLE);
                 reset.setVisibility(View.INVISIBLE);
                 mTechTimeTaken = true;
-            } else {
-                Toast.makeText(RoboRaceEvaluation.this, "No More Technical Timeout!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        chronometer.setOnChronometerTickListener(chronometer -> {
-            if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 10000) {
+            } else if (running == true) {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 Toast.makeText(RoboRaceEvaluation.this, "Bing! Time Over!", Toast.LENGTH_SHORT).show();
                 chronometer.stop();
@@ -178,7 +196,21 @@ public class RoboRaceEvaluation extends AppCompatActivity {
                 start.setVisibility(View.VISIBLE);
                 stop.setVisibility(View.VISIBLE);
                 reset.setVisibility(View.VISIBLE);
-                mTimeOut.setClickable(true);
+                startTimer();
+            } else {
+                Toast.makeText(RoboRaceEvaluation.this, "No More Technical Timeout!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        chronometer.setOnChronometerTickListener(chronometer -> {
+            if ((SystemClock.elapsedRealtime() - chronometer.getBase()) >= 30000) {
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                Toast.makeText(RoboRaceEvaluation.this, "Bing! Time Over!", Toast.LENGTH_SHORT).show();
+                chronometer.stop();
+                running = false;
+                start.setVisibility(View.VISIBLE);
+                stop.setVisibility(View.VISIBLE);
+                reset.setVisibility(View.VISIBLE);
                 startTimer();
             }
         });
@@ -186,7 +218,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         mSubmit.setOnClickListener(view -> {
             progressDialog.show();
             String mTeamName, mSuggestion;
-            long mTotalTime, mCheckPoints, mHandTouches;
+            long mTotalTime, mCheckPoints, mHandTouches,mBonusPoint,mTotal;
             mTeamName = et_teamName.getEditText().getText().toString();
 
 
@@ -195,10 +227,21 @@ public class RoboRaceEvaluation extends AppCompatActivity {
             int seconds = Integer.parseInt(timeArray[1]);
             mTotalTime = (minutes * 60L) + seconds;
 
-            mCheckPoints = Long.parseLong(disp1.getText().toString());
-            mHandTouches = Long.parseLong(disp2.getText().toString());
-            long mBonus = Long.parseLong(disp3.getText().toString());
+            mCheckPoints = Long.parseLong(disp10.getText().toString()) + Long.parseLong(disp20.getText().toString()) +Long.parseLong(disp30.getText().toString());
+
+            mHandTouches = Long.parseLong(mHandTouch.getText().toString());
+            mBonusPoint = Long.parseLong(mBonus.getText().toString());
             mSuggestion = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
+
+            mTotal = (10*Long.parseLong(disp10.getText().toString())) + (20*Long.parseLong(disp20.getText().toString())) + (30*Long.parseLong(disp30.getText().toString()));
+            if(mHandTouches>5)
+            {
+                mTotal =mTotal -  5*(mHandTouches - 5);
+            }
+            if(mBonusPoint>0)
+            {
+                mTotal = mTotal + 5*mBonusPoint;
+            }
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Robo Race").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
             if (mSuggestion.length() > 0 & id != null) {
@@ -206,7 +249,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
                 mSugDB.child(id).setValue(suggestion);
             }
             mDocumentReference = FirebaseFirestore.getInstance().collection("Robo Race").document(mTeamName);
-            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime, "mBonus", mBonus).addOnCompleteListener(task -> {
+            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime, "mBonus", mBonusPoint,"mTotal",mTotal).addOnCompleteListener(task -> {
                 startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
                 finish();
             }).addOnSuccessListener(unused -> Toast.makeText(RoboRaceEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(RoboRaceEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show());
@@ -235,6 +278,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
             isResume = false;
             stop.setVisibility(View.INVISIBLE);
             start.setVisibility(View.VISIBLE);
+            reset.setVisibility(View.VISIBLE);
         }
 
     }
@@ -248,6 +292,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
             isResume = true;
             start.setVisibility(View.INVISIBLE);
             stop.setVisibility(View.VISIBLE);
+            reset.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -265,14 +310,12 @@ public class RoboRaceEvaluation extends AppCompatActivity {
             chronometer.stop();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
-            Log.e("TAG768", "onCreate: " + chronometer.getText().toString());
         }
     }
 
     public void resetChronometer(View v) {
         chronometer.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
-        Log.e("TAG768", "onCreate: " + chronometer.getText().toString());
     }
 
     private void showCustomDialog() {

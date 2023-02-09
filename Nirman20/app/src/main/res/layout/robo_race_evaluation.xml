@@ -321,11 +321,36 @@
                     android:autoSizeTextType="uniform"
                     android:text="Check Point's Cleared"
                     android:textColor="@color/Primary"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <View
                     android:layout_width="264dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="10 Point's "
+                    android:textColor="@color/Primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
@@ -342,7 +367,7 @@
                 android:gravity="center_horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/decrementer1"
+                    android:id="@+id/decrementer10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -363,13 +388,13 @@
                     android:autoSizeTextType="uniform"
                     android:text="0"
                     android:gravity="center"
-                    android:id="@+id/disp1"
+                    android:id="@+id/disp10"
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/incrementer1"
+                    android:id="@+id/incrementer10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -384,6 +409,165 @@
                     app:strokeWidth=".5dp" />
 
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="20 Point's "
+                    android:textColor="@color/Primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/decrementer20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/Primary"
+                    android:text="-"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth=".5dp" />
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="0"
+                    android:gravity="center"
+                    android:id="@+id/disp20"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/incrementer20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/Primary"
+                    android:text="+"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth=".5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="30 Point's "
+                    android:textColor="@color/Primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="33dp"
+                    android:background="@color/Primary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/decrementer30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/Primary"
+                    android:text="-"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth=".5dp" />
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="0"
+                    android:gravity="center"
+                    android:id="@+id/disp30"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/incrementer30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:backgroundTint="@color/Primary"
+                    android:text="+"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth=".5dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/Primary" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -418,7 +602,7 @@
                 android:gravity="center_horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/decrementer2"
+                    android:id="@+id/mHandDecrement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -439,13 +623,13 @@
                     android:autoSizeTextType="uniform"
                     android:text="0"
                     android:gravity="center"
-                    android:id="@+id/disp2"
+                    android:id="@+id/mHandTouch"
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/incrementer2"
+                    android:id="@+id/mHandIncrement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -494,7 +678,7 @@
                 android:gravity="center_horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/decrementer3"
+                    android:id="@+id/mBonusDecrement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -515,13 +699,13 @@
                     android:autoSizeTextType="uniform"
                     android:text="0"
                     android:gravity="center"
-                    android:id="@+id/disp3"
+                    android:id="@+id/mBonus"
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/incrementer3"
+                    android:id="@+id/mBonusIncrement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

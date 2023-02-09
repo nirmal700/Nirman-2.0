@@ -390,7 +390,7 @@ public class DownloadResults extends AppCompatActivity {
                 });
 
             } else if (event.equals("Robo Race")) {
-                FirebaseFirestore.getInstance().collection("Robo Race").orderBy("mTotalTimeTaken", Query.Direction.ASCENDING).orderBy("mCheckPointCleared", Query.Direction.DESCENDING).orderBy("mHandTouches", Query.Direction.ASCENDING).orderBy("mBonus", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                FirebaseFirestore.getInstance().collection("Robo Race").orderBy("mTotal", Query.Direction.DESCENDING).orderBy("mTotalTimeTaken", Query.Direction.ASCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
