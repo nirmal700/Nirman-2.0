@@ -227,7 +227,7 @@ public class IdeateEvaluation extends AppCompatActivity {
             progressDialog.show();
             String sugg = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
             final double average = (double) (ev1 + ev2 + ev3 + ev4 + ev5) / 60;
-            DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Robo Race").child(mTeamName).child("Suggestions");
+            DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Ideate").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
             if (sugg.length() > 0 & id != null) {
                 Suggestion suggestion = new Suggestion(mTeamName, mCollegeName, sugg, id, true, false, 0L);
