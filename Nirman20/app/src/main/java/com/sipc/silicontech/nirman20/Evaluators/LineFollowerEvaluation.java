@@ -31,11 +31,11 @@ import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 import java.util.Objects;
 
 public class LineFollowerEvaluation extends AppCompatActivity {
-    Button start, stop, reset, inc1, dec1, inc2, dec2, mTimeOut, mSubmit, inc3, dec3;
+    Button start, stop, reset, inc1, dec1, inc2, dec2, mTimeOut, mSubmit;
     TextInputLayout et_teamName, et_collegeName, et_suggestion;
-    TextView disp1, disp2, disp3;
+    TextView disp1, disp2;
 
-    int count1, count2, count3;
+    int count1, count2;
     int sec, min, miliSec;
     ProgressDialog progressDialog;
     String mTeamName, mCollegeName;
@@ -77,11 +77,8 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         inc2 = findViewById(R.id.incrementer2);
         dec1 = findViewById(R.id.decrementer1);
         dec2 = findViewById(R.id.decrementer2);
-        inc3 = findViewById(R.id.incrementer3);
-        dec3 = findViewById(R.id.decrementer3);
         disp1 = findViewById(R.id.disp1);
         disp2 = findViewById(R.id.disp2);
-        disp3 = findViewById(R.id.disp3);
         mSubmit = findViewById(R.id.btn_submit);
         mTimeOut = findViewById(R.id.btn_timeout);
         et_teamName = findViewById(R.id.et_teamName);
@@ -142,22 +139,12 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         });
 
 
-        inc3.setOnClickListener(v -> {
-            count3++;
-            disp3.setText(String.format("%d", count3));
-        });
-        dec3.setOnClickListener(v -> {
-            if (count3 <= 0) count3 = 0;
-            else count3--;
-            disp3.setText(String.format("%d", count3));
-        });
 
 
         chronometer = findViewById(R.id.chronometer);
         chronometer.setFormat("Time: %s");
         chronometer.setBase(SystemClock.elapsedRealtime());
         mTimeOut.setOnClickListener(view -> {
-            mTimeOut.setClickable(false);
             mTechTimeOut++;
             if (mTechTimeOut <= 1) {
                 stopTimer();
@@ -166,6 +153,15 @@ public class LineFollowerEvaluation extends AppCompatActivity {
                 stop.setVisibility(View.INVISIBLE);
                 reset.setVisibility(View.INVISIBLE);
                 mTechTimeTaken = true;
+            } else if (running == true) {
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                Toast.makeText(LineFollowerEvaluation.this, "Bing! Time Over!", Toast.LENGTH_SHORT).show();
+                chronometer.stop();
+                running = false;
+                start.setVisibility(View.VISIBLE);
+                stop.setVisibility(View.VISIBLE);
+                reset.setVisibility(View.VISIBLE);
+                startTimer();
             } else {
                 Toast.makeText(LineFollowerEvaluation.this, "No More Technical Timeout!", Toast.LENGTH_SHORT).show();
             }
@@ -180,7 +176,6 @@ public class LineFollowerEvaluation extends AppCompatActivity {
                 start.setVisibility(View.VISIBLE);
                 stop.setVisibility(View.VISIBLE);
                 reset.setVisibility(View.VISIBLE);
-                mTimeOut.setClickable(true);
                 startTimer();
             }
         });
@@ -188,7 +183,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         mSubmit.setOnClickListener(view -> {
             progressDialog.show();
             String mTeamName, mSuggestion;
-            long mTotalTime, mCheckPoints, mHandTouches;
+            long mTotalTime, mCheckPoints, mHandTouches,mTotal;
             mTeamName = et_teamName.getEditText().getText().toString();
 
 
@@ -199,8 +194,11 @@ public class LineFollowerEvaluation extends AppCompatActivity {
 
             mCheckPoints = Long.parseLong(disp1.getText().toString());
             mHandTouches = Long.parseLong(disp2.getText().toString());
-            long mBonus = Long.parseLong(disp3.getText().toString());
             mSuggestion = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
+            mTotal = 10*mCheckPoints;
+            if(mHandTouches>5){
+                mTotal = mTotal - 5*(mHandTouches-5);
+            }
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Line Follower").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
             if (mSuggestion.length() > 0 & id != null) {
@@ -208,7 +206,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
                 mSugDB.child(id).setValue(suggestion);
             }
             mDocumentReference = FirebaseFirestore.getInstance().collection("Line Follower").document(mTeamName);
-            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime, "mBonus", mBonus).addOnCompleteListener(task -> {
+            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime,"mTotal",mTotal).addOnCompleteListener(task -> {
                 startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
                 finish();
             }).addOnSuccessListener(unused -> Toast.makeText(LineFollowerEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(LineFollowerEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show());
@@ -237,6 +235,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
             isResume = false;
             stop.setVisibility(View.INVISIBLE);
             start.setVisibility(View.VISIBLE);
+            reset.setVisibility(View.VISIBLE);
         }
 
     }
@@ -250,6 +249,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
             isResume = true;
             start.setVisibility(View.INVISIBLE);
             stop.setVisibility(View.VISIBLE);
+            reset.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -267,14 +267,12 @@ public class LineFollowerEvaluation extends AppCompatActivity {
             chronometer.stop();
             pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
-            Log.e("TAG768", "onCreate: " + chronometer.getText().toString());
         }
     }
 
     public void resetChronometer(View v) {
         chronometer.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
-        Log.e("TAG768", "onCreate: " + chronometer.getText().toString());
     }
 
     private void showCustomDialog() {

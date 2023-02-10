@@ -55,6 +55,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -74,7 +75,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     ProgressDialog progressDialog;
     RelativeLayout mRelative;
     LottieAnimationView lottieAnimationView;
-    int mPos;
+    int mPos, mSize;
 
     TextView tv_date;
     TextClock tv_time;
@@ -187,83 +188,86 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
             }
         });
         if (managerParticipant.getEventName().equals("Robo Race") | managerParticipant.getEventName().equals("Line Follower")) {
-            FirebaseFirestore.getInstance().collection(managerParticipant.getEventName())
-                    .orderBy("mTotalTimeTaken", Query.Direction.ASCENDING).
-                    orderBy("mCheckPointCleared", Query.Direction.DESCENDING).
-                    orderBy("mHandTouches", Query.Direction.ASCENDING).
-                    orderBy("mBonus", Query.Direction.DESCENDING).get()
-                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            if(managerParticipant.getEventName().equals("Robo Race")){
+            if (managerParticipant.getEventName().equals("Robo Race")) {
+                FirebaseFirestore.getInstance().collection(managerParticipant.getEventName())
+                        .orderBy("mTotal", Query.Direction.DESCENDING)
+                        .orderBy("mTotalTimeTaken", Query.Direction.ASCENDING).get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                                 for (DocumentSnapshot documentSnapshot : snapshotList) {
                                     NewRoboRaceTeamData mRoboRace = documentSnapshot.toObject(NewRoboRaceTeamData.class);
-                                    roboRaceTeamData.add(mRoboRace);
-                                }
-                                for (int i = 0; i < roboRaceTeamData.size(); i++) {
-                                    if (roboRaceTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                        mPos = i;
-                                        if(roboRaceTeamData.get(mPos).getmTotalTimeTaken()>1){
-                                            ChangeColor();
-                                        }
+                                    if (Objects.requireNonNull(mRoboRace).getmTotalTimeTaken() > 1) {
+                                        roboRaceTeamData.add(mRoboRace);
                                     }
                                 }
-                            } else if (managerParticipant.getEventName().equals("Line Follower")) {
+                                mSize = roboRaceTeamData.size();
+                                for (int i = 0; i < roboRaceTeamData.size(); i++) {
+                                    if (roboRaceTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                        mPos = i+1;
+                                        ChangeColor();
+                                    }
+                                }
+                            }
+                        });
+            } else if (managerParticipant.getEventName().equals("Line Follower")) {
+                FirebaseFirestore.getInstance().collection(managerParticipant.getEventName())
+                        .orderBy("mTotalTimeTaken", Query.Direction.ASCENDING)
+                        .orderBy("mTotal", Query.Direction.DESCENDING).get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                                 for (DocumentSnapshot documentSnapshot : snapshotList) {
                                     NewLineFollowerTeamData mLineFollower = documentSnapshot.toObject(NewLineFollowerTeamData.class);
-                                    lineFollowerTeamData.add(mLineFollower);
+                                    if (Objects.requireNonNull(mLineFollower).getmTotalTimeTaken() > 1) {
+                                        lineFollowerTeamData.add(mLineFollower);
+                                    }
                                 }
+                                mSize = lineFollowerTeamData.size();
                                 for (int i = 0; i < lineFollowerTeamData.size(); i++) {
                                     if (lineFollowerTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                        mPos = i;
-                                        if(lineFollowerTeamData.get(mPos).getmTotalTimeTaken()>1){
-                                            ChangeColor();
-                                        }
+                                        mPos = i+1;
+                                        ChangeColor();
                                     }
                                 }
                             }
 
-
-                        }
-
-                    });
-        } else if (managerParticipant.getEventName().equals("HackNation")| managerParticipant.getEventName().equals("Ideate")) {
+                        });
+            }
+        } else if (managerParticipant.getEventName().equals("HackNation") | managerParticipant.getEventName().equals("Ideate")) {
             FirebaseFirestore.getInstance().collection(managerParticipant.getEventName()).orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    if(managerParticipant.getEventName().equals("HackNation"))
-                    {
+                    if (managerParticipant.getEventName().equals("HackNation")) {
                         List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot documentSnapshot : snapshotList) {
                             NewHackNationTeamData mHackNation = documentSnapshot.toObject(NewHackNationTeamData.class);
-                            hackNationTeamData.add(mHackNation);
-                        }
-                        for (int i = 0; i < hackNationTeamData.size(); i++) {
-                            if (hackNationTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                mPos = i+1;
-                                if(hackNationTeamData.get(mPos-1).getmFinalMark()>1){
-                                    ChangeColor();
-                                }
+                            if (mHackNation.getmFinalMark() > 1) {
+                                hackNationTeamData.add(mHackNation);
                             }
                         }
-                    }
-                    else if(managerParticipant.getEventName().equals("Ideate"))
-                    {
+                        mSize = hackNationTeamData.size();
+                        for (int i = 0; i < hackNationTeamData.size(); i++) {
+                            if (hackNationTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                mPos = i + 1;
+                                ChangeColor();
+                            }
+                        }
+                    } else if (managerParticipant.getEventName().equals("Ideate")) {
                         List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot documentSnapshot : snapshotList) {
                             NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
-                            ideateTeamData.add(mIdeate);
+                            if (mIdeate.getmFinalMark() > 1) {
+                                ideateTeamData.add(mIdeate);
+                            }
                         }
+                        mSize = ideateTeamData.size();
                         for (int i = 0; i < ideateTeamData.size(); i++) {
                             if (ideateTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                mPos = i;
-                                if(ideateTeamData.get(mPos).getmFinalMark()>1)
-                                {
-                                    ChangeColor();
-                                }
-
+                                mPos = i+1;
+                                ChangeColor();
                             }
                         }
                     }
@@ -271,28 +275,29 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 }
             });
 
-            
+
         }
 
     }
 
     private void ChangeColor() {
         Log.e("343535", "ChangeColor: " + mPos);
-        if (mPos >= 0 & mPos <= 3) {
+        double mMid = Double.parseDouble(String.valueOf(Math.ceil(mSize / 3)));
+        if (mPos >= 0 & mPos <= mMid) {
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.bg_primary);
             mRelative.setBackground(drawable);
             lottieAnimationView.setAnimation("med.json");
             lottieAnimationView.playAnimation();
             lottieAnimationView.loop(true);
             risk_level.setText("Low");
-        } else if (mPos > 3 & mPos <= 6) {
+        } else if (mPos > mMid & mPos <= 2 * mMid) {
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_green);
             mRelative.setBackground(drawable);
             lottieAnimationView.setAnimation("ic_man_search.json");
             lottieAnimationView.playAnimation();
             lottieAnimationView.loop(true);
             risk_level.setText("Medium");
-        } else if (mPos > 6) {
+        } else if (mPos > 2 * mMid) {
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.bg_primary_red);
             mRelative.setBackground(drawable);
             lottieAnimationView.setAnimation("ic_weight_lifting.json");
