@@ -34,6 +34,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.sipc.silicontech.nirman20.AboutUs;
 import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
@@ -358,19 +359,16 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.nav_contactUs:
-                Toast.makeText(getApplicationContext(), "Contact Us", Toast.LENGTH_SHORT).show();
-//                contactUs();
-                break;
+
 
             case R.id.nav_share:
                 Toast.makeText(getApplicationContext(), "Share", Toast.LENGTH_SHORT).show();
-//                share();
+                share();
                 break;
 
             case R.id.nav_about:
                 Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
-//                about();
+                about();
                 break;
 
             case R.id.logout:
@@ -430,6 +428,25 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+    private void about() {
+        startActivity(new Intent(getApplicationContext(), AboutUs.class));
+    }
+    private void share() {
+
+        try {
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Nirman 2.0");
+            i.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName());
+            startActivity(Intent.createChooser(i, "Share With"));
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Unable to share this app.", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
     @Override
     public void onBackPressed() {

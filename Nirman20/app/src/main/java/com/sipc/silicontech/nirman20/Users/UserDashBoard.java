@@ -40,6 +40,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.sipc.silicontech.nirman20.AboutUs;
 import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
@@ -339,10 +340,6 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.nav_contactUs:
-                Toast.makeText(getApplicationContext(), "Contact Us", Toast.LENGTH_SHORT).show();
-                contactUs();
-                break;
 
             case R.id.nav_share:
                 Toast.makeText(getApplicationContext(), "Share", Toast.LENGTH_SHORT).show();
@@ -411,12 +408,8 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     }
 
-    private void contactUs() {
-        //startActivity(new Intent(getApplicationContext(), ContactUs.class));
-    }
-
     private void about() {
-        //startActivity(new Intent(getApplicationContext(), AboutQrRegistry.class));
+        startActivity(new Intent(getApplicationContext(), AboutUs.class));
     }
 
     private void logout() {

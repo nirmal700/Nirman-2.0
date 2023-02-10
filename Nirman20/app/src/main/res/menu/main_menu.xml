@@ -12,11 +12,6 @@
             android:enabled="true"
             android:icon="@drawable/ic_app_info"
             android:title="App info" />
-        <item
-            android:id="@+id/nav_contactUs"
-            android:enabled="true"
-            android:icon="@drawable/ic_contact_us"
-            android:title="Contact Us" />
 
         <item
             android:id="@+id/nav_share"

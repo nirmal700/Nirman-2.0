@@ -35,6 +35,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.sipc.silicontech.nirman20.AboutUs;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
@@ -379,11 +380,6 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.nav_contactUs:
-                Toast.makeText(getApplicationContext(), "Contact Us", Toast.LENGTH_SHORT).show();
-//                contactUs();
-                break;
-
             case R.id.nav_share:
                 Toast.makeText(getApplicationContext(), "Share", Toast.LENGTH_SHORT).show();
                 share();
@@ -391,7 +387,7 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
 
             case R.id.nav_about:
                 Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_SHORT).show();
-//                about();
+                about();
                 break;
 
             case R.id.logout:
@@ -473,6 +469,8 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         } else
             super.onBackPressed();
     }
-
+    private void about() {
+        startActivity(new Intent(getApplicationContext(), AboutUs.class));
+    }
 
 }
