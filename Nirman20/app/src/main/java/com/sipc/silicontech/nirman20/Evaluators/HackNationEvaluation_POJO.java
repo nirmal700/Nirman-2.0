@@ -7,7 +7,7 @@ import java.util.Date;
 public class HackNationEvaluation_POJO {
     String mTeamName, mCollegeName, mProblemStat, mApproach, mSuggestion;
     int mMark1, mMark2, mMark3, mMark4;
-    Double mAvg;
+    long mAvg;
     @ServerTimestamp
     Date mEvaluatedTime;
 
@@ -16,7 +16,7 @@ public class HackNationEvaluation_POJO {
 
     }
 
-    public HackNationEvaluation_POJO(String mTeamName, String mCollegeName, String mProblemStat, String mApproach, String mSuggestion, int mMark1, int mMark2, int mMark3, int mMark4, Double mAvg, Date mEvaluatedTime) {
+    public HackNationEvaluation_POJO(String mTeamName, String mCollegeName, String mProblemStat, String mApproach, String mSuggestion, int mMark1, int mMark2, int mMark3, int mMark4, Long mAvg, Date mEvaluatedTime) {
         this.mTeamName = mTeamName;
         this.mCollegeName = mCollegeName;
         this.mProblemStat = mProblemStat;
@@ -102,11 +102,11 @@ public class HackNationEvaluation_POJO {
         this.mMark4 = mMark4;
     }
 
-    public double getmAvg() {
+    public long getmAvg() {
         return mAvg;
     }
 
-    public void setmAvg(Double mAvg) {
+    public void setmAvg(Long mAvg) {
         this.mAvg = mAvg;
     }
 

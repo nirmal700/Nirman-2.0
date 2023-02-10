@@ -224,7 +224,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         });
-                    } else if (event.equals("Ideate")) {
+                    } else if (event.equals("Ideate - 1")| event.equals("Ideate - 2")) {
                         Log.e("3432", "onActivityResult: '" + teamname + "'");
                         DocumentReference documentReference = mCollectionReference.document(teamname);
                         documentReference.get().addOnSuccessListener(documentSnapshot -> {
@@ -237,6 +237,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             mEvaluatorIntent.putExtra("mCollegeName", clgname);
                             mEvaluatorIntent.putExtra("mProblemStat", problemstat);
                             mEvaluatorIntent.putExtra("mApproach", approach);
+                            mEvaluatorIntent.putExtra("mEventName",event);
                             progressDialog.dismiss();
                             startActivity(mEvaluatorIntent);
                             finish();

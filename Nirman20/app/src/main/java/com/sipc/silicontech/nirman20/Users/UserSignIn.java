@@ -58,7 +58,8 @@ public class UserSignIn extends AppCompatActivity {
         arrayListEventType = new ArrayList<>();
         arrayListEventType.add("Robo Race");
         arrayListEventType.add("Line Follower");
-        arrayListEventType.add("Ideate");
+        arrayListEventType.add("Ideate - 1");
+        arrayListEventType.add("Ideate - 2");
         arrayListEventType.add("HackNation");
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);

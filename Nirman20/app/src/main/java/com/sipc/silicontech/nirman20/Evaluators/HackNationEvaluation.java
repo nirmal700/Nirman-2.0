@@ -197,7 +197,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         next.setOnClickListener(view -> {
             progressDialog.show();
             String sugg = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
-            final double average = (double) (ev1 + ev2 + ev3 + ev4) / 4;
+            final long mTotal =  (ev1 + ev2 + ev3 + ev4) ;
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("HackNation").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
             if (sugg.length() > 0 & id != null) {
@@ -205,7 +205,7 @@ public class HackNationEvaluation extends AppCompatActivity {
                 mSugDB.child(id).setValue(suggestion);
             }
             mCollectionReference = FirebaseFirestore.getInstance().collection("HackNation Evaluation");
-            HackNationEvaluation_POJO hackNationEvaluationPOJO = new HackNationEvaluation_POJO(mTeamName, mCollegeName, mProblemStat, mSugApp, sugg, ev1, ev2, ev3, ev4, average, null);
+            HackNationEvaluation_POJO hackNationEvaluationPOJO = new HackNationEvaluation_POJO(mTeamName, mCollegeName, mProblemStat, mSugApp, sugg, ev1, ev2, ev3, ev4, mTotal, null);
             mCollectionReference.add(hackNationEvaluationPOJO).addOnSuccessListener(documentReference -> {
 
             }).addOnCompleteListener(task -> {

@@ -237,7 +237,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
                         });
             }
-        } else if (managerParticipant.getEventName().equals("HackNation") | managerParticipant.getEventName().equals("Ideate")) {
+        } else if (managerParticipant.getEventName().equals("HackNation") | managerParticipant.getEventName().equals("Ideate - 1") |managerParticipant.getEventName().equals("Ideate - 2" ) ){
             FirebaseFirestore.getInstance().collection(managerParticipant.getEventName()).orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -256,7 +256,22 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                                 ChangeColor();
                             }
                         }
-                    } else if (managerParticipant.getEventName().equals("Ideate")) {
+                    } else if (managerParticipant.getEventName().equals("Ideate - 1")) {
+                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot documentSnapshot : snapshotList) {
+                            NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
+                            if (mIdeate.getmFinalMark() > 1) {
+                                ideateTeamData.add(mIdeate);
+                            }
+                        }
+                        mSize = ideateTeamData.size();
+                        for (int i = 0; i < ideateTeamData.size(); i++) {
+                            if (ideateTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                mPos = i+1;
+                                ChangeColor();
+                            }
+                        }
+                    } else if (managerParticipant.getEventName().equals("Ideate - 2")) {
                         List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot documentSnapshot : snapshotList) {
                             NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);

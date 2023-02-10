@@ -7,14 +7,14 @@ import java.util.Date;
 public class IdeateEvaluation_POJO {
     String mTeamName, mCollegeName, mProblemStat, mApproach, mSuggestion, mEvalatedBy;
     int mMark1, mMark2, mMark3, mMark4, mMark5;
-    Double mAvg;
+    long mAvg;
     @ServerTimestamp
     Date mEvaluatedTime;
 
     public IdeateEvaluation_POJO() {
     }
 
-    public IdeateEvaluation_POJO(String mTeamName, String mCollegeName, String mProblemStat, String mApproach, String mSuggestion, String mEvalatedBy, int mMark1, int mMark2, int mMark3, int mMark4, int mMark5, Double mAvg, Date mEvaluatedTime) {
+    public IdeateEvaluation_POJO(String mTeamName, String mCollegeName, String mProblemStat, String mApproach, String mSuggestion, String mEvalatedBy, int mMark1, int mMark2, int mMark3, int mMark4, int mMark5, long mAvg, Date mEvaluatedTime) {
         this.mTeamName = mTeamName;
         this.mCollegeName = mCollegeName;
         this.mProblemStat = mProblemStat;
@@ -118,11 +118,11 @@ public class IdeateEvaluation_POJO {
         this.mMark5 = mMark5;
     }
 
-    public Double getmAvg() {
+    public Long getmAvg() {
         return mAvg;
     }
 
-    public void setmAvg(Double mAvg) {
+    public void setmAvg(Long mAvg) {
         this.mAvg = mAvg;
     }
 

@@ -59,7 +59,8 @@ public class TeamDetails extends AppCompatActivity {
         arrayListEventType = new ArrayList<>();
         arrayListEventType.add("Robo Race");
         arrayListEventType.add("Line Follower");
-        arrayListEventType.add("Ideate");
+        arrayListEventType.add("Ideate - 1");
+        arrayListEventType.add("Ideate - 2");
         arrayListEventType.add("HackNation");
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);
@@ -88,7 +89,9 @@ public class TeamDetails extends AppCompatActivity {
                             list.add(documentSnapshot.toObject(NewRoboRaceTeamData.class));
                         } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Line Follower")) {
                             list.add(documentSnapshot.toObject(NewLineFollowerTeamData.class));
-                        } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate")) {
+                        } else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate - 1")) {
+                            list.add(documentSnapshot.toObject(NewIdeateTeamData.class));
+                        }else if (documentSnapshot.getData().get("mEventParticipating").toString().equals("Ideate - 2")) {
                             list.add(documentSnapshot.toObject(NewIdeateTeamData.class));
                         } else
                             list.add(documentSnapshot.toObject(NewHackNationTeamData.class));

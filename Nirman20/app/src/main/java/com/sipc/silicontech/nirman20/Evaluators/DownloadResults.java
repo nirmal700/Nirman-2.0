@@ -99,7 +99,8 @@ public class DownloadResults extends AppCompatActivity {
         arrayListEventType = new ArrayList<>();
         arrayListEventType.add("Robo Race");
         arrayListEventType.add("Line Follower");
-        arrayListEventType.add("Ideate");
+        arrayListEventType.add("Ideate - 1");
+        arrayListEventType.add("Ideate - 2");
         arrayListEventType.add("HackNation");
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);
@@ -123,6 +124,7 @@ public class DownloadResults extends AppCompatActivity {
         });
 
         btn_submit.setOnClickListener(view -> {
+            progressDialog.show();
             if (event.equals("HackNation")) {
                 CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection("HackNation");
                 mCollectionReference.get().addOnSuccessListener(queryDocumentSnapshots -> {
@@ -130,260 +132,425 @@ public class DownloadResults extends AppCompatActivity {
                         FirebaseFirestore.getInstance().collection("HackNation Evaluation").whereEqualTo("mTeamName", document1.get("mTeamName")).addSnapshotListener((value, error) -> {
                             double sum = 0;
                             for (DocumentSnapshot document : Objects.requireNonNull(value).getDocuments()) {
-                                sum = sum + (double) document.get("mAvg");
+                                sum = sum + Long.parseLong(Objects.requireNonNull(Objects.requireNonNull(document.get("mAvg"))).toString());
                             }
                             double avg = sum / value.size();
-                            FirebaseFirestore.getInstance().collection("HackNation").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(unused -> {
-                                FirebaseFirestore.getInstance().collection("HackNation").orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots1) {
-                                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots1.getDocuments();
-                                        for (DocumentSnapshot documentSnapshot : snapshotList) {
-                                            mHackNation = documentSnapshot.toObject(NewHackNationTeamData.class);
-                                            hackNationTeamData.add(mHackNation);
-                                        }
-                                        GenerateHackNationPDF(hackNationTeamData);
-                                    }
+                            FirebaseFirestore.getInstance().collection("HackNation").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
 
-                                    private void GenerateHackNationPDF(ArrayList<NewHackNationTeamData> hackNationTeamData) {
-                                        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-                                        File InvDir = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-                                        File file = new File(InvDir, "Nirman_2.0_HackNation" + ".pdf");
-                                        String mCurrentTime = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
-                                        try {
-                                            OutputStream outputStream = new FileOutputStream(file);
-                                        } catch (FileNotFoundException exception) {
-                                            exception.printStackTrace();
-                                        }
-
-                                        Uri uri = Uri.fromFile(file);
-
-                                        PdfWriter pdfWriter = null;
-                                        try {
-                                            pdfWriter = new PdfWriter(file);
-                                        } catch (FileNotFoundException exception) {
-                                            exception.printStackTrace();
-                                        }
-                                        PdfDocument pdfDocument = new PdfDocument(Objects.requireNonNull(pdfWriter));
-                                        Document document = new Document(pdfDocument);
-
-                                        DeviceRgb invoiceyellow = new DeviceRgb(251, 192, 45);
-                                        DeviceRgb invoicegrey = new DeviceRgb(220, 220, 220);
-
-                                        float[] columnWidth = {140, 140, 140, 140};
-                                        Table table1 = new Table(columnWidth);
-                                        Drawable drawable1 = getDrawable(R.drawable.nirmanlogo);
-                                        Bitmap bitmap1 = ((BitmapDrawable) drawable1).getBitmap();
-                                        ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-                                        bitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream1);
-                                        byte[] bitmapData1 = stream1.toByteArray();
-
-                                        ImageData imageData1 = ImageDataFactory.create(bitmapData1);
-                                        Image image1 = new Image(imageData1);
-                                        image1.setHeight(60);
-                                        image1.setWidth(180);
-
-                                        //1
-                                        table1.addCell(new Cell(3, 1).add(image1).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell(1, 2).add(new Paragraph("HackNation Report").setFontSize(26f).setFontColor(invoiceyellow)).setBorder(Border.NO_BORDER));
-                                        //table1.addCell( new Cell().add(new Paragraph()));
-                                        //2
-                                        //table1.addCell( new Cell().add(new Paragraph()));
-                                        table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph("Event Name: ")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph("HackNation ")).setBorder(Border.NO_BORDER));
-                                        //3
-                                        //table1.addCell( new Cell().add(new Paragraph()));
-                                        table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph("Generated By: ")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph(managerEvaluator.getEvaluatorName())).setBorder(Border.NO_BORDER));
-                                        //4
-                                        table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph("Report Generated on ")).setBorder(Border.NO_BORDER));
-                                        table1.addCell(new Cell().add(new Paragraph(mCurrentTime)).setBorder(Border.NO_BORDER));
-
-
-                                        document.add(table1);
-                                        document.add(new Paragraph(""));
-
-                                        float[] columnWidth2 = {20, 160, 150, 180};
-                                        Table table2 = new Table(columnWidth2);
-                                        //2-01
-                                        table2.addCell(new Cell().add(new Paragraph("Pos.")).setBackgroundColor(invoiceyellow));
-                                        table2.addCell(new Cell().add(new Paragraph("Team Name")).setBackgroundColor(invoiceyellow));
-                                        table2.addCell(new Cell().add(new Paragraph("College Name")).setBackgroundColor(invoiceyellow));
-                                        table2.addCell(new Cell().add(new Paragraph("Team Lead Name")).setBackgroundColor(invoiceyellow));
-                                        //2-02
-                                        for (int a = 0; a < hackNationTeamData.size(); a++) {
-                                            table2.addCell(new Cell().add(new Paragraph("" + (a + 1))).setBackgroundColor(invoicegrey));
-                                            table2.addCell(new Cell().add(new Paragraph(hackNationTeamData.get(a).getmTeamName())).setBackgroundColor(invoicegrey));
-                                            table2.addCell(new Cell().add(new Paragraph(hackNationTeamData.get(a).getmCollegeName())).setBackgroundColor(invoicegrey));
-                                            table2.addCell(new Cell().add(new Paragraph(hackNationTeamData.get(a).getmTeamLead())).setBackgroundColor(invoicegrey));
-
-                                        }
-
-                                        document.add(table2);
-
-
-                                        document.add(new Paragraph("\n\n\n\n\n(Authorised Signatory)\n\n\n").setTextAlignment(TextAlignment.RIGHT));
-                                        document.close();
-                                        hackNationTeamData.clear();
-
-                                        StorageReference reference = mResult.child("Nirman_2.0_HackNation" + "-" + mCurrentTime + ".pdf");
-
-                                        reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
-
-                                        }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
-                                        }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
-                                            pdfurl = uri1.toString();
-                                            progressDialog.dismiss();
-                                            if (pdfurl != null) {
-                                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                                intent.setType("application/pdf");
-                                                intent.setData(Uri.parse(pdfurl));
-                                                startActivity(intent);
-                                            }
-                                        }));
-                                    }
-                                });
+                                }
                             });
                         });
                     }
-
-                });
-            } else if (event.equals("Ideate")) {
-                CollectionReference mCollectionReferenceIdeate = FirebaseFirestore.getInstance().collection("Ideate");
-                mCollectionReferenceIdeate.get().addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot document1 : queryDocumentSnapshots.getDocuments()) {
-                        FirebaseFirestore.getInstance().collection("Ideate Evaluation").whereEqualTo("mTeamName", document1.get("mTeamName")).addSnapshotListener((value, error) -> {
-                            double sum = 0;
-                            for (DocumentSnapshot document : Objects.requireNonNull(value).getDocuments()) {
-                                sum = sum + (double) document.get("mAvg");
-                            }
-                            double avg = sum / value.size();
-                            FirebaseFirestore.getInstance().collection("Ideate").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(unused -> FirebaseFirestore.getInstance().collection("Ideate").orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots12) {
-                                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots12.getDocuments();
-                                    for (DocumentSnapshot documentSnapshot : snapshotList) {
-                                        mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
-                                        ideateTeamData.add(mIdeate);
-                                    }
-                                    GenerateIdeatePDF(ideateTeamData);
-
+                    FirebaseFirestore.getInstance().collection("HackNation").orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots1) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots1.getDocuments();
+                            for (DocumentSnapshot documentSnapshot : snapshotList) {
+                                mHackNation = documentSnapshot.toObject(NewHackNationTeamData.class);
+                                if (Objects.requireNonNull(mHackNation).getmFinalMark() > 1) {
+                                    hackNationTeamData.add(mHackNation);
                                 }
+                            }
+                            GenerateHackNationPDF(hackNationTeamData);
+                        }
 
-                                private void GenerateIdeatePDF(ArrayList<NewIdeateTeamData> ideateTeamData) {
-                                    ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-                                    File InvDir = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-                                    File file = new File(InvDir, "Nirman_2.0_Ideate" + ".pdf");
-                                    String mCurrentTime = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
-                                    try {
-                                        OutputStream outputStream = new FileOutputStream(file);
-                                    } catch (FileNotFoundException exception) {
-                                        exception.printStackTrace();
-                                    }
-                                    Uri uri = Uri.fromFile(file);
+                        private void GenerateHackNationPDF(ArrayList<NewHackNationTeamData> hackNationTeamData) {
+                            ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+                            File InvDir = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+                            File file = new File(InvDir, "Nirman_2.0_HackNation" + ".pdf");
+                            String mCurrentTime = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+                            try {
+                                OutputStream outputStream = new FileOutputStream(file);
+                            } catch (FileNotFoundException exception) {
+                                exception.printStackTrace();
+                            }
 
-                                    PdfWriter pdfWriter = null;
-                                    try {
-                                        pdfWriter = new PdfWriter(file);
-                                    } catch (FileNotFoundException exception) {
-                                        exception.printStackTrace();
-                                    }
-                                    PdfDocument pdfDocument = new PdfDocument(Objects.requireNonNull(pdfWriter));
-                                    Document document = new Document(pdfDocument);
+                            Uri uri = Uri.fromFile(file);
 
-                                    DeviceRgb invoiceyellow = new DeviceRgb(251, 192, 45);
-                                    DeviceRgb invoicegrey = new DeviceRgb(220, 220, 220);
+                            PdfWriter pdfWriter = null;
+                            try {
+                                pdfWriter = new PdfWriter(file);
+                            } catch (FileNotFoundException exception) {
+                                exception.printStackTrace();
+                            }
+                            PdfDocument pdfDocument = new PdfDocument(Objects.requireNonNull(pdfWriter));
+                            Document document = new Document(pdfDocument);
 
-                                    float[] columnWidth = {140, 140, 140, 140};
-                                    Table table1 = new Table(columnWidth);
-                                    Drawable drawable1 = getDrawable(R.drawable.nirmanlogo);
-                                    Bitmap bitmap1 = ((BitmapDrawable) drawable1).getBitmap();
-                                    ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-                                    bitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream1);
-                                    byte[] bitmapData1 = stream1.toByteArray();
+                            DeviceRgb invoiceyellow = new DeviceRgb(251, 192, 45);
+                            DeviceRgb invoicegrey = new DeviceRgb(220, 220, 220);
 
-                                    ImageData imageData1 = ImageDataFactory.create(bitmapData1);
-                                    Image image1 = new Image(imageData1);
-                                    image1.setHeight(60);
-                                    image1.setWidth(180);
+                            float[] columnWidth = {140, 140, 140, 140};
+                            Table table1 = new Table(columnWidth);
+                            Drawable drawable1 = getDrawable(R.drawable.nirmanlogo);
+                            Bitmap bitmap1 = ((BitmapDrawable) drawable1).getBitmap();
+                            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                            bitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream1);
+                            byte[] bitmapData1 = stream1.toByteArray();
 
-//1
-                                    table1.addCell(new Cell(3, 1).add(image1).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell(1, 2).add(new Paragraph("Ideate Report").setFontSize(26f).setFontColor(invoiceyellow)).setBorder(Border.NO_BORDER));
-                                    //table1.addCell( new Cell().add(new Paragraph()));
-//2
-                                    //table1.addCell( new Cell().add(new Paragraph()));
-                                    table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph("Event Name: ")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph("Ideate ")).setBorder(Border.NO_BORDER));
-//3
-                                    //table1.addCell( new Cell().add(new Paragraph()));
-                                    table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph("Generated By: ")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph(managerEvaluator.getEvaluatorName())).setBorder(Border.NO_BORDER));
-//4
-                                    table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph("Report Generated on ")).setBorder(Border.NO_BORDER));
-                                    table1.addCell(new Cell().add(new Paragraph(mCurrentTime)).setBorder(Border.NO_BORDER));
+                            ImageData imageData1 = ImageDataFactory.create(bitmapData1);
+                            Image image1 = new Image(imageData1);
+                            image1.setHeight(60);
+                            image1.setWidth(180);
 
-
-                                    document.add(table1);
-                                    document.add(new Paragraph(""));
-
-                                    float[] columnWidth2 = {20, 160, 150, 180};
-                                    Table table2 = new Table(columnWidth2);
-//2-01
-                                    table2.addCell(new Cell().add(new Paragraph("Pos.")).setBackgroundColor(invoiceyellow));
-                                    table2.addCell(new Cell().add(new Paragraph("Team Name")).setBackgroundColor(invoiceyellow));
-                                    table2.addCell(new Cell().add(new Paragraph("College Name")).setBackgroundColor(invoiceyellow));
-                                    table2.addCell(new Cell().add(new Paragraph("Team Lead Name")).setBackgroundColor(invoiceyellow));
-//2-02
-                                    for (int a = 0; a < ideateTeamData.size(); a++) {
-                                        table2.addCell(new Cell().add(new Paragraph("" + (a + 1))).setBackgroundColor(invoicegrey));
-                                        table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmTeamName())).setBackgroundColor(invoicegrey));
-                                        table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmCollegeName())).setBackgroundColor(invoicegrey));
-                                        table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmTeamLead())).setBackgroundColor(invoicegrey));
-
-                                    }
-
-                                    document.add(table2);
+                            //1
+                            table1.addCell(new Cell(3, 1).add(image1).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell(1, 2).add(new Paragraph("HackNation Report").setFontSize(26f).setFontColor(invoiceyellow)).setBorder(Border.NO_BORDER));
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            //2
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Event Name: ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("HackNation ")).setBorder(Border.NO_BORDER));
+                            //3
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Generated By: ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph(managerEvaluator.getEvaluatorName())).setBorder(Border.NO_BORDER));
+                            //4
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Report Generated on ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph(mCurrentTime)).setBorder(Border.NO_BORDER));
 
 
-                                    document.add(new Paragraph("\n\n\n\n\n(Authorised Signatory)\n\n\n").setTextAlignment(TextAlignment.RIGHT));
-                                    document.close();
-                                    hackNationTeamData.clear();
+                            document.add(table1);
+                            document.add(new Paragraph(""));
 
-                                    StorageReference reference = mResult.child("Nirman_2.0_Ideate" + "-" + mCurrentTime + ".pdf");
+                            float[] columnWidth2 = {20, 160, 150, 140, 120};
+                            Table table2 = new Table(columnWidth2);
+                            //2-01
+                            table2.addCell(new Cell().add(new Paragraph("Pos.")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Team Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("College Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Team Lead Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Final Mark")).setBackgroundColor(invoiceyellow));
+                            //2-02
+                            for (int a = 0; a < hackNationTeamData.size(); a++) {
+                                table2.addCell(new Cell().add(new Paragraph("" + (a + 1))).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(hackNationTeamData.get(a).getmTeamName())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(hackNationTeamData.get(a).getmCollegeName())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(hackNationTeamData.get(a).getmTeamLead())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(String.valueOf(hackNationTeamData.get(a).getmFinalMark()))).setBackgroundColor(invoicegrey));
 
-                                    reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
 
-                                    }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
-                                    }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
-                                        pdfurl = uri1.toString();
-                                        progressDialog.dismiss();
-                                        progressDialog.dismiss();
-                                        if (pdfurl != null) {
-                                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                                            intent.setType("application/pdf");
-                                            intent.setData(Uri.parse(pdfurl));
-                                            startActivity(intent);
-                                        }
-                                    }));
+                            }
+
+                            document.add(table2);
+
+
+                            document.add(new Paragraph("\n\n\n\n\n(Authorised Signatory)\n\n\n").setTextAlignment(TextAlignment.RIGHT));
+                            document.close();
+                            hackNationTeamData.clear();
+
+                            StorageReference reference = mResult.child("Nirman_2.0_HackNation" + "-" + mCurrentTime + ".pdf");
+
+                            reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+
+                            }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
+                                progressDialog.dismiss();
+                                Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
+                            }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
+                                pdfurl = uri1.toString();
+                                progressDialog.dismiss();
+                                if (pdfurl != null) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setType("application/pdf");
+                                    intent.setData(Uri.parse(pdfurl));
+                                    startActivity(intent);
                                 }
                             }));
+                        }
+                    });
+
+                });
+            } else if (event.equals("Ideate - 1")) {
+                CollectionReference mCollectionReferenceIdeate = FirebaseFirestore.getInstance().collection("Ideate - 1");
+                mCollectionReferenceIdeate.get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document1 : queryDocumentSnapshots.getDocuments()) {
+                        FirebaseFirestore.getInstance().collection("Ideate - 1 Evaluation").whereEqualTo("mTeamName", document1.get("mTeamName")).addSnapshotListener((value, error) -> {
+                            double sum = 0;
+                            for (DocumentSnapshot document : Objects.requireNonNull(value).getDocuments()) {
+                                sum = sum + Long.parseLong(Objects.requireNonNull(Objects.requireNonNull(document.get("mAvg")).toString()));
+                            }
+                            double avg = sum / value.size();
+                            FirebaseFirestore.getInstance().collection("Ideate - 1").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                }
+                            });
                         });
                     }
+                    FirebaseFirestore.getInstance().collection("Ideate - 1").orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots12) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots12.getDocuments();
+                            for (DocumentSnapshot documentSnapshot : snapshotList) {
+                                mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
+                                Log.e("4324", "onSuccess: " + documentSnapshot.getData().toString());
+                                if (Objects.requireNonNull(mIdeate).getmFinalMark() > 1) {
+                                    ideateTeamData.add(mIdeate);
+                                    Log.e("4324", "onSuccess: " + ideateTeamData.size());
+                                }
+                            }
+                            GenerateIdeatePDF(ideateTeamData);
+                        }
+
+                        private void GenerateIdeatePDF(ArrayList<NewIdeateTeamData> ideateTeamData) {
+                            ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+                            File InvDir = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+                            File file = new File(InvDir, "Nirman_2.0_Ideate" + ".pdf");
+                            String mCurrentTime = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+                            try {
+                                OutputStream outputStream = new FileOutputStream(file);
+                            } catch (FileNotFoundException exception) {
+                                exception.printStackTrace();
+                            }
+                            Uri uri = Uri.fromFile(file);
+
+                            PdfWriter pdfWriter = null;
+                            try {
+                                pdfWriter = new PdfWriter(file);
+                            } catch (FileNotFoundException exception) {
+                                exception.printStackTrace();
+                            }
+                            PdfDocument pdfDocument = new PdfDocument(Objects.requireNonNull(pdfWriter));
+                            Document document = new Document(pdfDocument);
+
+                            DeviceRgb invoiceyellow = new DeviceRgb(251, 192, 45);
+                            DeviceRgb invoicegrey = new DeviceRgb(220, 220, 220);
+
+                            float[] columnWidth = {140, 140, 140, 140};
+                            Table table1 = new Table(columnWidth);
+                            Drawable drawable1 = getDrawable(R.drawable.nirmanlogo);
+                            Bitmap bitmap1 = ((BitmapDrawable) drawable1).getBitmap();
+                            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                            bitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream1);
+                            byte[] bitmapData1 = stream1.toByteArray();
+
+                            ImageData imageData1 = ImageDataFactory.create(bitmapData1);
+                            Image image1 = new Image(imageData1);
+                            image1.setHeight(60);
+                            image1.setWidth(180);
+
+                            //1
+                            table1.addCell(new Cell(3, 1).add(image1).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell(1, 2).add(new Paragraph("Ideate Report").setFontSize(26f).setFontColor(invoiceyellow)).setBorder(Border.NO_BORDER));
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            //2
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Event Name: ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Ideate - 1")).setBorder(Border.NO_BORDER));
+                            //3
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Generated By: ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph(managerEvaluator.getEvaluatorName())).setBorder(Border.NO_BORDER));
+                            //4
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Report Generated on ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph(mCurrentTime)).setBorder(Border.NO_BORDER));
+
+
+                            document.add(table1);
+                            document.add(new Paragraph(""));
+
+                            float[] columnWidth2 = {20, 160, 150, 140, 120};
+                            Table table2 = new Table(columnWidth2);
+                            //2-01
+                            table2.addCell(new Cell().add(new Paragraph("Pos.")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Team Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("College Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Team Lead Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Avg. Marks")).setBackgroundColor(invoiceyellow));
+                            //2-02
+                            for (int a = 0; a < ideateTeamData.size(); a++) {
+                                table2.addCell(new Cell().add(new Paragraph("" + (a + 1))).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmTeamName())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmCollegeName())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmTeamLead())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(String.valueOf(ideateTeamData.get(a).getmFinalMark()))).setBackgroundColor(invoicegrey));
+
+                            }
+
+                            document.add(table2);
+
+
+                            document.add(new Paragraph("\n\n\n\n\n(Authorised Signatory)\n\n\n").setTextAlignment(TextAlignment.RIGHT));
+                            document.close();
+                            hackNationTeamData.clear();
+
+                            StorageReference reference = mResult.child("Nirman_2.0_Ideate - 1" + "-" + mCurrentTime + ".pdf");
+
+                            reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+
+                            }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
+                                progressDialog.dismiss();
+                                Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
+                            }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
+                                pdfurl = uri1.toString();
+                                progressDialog.dismiss();
+                                progressDialog.dismiss();
+                                if (pdfurl != null) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setType("application/pdf");
+                                    intent.setData(Uri.parse(pdfurl));
+                                    startActivity(intent);
+                                }
+                            }));
+                        }
+                    });
+
+
+                });
+
+            } else if (event.equals("Ideate - 2")) {
+                CollectionReference mCollectionReferenceIdeate = FirebaseFirestore.getInstance().collection("Ideate - 2");
+                mCollectionReferenceIdeate.get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document1 : queryDocumentSnapshots.getDocuments()) {
+                        FirebaseFirestore.getInstance().collection("Ideate - 2 Evaluation").whereEqualTo("mTeamName", document1.get("mTeamName")).addSnapshotListener((value, error) -> {
+                            double sum = 0;
+                            for (DocumentSnapshot document : Objects.requireNonNull(value).getDocuments()) {
+                                sum = sum + Long.parseLong(Objects.requireNonNull(Objects.requireNonNull(document.get("mAvg")).toString()));
+                            }
+                            double avg = sum / value.size();
+                            FirebaseFirestore.getInstance().collection("Ideate - 2").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+
+                                }
+                            });
+                        });
+                    }
+                    FirebaseFirestore.getInstance().collection("Ideate - 2").orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots12) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots12.getDocuments();
+                            for (DocumentSnapshot documentSnapshot : snapshotList) {
+                                mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
+                                if (Objects.requireNonNull(mIdeate).getmFinalMark() > 1) {
+                                    ideateTeamData.add(mIdeate);
+                                }
+                            }
+                            GenerateIdeatePDF(ideateTeamData);
+
+                        }
+
+                        private void GenerateIdeatePDF(ArrayList<NewIdeateTeamData> ideateTeamData) {
+                            ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+                            File InvDir = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+                            File file = new File(InvDir, "Nirman_2.0_Ideate" + ".pdf");
+                            String mCurrentTime = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
+                            try {
+                                OutputStream outputStream = new FileOutputStream(file);
+                            } catch (FileNotFoundException exception) {
+                                exception.printStackTrace();
+                            }
+                            Uri uri = Uri.fromFile(file);
+
+                            PdfWriter pdfWriter = null;
+                            try {
+                                pdfWriter = new PdfWriter(file);
+                            } catch (FileNotFoundException exception) {
+                                exception.printStackTrace();
+                            }
+                            PdfDocument pdfDocument = new PdfDocument(Objects.requireNonNull(pdfWriter));
+                            Document document = new Document(pdfDocument);
+
+                            DeviceRgb invoiceyellow = new DeviceRgb(251, 192, 45);
+                            DeviceRgb invoicegrey = new DeviceRgb(220, 220, 220);
+
+                            float[] columnWidth = {140, 140, 140, 140};
+                            Table table1 = new Table(columnWidth);
+                            Drawable drawable1 = getDrawable(R.drawable.nirmanlogo);
+                            Bitmap bitmap1 = ((BitmapDrawable) drawable1).getBitmap();
+                            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                            bitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream1);
+                            byte[] bitmapData1 = stream1.toByteArray();
+
+                            ImageData imageData1 = ImageDataFactory.create(bitmapData1);
+                            Image image1 = new Image(imageData1);
+                            image1.setHeight(60);
+                            image1.setWidth(180);
+
+                            //1
+                            table1.addCell(new Cell(3, 1).add(image1).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell(1, 2).add(new Paragraph("Ideate Report").setFontSize(26f).setFontColor(invoiceyellow)).setBorder(Border.NO_BORDER));
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            //2
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Event Name: ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Ideate - 2")).setBorder(Border.NO_BORDER));
+                            //3
+                            //table1.addCell( new Cell().add(new Paragraph()));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Generated By: ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph(managerEvaluator.getEvaluatorName())).setBorder(Border.NO_BORDER));
+                            //4
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph("Report Generated on ")).setBorder(Border.NO_BORDER));
+                            table1.addCell(new Cell().add(new Paragraph(mCurrentTime)).setBorder(Border.NO_BORDER));
+
+
+                            document.add(table1);
+                            document.add(new Paragraph(""));
+
+                            float[] columnWidth2 = {20, 160, 150, 140, 120};
+                            Table table2 = new Table(columnWidth2);
+                            //2-01
+                            table2.addCell(new Cell().add(new Paragraph("Pos.")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Team Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("College Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Team Lead Name")).setBackgroundColor(invoiceyellow));
+                            table2.addCell(new Cell().add(new Paragraph("Avg. Marks")).setBackgroundColor(invoiceyellow));
+
+                            //2-02
+                            for (int a = 0; a < ideateTeamData.size(); a++) {
+                                table2.addCell(new Cell().add(new Paragraph("" + (a + 1))).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmTeamName())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmCollegeName())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(ideateTeamData.get(a).getmTeamLead())).setBackgroundColor(invoicegrey));
+                                table2.addCell(new Cell().add(new Paragraph(String.valueOf(ideateTeamData.get(a).getmFinalMark()))).setBackgroundColor(invoicegrey));
+
+
+                            }
+
+                            document.add(table2);
+
+
+                            document.add(new Paragraph("\n\n\n\n\n(Authorised Signatory)\n\n\n").setTextAlignment(TextAlignment.RIGHT));
+                            document.close();
+                            hackNationTeamData.clear();
+
+                            StorageReference reference = mResult.child("Nirman_2.0_Ideate - 2" + "-" + mCurrentTime + ".pdf");
+
+                            reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
+
+                            }).addOnProgressListener(snapshot -> progressDialog.show()).addOnFailureListener(e -> {
+                                progressDialog.dismiss();
+                                Toast.makeText(DownloadResults.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
+                            }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
+                                pdfurl = uri1.toString();
+                                progressDialog.dismiss();
+                                progressDialog.dismiss();
+                                if (pdfurl != null) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setType("application/pdf");
+                                    intent.setData(Uri.parse(pdfurl));
+                                    startActivity(intent);
+                                }
+                            }));
+                        }
+                    });
+
 
                 });
 
@@ -394,7 +561,9 @@ public class DownloadResults extends AppCompatActivity {
                         List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot documentSnapshot : snapshotList) {
                             mRoboRace = documentSnapshot.toObject(NewRoboRaceTeamData.class);
-                            roboRaceTeamData.add(mRoboRace);
+                            if (Objects.requireNonNull(mRoboRace).getmTotal() > 1) {
+                                roboRaceTeamData.add(mRoboRace);
+                            }
                         }
                         GenerateRoboRacePDF(roboRaceTeamData);
                     }
@@ -524,7 +693,9 @@ public class DownloadResults extends AppCompatActivity {
                         List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
                         for (DocumentSnapshot documentSnapshot : snapshotList) {
                             mLineFollower = documentSnapshot.toObject(NewLineFollowerTeamData.class);
-                            lineFollowerTeamData.add(mLineFollower);
+                            if (Objects.requireNonNull(mLineFollower).getmTotal() > 1) {
+                                lineFollowerTeamData.add(mLineFollower);
+                            }
                         }
                         GenerateLineFollowerPDF(lineFollowerTeamData);
                     }

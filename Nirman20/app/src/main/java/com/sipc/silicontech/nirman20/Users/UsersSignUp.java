@@ -93,7 +93,8 @@ public class UsersSignUp extends AppCompatActivity {
         arrayListEventType = new ArrayList<>();
         arrayListEventType.add("Robo Race");
         arrayListEventType.add("Line Follower");
-        arrayListEventType.add("Ideate");
+        arrayListEventType.add("Ideate - 1");
+        arrayListEventType.add("Ideate - 2");
         arrayListEventType.add("HackNation");
         arrayAdapterEventType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListEventType);
         mEventType.setAdapter(arrayAdapterEventType);
@@ -297,7 +298,7 @@ public class UsersSignUp extends AppCompatActivity {
             et_password.setError("Password minimum 8 Characters");
             return false;
         } else if (!val.matches("\\w*")) {
-            et_password.setError("White spaces not allowed");
+            et_password.setError("White spaces & Special Char not allowed");
             return false;
         } else {
             et_password.setError(null);

@@ -116,9 +116,13 @@ public class Request_Help extends AppCompatActivity {
             ArrayList<String> arrayListHelpType;
             ArrayAdapter<String> arrayAdapterHelpType;
             arrayListHelpType = new ArrayList<>();
-            arrayListHelpType.add("LAN Problem");
+            arrayListHelpType.add("Power Issue");
             arrayListHelpType.add("Internet Connectivity");
-            arrayListHelpType.add("Other");
+            arrayListHelpType.add("Accommodation");
+            arrayListHelpType.add("Washroom's");
+            arrayListHelpType.add("Technical Problem");
+            arrayListHelpType.add("Medicine's");
+            arrayListHelpType.add("Water");
             arrayListHelpType.add("Other");
             arrayAdapterHelpType = new ArrayAdapter<>(getApplicationContext(), R.layout.text_menu, arrayListHelpType);
             mHelpType.setAdapter(arrayAdapterHelpType);

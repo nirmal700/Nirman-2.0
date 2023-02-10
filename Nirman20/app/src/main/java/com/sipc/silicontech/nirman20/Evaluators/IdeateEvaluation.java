@@ -30,7 +30,7 @@ import java.util.Objects;
 import kotlin.Unit;
 
 public class IdeateEvaluation extends AppCompatActivity {
-    String mTeamName, mCollegeName, mProblemStat, mSugApp;
+    String mTeamName, mCollegeName, mProblemStat, mSugApp,mEventName;
     TextInputLayout et_teamName, et_collegeName, et_Problem_Statement, et_description, et_suggestion;
     ProgressDialog progressDialog;
     CollectionReference mCollectionReference;
@@ -95,6 +95,8 @@ public class IdeateEvaluation extends AppCompatActivity {
         mCollegeName = getIntent().getStringExtra("mCollegeName");
         mProblemStat = getIntent().getStringExtra("mProblemStat");
         mSugApp = getIntent().getStringExtra("mApproach");
+        mEventName = getIntent().getStringExtra("mEventName");
+
 
         Objects.requireNonNull(et_teamName.getEditText()).setText(mTeamName);
         et_teamName.setEnabled(false);
@@ -226,15 +228,15 @@ public class IdeateEvaluation extends AppCompatActivity {
         submit.setOnClickListener(view -> {
             progressDialog.show();
             String sugg = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
-            final double average = (double) (ev1 + ev2 + ev3 + ev4 + ev5) / 60;
-            DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Ideate").child(mTeamName).child("Suggestions");
+            final long mTotal =  (ev1 + ev2 + ev3 + ev4 + ev5) ;
+            DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(mEventName).child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
             if (sugg.length() > 0 & id != null) {
                 Suggestion suggestion = new Suggestion(mTeamName, mCollegeName, sugg, id, true, false, 0L);
                 mSugDB.child(id).setValue(suggestion);
             }
-            mCollectionReference = FirebaseFirestore.getInstance().collection("Ideate Evaluation");
-            IdeateEvaluation_POJO ideateEvaluation_pojo = new IdeateEvaluation_POJO(mTeamName, mCollegeName, mProblemStat, mSugApp, sugg, managerEvaluator.getEvaluatorName(), ev1, ev2, ev3, ev4, ev5, average, null);
+            mCollectionReference = FirebaseFirestore.getInstance().collection(mEventName+" Evaluation");
+            IdeateEvaluation_POJO ideateEvaluation_pojo = new IdeateEvaluation_POJO(mTeamName, mCollegeName, mProblemStat, mSugApp, sugg, managerEvaluator.getEvaluatorName(), ev1, ev2, ev3, ev4, ev5, mTotal, null);
             mCollectionReference.add(ideateEvaluation_pojo).addOnSuccessListener(documentReference -> Toast.makeText(IdeateEvaluation.this, "Makring Done Successfully!!", Toast.LENGTH_SHORT).show()).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
 
