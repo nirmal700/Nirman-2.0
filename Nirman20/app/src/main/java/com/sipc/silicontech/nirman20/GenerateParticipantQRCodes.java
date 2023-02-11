@@ -107,11 +107,11 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
 
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     NewHackNationTeamData teamData = snapshot.toObject(NewHackNationTeamData.class);
-                    Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone());
-                    Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone());
-                    Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone());
+                    Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone(),teamData.getmEventParticipating());
+                    Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone(),teamData.getmEventParticipating());
+                    Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone(),teamData.getmEventParticipating());
 
-                    Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone());
+                    Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone(),teamData.getmEventParticipating());
 
                     ByteArrayOutputStream stream4 = new ByteArrayOutputStream();
                     bitmap4.compress(Bitmap.CompressFormat.PNG, 100, stream4);
@@ -194,11 +194,11 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
 
                         for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                             NewIdeateTeamData teamData = snapshot.toObject(NewIdeateTeamData.class);
-                            Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone());
-                            Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone());
-                            Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone());
+                            Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone(),teamData.getmEventParticipating());
+                            Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone(),teamData.getmEventParticipating());
+                            Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone(),teamData.getmEventParticipating());
 
-                            Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone());
+                            Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone(),teamData.getmEventParticipating());
 
                             ByteArrayOutputStream stream4 = new ByteArrayOutputStream();
                             bitmap4.compress(Bitmap.CompressFormat.PNG, 100, stream4);
@@ -282,11 +282,11 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
 
                                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                                     NewIdeateTeamData teamData = snapshot.toObject(NewIdeateTeamData.class);
-                                    Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone());
-                                    Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone());
-                                    Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone());
+                                    Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone(),teamData.getmEventParticipating());
+                                    Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone(),teamData.getmEventParticipating());
+                                    Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone(),teamData.getmEventParticipating());
 
-                                    Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone());
+                                    Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone(),teamData.getmEventParticipating());
 
                                     ByteArrayOutputStream stream4 = new ByteArrayOutputStream();
                                     bitmap4.compress(Bitmap.CompressFormat.PNG, 100, stream4);
@@ -370,11 +370,11 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
 
                                         for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                                             NewRoboRaceTeamData teamData = snapshot.toObject(NewRoboRaceTeamData.class);
-                                            Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone());
-                                            Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone());
-                                            Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone());
+                                            Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone(),teamData.getmEventParticipating());
+                                            Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone(),teamData.getmEventParticipating());
+                                            Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone(),teamData.getmEventParticipating());
 
-                                            Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone());
+                                            Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone(),teamData.getmEventParticipating());
 
                                             ByteArrayOutputStream stream4 = new ByteArrayOutputStream();
                                             bitmap4.compress(Bitmap.CompressFormat.PNG, 100, stream4);
@@ -458,11 +458,11 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
 
                                                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                                                     NewLineFollowerTeamData teamData = snapshot.toObject(NewLineFollowerTeamData.class);
-                                                    Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone());
-                                                    Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone());
-                                                    Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone());
+                                                    Bitmap bitmap1 = GenerateQR(teamData.getmTeamLead(), teamData.getmTeamName(), teamData.getmTeamLeadPhone(),teamData.getmEventParticipating());
+                                                    Bitmap bitmap2 = GenerateQR(teamData.getmMem1Name(), teamData.getmTeamName(), teamData.getmMem1Phone(),teamData.getmEventParticipating());
+                                                    Bitmap bitmap3 = GenerateQR(teamData.getmMem2Name(), teamData.getmTeamName(), teamData.getmMem2Phone(),teamData.getmEventParticipating());
 
-                                                    Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone());
+                                                    Bitmap bitmap4 = GenerateQR(teamData.getmMem3Name(), teamData.getmTeamName(), teamData.getmMem3Phone(),teamData.getmEventParticipating());
 
                                                     ByteArrayOutputStream stream4 = new ByteArrayOutputStream();
                                                     bitmap4.compress(Bitmap.CompressFormat.PNG, 100, stream4);
@@ -584,12 +584,12 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
 
     }
 
-    private Bitmap GenerateQR(String getmTeamLead, String getmTeamName, String getmTeamLeadPhone) {
+    private Bitmap GenerateQR(String getmTeamLead, String getmTeamName, String getmTeamLeadPhone,String mEventName) {
         String appName = "Nirman 2.0";
         //--------------- Encoding Data -----------
         try {
             // assert phoneNumber != null;
-            String encodedData = encrypt("HackNation" + ":" + getmTeamLead + ":" + getmTeamName + ":" + getmTeamLeadPhone);
+            String encodedData = encrypt(mEventName + ":" + getmTeamLead + ":" + getmTeamName + ":" + getmTeamLeadPhone);
             MultiFormatWriter writer = new MultiFormatWriter();
 
             //--------------- Create QR code -----------

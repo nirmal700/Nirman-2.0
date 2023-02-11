@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextClock;
@@ -123,6 +124,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         progressDialog.dismiss();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
 
         managerParticipant = new SessionManagerParticipant(getApplicationContext());
@@ -299,6 +301,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     private void ChangeColor() {
         Log.e("343535", "ChangeColor: " + mPos);
         double mMid = Double.parseDouble(String.valueOf(Math.ceil(mSize / 3)));
+        if(mMid == 0){
+            mMid = 1;
+        }
         if (mPos >= 0 & mPos <= mMid) {
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.bg_primary);
             mRelative.setBackground(drawable);

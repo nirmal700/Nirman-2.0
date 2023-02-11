@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Base64;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +59,9 @@ public class UserQrCode extends AppCompatActivity {
         team_name = findViewById(R.id.mTeam_name);
         SessionManagerParticipant managerParticipant = new SessionManagerParticipant(getApplicationContext());
         String phoneNo = managerParticipant.getPhone(); //Get Phone Number from session
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
 
         //--------------- Internet Checking -----------
         if (!isConnected(UserQrCode.this)) {

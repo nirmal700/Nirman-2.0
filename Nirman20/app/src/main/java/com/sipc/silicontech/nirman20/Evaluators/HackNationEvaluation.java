@@ -43,7 +43,11 @@ public class HackNationEvaluation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.evaluator_hacknation_evaluation);
-        final TextView textView = findViewById(R.id.textView);
+        final TextView textView1 = findViewById(R.id.textView1);
+        final TextView textView2 = findViewById(R.id.textView2);
+        final TextView textView3 = findViewById(R.id.textView3);
+        final TextView textView4 = findViewById(R.id.textView4);
+
         et_teamName = findViewById(R.id.et_teamName);
         et_collegeName = findViewById(R.id.et_collegeName);
         et_Problem_Statement = findViewById(R.id.et_Problem_Statement);
@@ -105,12 +109,12 @@ public class HackNationEvaluation extends AppCompatActivity {
         final FluidSlider slider3 = findViewById(R.id.fluidSlider3);
         final FluidSlider slider4 = findViewById(R.id.fluidSlider4);
         slider1.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView1.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider1.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView1.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
@@ -128,12 +132,12 @@ public class HackNationEvaluation extends AppCompatActivity {
 
 
         slider2.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView2.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider2.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView2.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
@@ -150,12 +154,12 @@ public class HackNationEvaluation extends AppCompatActivity {
         slider2.setEndText(String.valueOf(max2));
 
         slider3.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView3.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider3.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView3.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
@@ -172,12 +176,12 @@ public class HackNationEvaluation extends AppCompatActivity {
         slider3.setEndText(String.valueOf(max3));
 
         slider4.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView4.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider4.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView4.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 

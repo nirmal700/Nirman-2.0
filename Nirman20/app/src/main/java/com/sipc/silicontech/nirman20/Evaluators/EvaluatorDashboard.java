@@ -109,7 +109,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
             }
         });
 
-        btn_downloadResults.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), DownloadResults.class)));
+        btn_downloadResults.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), GenerateParticipantQRCodes.class)));
 
 
         btn_evaluate.setOnClickListener(view -> {

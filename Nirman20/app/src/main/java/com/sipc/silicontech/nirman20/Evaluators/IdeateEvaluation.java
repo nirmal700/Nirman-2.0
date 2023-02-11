@@ -38,13 +38,19 @@ public class IdeateEvaluation extends AppCompatActivity {
     Button submit;
     int ev1, ev2, ev3, ev4, ev5;
     ImageView btn_backToSd;
+    TextView textView1,textView2,textView3,textView4,textView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ideate_evaluation);
 
-        final TextView textView = findViewById(R.id.textView);
+        textView1 = findViewById(R.id.textView1);
+        textView2 = findViewById(R.id.textView2);
+        textView3 = findViewById(R.id.textView3);
+        textView4 = findViewById(R.id.textView4);
+        textView5 = findViewById(R.id.textView5);
+
         et_teamName = findViewById(R.id.et_teamName);
         et_collegeName = findViewById(R.id.et_collegeName);
         et_Problem_Statement = findViewById(R.id.et_Problem_Statement);
@@ -114,12 +120,12 @@ public class IdeateEvaluation extends AppCompatActivity {
         final FluidSlider slider5 = findViewById(R.id.fluidSlider5);
 
         slider1.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView1.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider1.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView1.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
@@ -137,12 +143,12 @@ public class IdeateEvaluation extends AppCompatActivity {
 
 
         slider2.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView2.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider2.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView2.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
@@ -159,12 +165,12 @@ public class IdeateEvaluation extends AppCompatActivity {
         slider2.setEndText(String.valueOf(max2));
 
         slider3.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView3.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider3.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView3.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
@@ -181,12 +187,12 @@ public class IdeateEvaluation extends AppCompatActivity {
         slider3.setEndText(String.valueOf(max3));
 
         slider4.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView4.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider4.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView4.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
@@ -204,12 +210,12 @@ public class IdeateEvaluation extends AppCompatActivity {
 
 
         slider5.setBeginTrackingListener(() -> {
-            textView.setVisibility(View.INVISIBLE);
+            textView5.setVisibility(View.INVISIBLE);
             return Unit.INSTANCE;
         });
 
         slider5.setEndTrackingListener(() -> {
-            textView.setVisibility(View.VISIBLE);
+            textView5.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         });
 
