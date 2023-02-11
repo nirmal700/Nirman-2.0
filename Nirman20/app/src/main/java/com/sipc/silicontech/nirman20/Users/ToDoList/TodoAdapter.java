@@ -57,9 +57,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
         holder.tv_title.setText(model.getTitle());
         holder.tv_description.setText(model.getDescription());
-        holder.tv_day.setText(model.getDay());
-        holder.tv_month.setText(model.getMonth());
-        holder.tv_year.setText(model.getYear());
+
 
         SessionManagerParticipant managerUser;
         managerUser = new SessionManagerParticipant(mContext.getApplicationContext());
@@ -117,7 +115,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             dialog.setContentView(R.layout.todo_add_and_update);
 
             TextView tv_update = dialog.findViewById(R.id.tv_update);
-            Button btn_selectDate = dialog.findViewById(R.id.btn_selectDate);
             EditText et_title = dialog.findViewById(R.id.et_title);
             EditText et_desc = dialog.findViewById(R.id.et_description);
             Button btn_add = dialog.findViewById(R.id.bt_ok);
@@ -129,47 +126,12 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             btn_add.setText("Update");
             tv_update.setText("Update");
 
-            btn_selectDate.setOnClickListener(v12 -> {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        mContext, (view, year1, month1, day1) -> {
-                    month1 = month1 + 1;
 
-                    String fd = "" + day1;
-                    String fm = "" + month1;
-                    if (day1 < 10) {
-                        fd = "0" + day1;
-                    }
-                    if (month1 < 10) {
-                        fm = "0" + month1;
-                    }
-
-                    String selectedDate = fd + "/" + fm + "/" + year1;
-
-                    btn_selectDate.setText(selectedDate);
-                }, year, month, day);
-                datePickerDialog.show();
-            });
-
-            String getDay = model.getDay();
-            String getMonth = model.getMonth();
-            String getYear = model.getYear();
-
-            String date = getDay + "/" + getMonth + "/" + getYear;
-            btn_selectDate.setText(date);
 
             et_title.setText(model.getTitle());
             et_desc.setText(model.getDescription());
 
             btn_add.setOnClickListener(v13 -> {
-
-                String getDate = btn_selectDate.getText().toString();
-
-                String[] separated = getDate.split("/");
-
-                String setDay = separated[0];
-                String setMonth = separated[1];
-                String setYear = separated[2];
-
                 String nTitle = et_title.getText().toString();
                 String nDesc = et_desc.getText().toString();
 
@@ -180,38 +142,18 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String tempTitle = snapshot.child("title").getValue(String.class);
-                        String tempDesc = snapshot.child("description").getValue(String.class);
-                        String tempDay = snapshot.child("day").getValue(String.class);
-                        String tempMonth = snapshot.child("month").getValue(String.class);
-                        String tempYear = snapshot.child("year").getValue(String.class);
-
-
-                        if ((Objects.requireNonNull(tempDesc).equals(nDesc)) && (Objects.requireNonNull(tempTitle).equals(nTitle)) && (Objects.requireNonNull(tempDay).equals(setDay)) && (Objects.requireNonNull(tempMonth).equals(setMonth)) && (Objects.requireNonNull(tempYear).equals(setYear))) {
-
-
-                            Toast.makeText(mContext, "Data are same", Toast.LENGTH_SHORT).show();
-
-                        } else {
-
                             if (et_title.getText().toString().trim().isEmpty() | et_desc.getText().toString().trim().isEmpty()) {
                                 Toast.makeText(mContext, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
-                            } else if (btn_selectDate.getText().toString().isEmpty()) {
-                                Toast.makeText(mContext, "Please select a date", Toast.LENGTH_SHORT).show();
-                            } else {
+                            }  else {
 
                                 db.child("title").setValue(nTitle);
                                 db.child("description").setValue(nDesc);
-                                db.child("day").setValue(setDay);
-                                db.child("month").setValue(setMonth);
-                                db.child("year").setValue(setYear);
 
                                 Toast.makeText(mContext, "Item Updated..", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
                         }
 
-                    }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -237,7 +179,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
     public static class TodoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_title, tv_description, tv_day, tv_month, tv_year;
+        TextView tv_title, tv_description;
         Button btn_delete;
         LinearLayout btn_edit;
 
@@ -246,9 +188,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_description = itemView.findViewById(R.id.tv_description);
-            tv_day = itemView.findViewById(R.id.tv_day);
-            tv_month = itemView.findViewById(R.id.tv_month);
-            tv_year = itemView.findViewById(R.id.tv_year);
+
 
 
             btn_edit = itemView.findViewById(R.id.btn_edit);

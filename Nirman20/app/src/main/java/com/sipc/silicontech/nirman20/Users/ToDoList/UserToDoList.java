@@ -50,7 +50,6 @@ public class UserToDoList extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private String selectedDate;
     private ProgressDialog progressDialog;
     private DatabaseReference todoDb;
     private List<TodoModel> todoModels;
@@ -106,10 +105,6 @@ public class UserToDoList extends AppCompatActivity {
 
         btn_add.setOnClickListener(v -> {
 
-            Calendar calendar = Calendar.getInstance();
-            final int year = calendar.get(Calendar.YEAR);
-            final int month = calendar.get(Calendar.MONTH);
-            final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             final Dialog dialog = new Dialog(UserToDoList.this);
 
@@ -122,7 +117,6 @@ public class UserToDoList extends AppCompatActivity {
             dialog.getWindow().setWindowAnimations(R.style.BottomDialog);
             dialog.getWindow().setGravity(Gravity.BOTTOM);
 
-            Button btn_selectDate = dialog.findViewById(R.id.btn_selectDate);
             EditText et_title = dialog.findViewById(R.id.et_title);
             EditText et_desc = dialog.findViewById(R.id.et_description);
             Button btn_new = dialog.findViewById(R.id.bt_ok);
@@ -132,50 +126,21 @@ public class UserToDoList extends AppCompatActivity {
             btn_cancel.setOnClickListener(v1 -> dialog.dismiss());
 
 
-            btn_selectDate.setOnClickListener(v13 -> {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        UserToDoList.this, (view, year1, month1, day1) -> {
-                            month1 = month1 + 1;
-
-                            String fd = "" + day1;
-                            String fm = "" + month1;
-                            if (day1 < 10) {
-                                fd = "0" + day1;
-                            }
-                            if (month1 < 10) {
-                                fm = "0" + month1;
-                            }
-
-                            selectedDate = fd + "/" + fm + "/" + year1;
-
-                            btn_selectDate.setText(selectedDate);
-                        }, year, month, day);
-                datePickerDialog.show();
-            });
 
 
             btn_new.setOnClickListener(v12 -> {
 
                 if (et_title.getText().toString().trim().isEmpty() | et_desc.getText().toString().trim().isEmpty()) {
                     Toast.makeText(UserToDoList.this, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
-                } else if (btn_selectDate.getText().toString().isEmpty()) {
-                    Toast.makeText(UserToDoList.this, "Please select a date", Toast.LENGTH_SHORT).show();
-                } else {
+                }  else {
 
 
-                    String date = btn_selectDate.getText().toString();
 
                     String nTitle = et_title.getText().toString();
                     String nDesc = et_desc.getText().toString();
 
-                    String[] separated = date.split("/");
-
-                    String newDay = separated[0];
-                    String newMonth = separated[1];
-                    String newYear = separated[2];
-
                     String id = todoDb.push().getKey();
-                    TodoModel model = new TodoModel(id, nTitle, nDesc, newDay, newMonth, newYear);
+                    TodoModel model = new TodoModel(id, nTitle, nDesc);
 
                     if (id != null) {
                         todoDb.child(id).setValue(model);
