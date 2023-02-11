@@ -39,6 +39,7 @@ import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
+import com.sipc.silicontech.nirman20.DemoClass;
 import com.sipc.silicontech.nirman20.GenerateParticipantQRCodes;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
@@ -109,7 +110,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
             }
         });
 
-        btn_downloadResults.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), GenerateParticipantQRCodes.class)));
+        btn_downloadResults.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), DownloadResults.class)));
 
 
         btn_evaluate.setOnClickListener(view -> {
