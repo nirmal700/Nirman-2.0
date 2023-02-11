@@ -149,7 +149,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:autoSizeTextType="uniform"
                     android:digits="@string/allowedName"
                     android:fontFamily="@font/my_fav_sans_number"
@@ -182,7 +182,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:autoSizeTextType="uniform"
                     android:digits="@string/allowedName"
                     android:fontFamily="@font/my_fav_sans_number"

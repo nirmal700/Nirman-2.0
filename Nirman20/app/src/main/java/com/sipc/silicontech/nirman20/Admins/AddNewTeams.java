@@ -452,7 +452,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidApproach() {
-        if (approach.length() <= 150 && approach.length() >= 15) {
+        if (approach.length() <= 250 && approach.length() >= 15) {
             mApproach.setError(null);
             return true;
         } else {
@@ -462,7 +462,7 @@ public class AddNewTeams extends AppCompatActivity {
     }
 
     private boolean ValidProblemStat() {
-        if (problemstatement.length() <= 100 && problemstatement.length() >= 10) {
+        if (problemstatement.length() <= 200 && problemstatement.length() >= 10) {
             mProblemStatement.setError(null);
             return true;
         } else {
