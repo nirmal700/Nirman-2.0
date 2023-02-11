@@ -39,11 +39,9 @@ import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
-import com.sipc.silicontech.nirman20.DemoActivity;
+import com.sipc.silicontech.nirman20.GenerateParticipantQRCodes;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
-import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -54,7 +52,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class EvaluatorDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    MaterialCardView btn_evaluate, btn_demo;
+    MaterialCardView btn_evaluate, btn_downloadResults;
     static final float END_SCALE = 0.7f;
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
@@ -73,7 +71,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
         setContentView(R.layout.evaluator_dashboard);
 
         btn_evaluate = findViewById(R.id.btn_evaluate);
-        btn_demo = findViewById(R.id.btn_FoodCoupouns);
+        btn_downloadResults = findViewById(R.id.btn_DownloadResults);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         contentView = findViewById(R.id.linear_content);
@@ -111,7 +109,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
             }
         });
 
-        btn_demo.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), DownloadResults.class)));
+        btn_downloadResults.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), DownloadResults.class)));
 
 
         btn_evaluate.setOnClickListener(view -> {
