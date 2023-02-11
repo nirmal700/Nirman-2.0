@@ -198,7 +198,7 @@ tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/pitch_details"
                 android:inputType="textCapSentences"
                 android:autoSizeTextType="uniform"
@@ -229,7 +229,7 @@ tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/suggested_idea"
                 android:inputType="textMultiLine"
                 android:textColor="@color/black"
@@ -396,7 +396,7 @@ tools:targetApi="o">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/suggestion_to_the_team"
                 android:inputType="textMultiLine"
                 android:textColor="@color/black"

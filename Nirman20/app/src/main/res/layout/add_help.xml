@@ -78,7 +78,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
             android:hint="@string/description_9"
             android:inputType="textMultiLine"

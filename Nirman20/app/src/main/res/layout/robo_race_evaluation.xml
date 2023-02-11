@@ -766,7 +766,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="175dp"
+                    android:layout_height="wrap_content"
                     android:hint="Suggestion To The Team"
                     android:inputType="textMultiLine"
                     android:textColor="@color/black"
