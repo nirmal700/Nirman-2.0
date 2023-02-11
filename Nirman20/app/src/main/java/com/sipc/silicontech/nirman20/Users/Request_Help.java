@@ -134,8 +134,9 @@ public class Request_Help extends AppCompatActivity {
 
             submit.setOnClickListener(v1 -> {
 
-                if (helptype.isEmpty() | Objects.requireNonNull(et_description.getEditText()).getText().toString().trim().isEmpty()) {
+                if (helptype == null | Objects.requireNonNull(et_description.getEditText()).getText().toString().trim().isEmpty()) {
                     Toast.makeText(Request_Help.this, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
 
 
