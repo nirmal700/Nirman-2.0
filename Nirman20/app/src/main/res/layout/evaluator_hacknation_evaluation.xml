@@ -211,7 +211,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/problem_statement_8"
-                    android:inputType="textCapSentences"
+                    android:inputType="textMultiLine"
                     android:autoSizeTextType="uniform"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
@@ -277,7 +277,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/how_technically_impressive_was_the_hack_was_the_technical_problem_the_team_tackled_difficult_did_it_use_a_particularly_clever_technique_or_did_it_use_many_different_components_did_the_technology_involved_make_you_go_wow"
+                    android:text="Problem Statment"
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
 
@@ -295,7 +295,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/did_the_team_put_thought_into_the_user_experience_how_well_designed_is_the_interface_for_a_website_this_might_be_about_how_beautiful_the_css_or_graphics_are_for_a_hardware_project_it_might_be_more_about_how_good_the_human_computer_interaction_is_e_g_is_it_easy_to_use_or_does_it_use_a_cool_interface"
+                android:text="Feasibility of Solution"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -314,7 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/does_the_hack_work_did_the_team_achieve_everything_they_wanted"
+                android:text="Implementation"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 
@@ -333,7 +333,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/did_the_team_stretch_themselves_did_they_try_to_learn_something_new_what_kind_of_projects_have_they_worked_on_before"
+                android:text="Presentation"
                 android:textSize="16sp"
                 android:textColor="@color/black"/>
 

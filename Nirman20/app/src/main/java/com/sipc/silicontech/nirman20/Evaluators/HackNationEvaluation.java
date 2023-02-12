@@ -72,19 +72,19 @@ public class HackNationEvaluation extends AppCompatActivity {
             showCustomDialog();
         }
 
-        final int max1 = 100;
+        final int max1 = 10;
         final int min1 = 0;
         final int total1 = max1 - min1;
 
-        final int max2 = 100;
+        final int max2 = 10;
         final int min2 = 0;
         final int total2 = max2 - min2;
 
-        final int max3 = 100;
+        final int max3 =20;
         final int min3 = 0;
         final int total3 = max3 - min3;
 
-        final int max4 = 100;
+        final int max4 = 10;
         final int min4 = 0;
         final int total4 = max4 - min4;
 
@@ -144,7 +144,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         // Java 8 lambda
         slider2.setPositionListener(pos -> {
             final String value = String.valueOf((int) (min2 + total2 * pos));
-            slider1.setBubbleText(value);
+            slider2.setBubbleText(value);
             ev2 = Integer.parseInt(value);
             return Unit.INSTANCE;
         });
@@ -166,7 +166,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         // Java 8 lambda
         slider3.setPositionListener(pos -> {
             final String value = String.valueOf((int) (min3 + total3 * pos));
-            slider1.setBubbleText(value);
+            slider3.setBubbleText(value);
             ev3 = Integer.parseInt(value);
             return Unit.INSTANCE;
         });
@@ -188,7 +188,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         // Java 8 lambda
         slider4.setPositionListener(pos -> {
             final String value = String.valueOf((int) (min4 + total4 * pos));
-            slider1.setBubbleText(value);
+            slider4.setBubbleText(value);
             ev4 = Integer.parseInt(value);
             return Unit.INSTANCE;
         });
