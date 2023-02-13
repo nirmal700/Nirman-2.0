@@ -630,7 +630,7 @@ public class DownloadResults extends AppCompatActivity {
                         document.add(table1);
                         document.add(new Paragraph(""));
 
-                        float[] columnWidth2 = {20, 100, 130, 40, 40, 40, 30, 30, 30};
+                        float[] columnWidth2 = {20, 100, 130, 40, 40, 40, 40, 40};
                         Table table2 = new Table(columnWidth2);
 //2-01
                         table2.addCell(new Cell().add(new Paragraph("Pos.")).setBackgroundColor(invoiceyellow));
@@ -638,9 +638,8 @@ public class DownloadResults extends AppCompatActivity {
                         table2.addCell(new Cell().add(new Paragraph("College Name")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("Total Time")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("CheckPoints")).setBackgroundColor(invoiceyellow));
-                        table2.addCell(new Cell().add(new Paragraph("CP Skiped")).setBackgroundColor(invoiceyellow));
-                        table2.addCell(new Cell().add(new Paragraph("Penalty")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("HandTouches")).setBackgroundColor(invoiceyellow));
+                        table2.addCell(new Cell().add(new Paragraph("Total Points")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("Tech.Time")).setBackgroundColor(invoiceyellow));
 
 
@@ -652,9 +651,8 @@ public class DownloadResults extends AppCompatActivity {
                             table2.addCell(new Cell().add(new Paragraph(roboRaceTeamData.get(a).getmCollegeName())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmTotalTimeTaken())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmCheckPointCleared())).setBackgroundColor(invoicegrey));
-                            table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmCheckPointSkipped())).setBackgroundColor(invoicegrey));
-                            table2.addCell(new Cell().add(new Paragraph("-")).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmHandTouches())).setBackgroundColor(invoicegrey));
+                            table2.addCell(new Cell().add(new Paragraph(""+  roboRaceTeamData.get(a).getmTotal())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).ismTimeOutTaken())).setBackgroundColor(invoicegrey));
 
                         }
@@ -762,7 +760,7 @@ public class DownloadResults extends AppCompatActivity {
                         document.add(table1);
                         document.add(new Paragraph(""));
 
-                        float[] columnWidth2 = {20, 100, 130, 40, 40, 40, 30, 30, 30};
+                        float[] columnWidth2 = {20, 100, 130, 40, 40, 40, 40, 40};
                         Table table2 = new Table(columnWidth2);
 //2-01
                         table2.addCell(new Cell().add(new Paragraph("Pos.")).setBackgroundColor(invoiceyellow));
@@ -770,9 +768,8 @@ public class DownloadResults extends AppCompatActivity {
                         table2.addCell(new Cell().add(new Paragraph("College Name")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("Total Time")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("CheckPoints")).setBackgroundColor(invoiceyellow));
-                        table2.addCell(new Cell().add(new Paragraph("CP Skiped")).setBackgroundColor(invoiceyellow));
-                        table2.addCell(new Cell().add(new Paragraph("Penalty")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("HandTouches")).setBackgroundColor(invoiceyellow));
+                        table2.addCell(new Cell().add(new Paragraph("Total Points")).setBackgroundColor(invoiceyellow));
                         table2.addCell(new Cell().add(new Paragraph("Tech.Time")).setBackgroundColor(invoiceyellow));
 
 
@@ -784,9 +781,8 @@ public class DownloadResults extends AppCompatActivity {
                             table2.addCell(new Cell().add(new Paragraph(lineFollowerTeamData.get(a).getmCollegeName())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmTotalTimeTaken())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmCheckPointCleared())).setBackgroundColor(invoicegrey));
-                            table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmCheckPointSkipped())).setBackgroundColor(invoicegrey));
-                            table2.addCell(new Cell().add(new Paragraph("-")).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmHandTouches())).setBackgroundColor(invoicegrey));
+                            table2.addCell(new Cell().add(new Paragraph(""+lineFollowerTeamData.get(a).getmTotal())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).ismTimeOutTaken())).setBackgroundColor(invoicegrey));
 
                         }

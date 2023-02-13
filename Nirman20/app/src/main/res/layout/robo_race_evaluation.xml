@@ -270,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:autoSizeTextType="uniform"
-                    android:text="Techincal Time-out "
+                    android:text="Technical Time-out "
                     android:textColor="@color/Primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />

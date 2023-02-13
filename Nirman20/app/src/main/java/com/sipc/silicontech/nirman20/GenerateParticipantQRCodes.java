@@ -76,7 +76,7 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
         mResult = FirebaseStorage.getInstance().getReference("QR CODES");
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File InvDir = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        File file = new File(InvDir, "Nirman_2.0_QR" + ".pdf");
+        File file = new File(InvDir, "Nirman_2.0_QR_PARTCIPANTS" + ".pdf");
         String mCurrentTime = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
         try {
             OutputStream outputStream = new FileOutputStream(file);
@@ -539,7 +539,7 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
                                                 document.add(table5);
                                                 document.close();
 
-                                                StorageReference reference = mResult.child("Nirman_2.0_HackNation" + "-" + mCurrentTime + ".pdf");
+                                                StorageReference reference = mResult.child("Nirman_2.0_QR_PARTICIPANT" + "-" + mCurrentTime + ".pdf");
 
                                                 reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
 
