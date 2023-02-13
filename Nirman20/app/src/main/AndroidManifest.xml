@@ -18,7 +18,7 @@
             android:name=".DemoClass"
             android:exported="false" />
         <activity
-            android:name=".ViewLeaderBoard"
+            android:name=".Users.ViewLeaderBoard"
             android:exported="false" />
         <activity
             android:name=".GenerateParticipantQRCodes"

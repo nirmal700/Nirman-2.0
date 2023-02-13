@@ -79,11 +79,11 @@ public class TeamDetails extends AppCompatActivity {
 
 
         mEventType.setOnItemClickListener((parent, view, position, id) -> {
+            progressDialog.show();
             CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(arrayAdapterEventType.getItem(position));
             mCollectionReference.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     list.clear();
-                    progressDialog.show();
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         if (Objects.requireNonNull(documentSnapshot.getData().get("mEventParticipating")).toString().equals("Robo Race")) {
                             list.add(documentSnapshot.toObject(NewRoboRaceTeamData.class));
@@ -103,6 +103,7 @@ public class TeamDetails extends AppCompatActivity {
                 } else {
                     list.clear();
                     multiViewAdapter.notifyDataSetChanged();
+                    progressDialog.show();
                 }
             });
         });

@@ -8,42 +8,32 @@
     android:layout_weight="1"
     app:cardElevation="8dp"
     android:padding="10dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="15dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginEnd="10dp"
-    app:cardBackgroundColor="@color/Primary"
-    android:layout_marginHorizontal="5dp"
+    app:cardBackgroundColor="@color/transparent"
     tools:targetApi="o"
-    android:layout_marginStart="10dp">
+    android:layout_margin="10dp">
 
     <LinearLayout
-        android:id="@+id/btn_edit"
+        android:id="@+id/mLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:background="@drawable/bg_leader_red">
+        android:background="@drawable/bg_leader_yellow">
 
 
         <TextView
-            android:id="@+id/tv_Tag"
+            android:id="@+id/tv_TeamName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="13dp"
+            android:layout_gravity="center_horizontal"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/my_fav_sans_number"
             android:text="@string/lan_issue"
             android:textColor="@color/black"
             android:textSize="25sp"
             tools:ignore="RelativeOverlap" />
-
-
-
 
 
         </LinearLayout>

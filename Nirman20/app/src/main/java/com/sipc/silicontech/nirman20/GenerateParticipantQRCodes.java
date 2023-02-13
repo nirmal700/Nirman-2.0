@@ -40,6 +40,7 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.sipc.silicontech.nirman20.Admins.AdminDashboard;
 import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
@@ -629,7 +630,12 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
         digest.update(bytes, 0, bytes.length);
         byte[] key = digest.digest();
         return new SecretKeySpec(key, "AES"); //SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
+    }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
+        super.onBackPressed();
     }
 
 }

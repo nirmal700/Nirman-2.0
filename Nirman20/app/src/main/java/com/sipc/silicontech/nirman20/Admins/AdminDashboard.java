@@ -37,9 +37,11 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.sipc.silicontech.nirman20.AboutUs;
 import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
+import com.sipc.silicontech.nirman20.GenerateParticipantQRCodes;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.UsersSignUp;
+import com.sipc.silicontech.nirman20.Users.ViewLeaderBoard;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -57,7 +59,7 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
     Boolean mCb1 = false, mCb2 = false, mCb3 = false, mCb4 = false;
     Button btCancel, btOk;
     CheckBox checkBox1, checkBox2, checkBox3, checkBox4;
-    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails, mFoodCoupoun, btn_AddressIssues;
+    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails, mFoodCoupoun, btn_AddressIssues,btn_DownloadQR,btn_CheckLeaderBoard;
     Dialog dialog;
     String name, teamname, event;
     ProgressDialog progressDialog;
@@ -83,6 +85,8 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         mCheckIn = findViewById(R.id.btn_CheckIn);
         mFoodCoupoun = findViewById(R.id.btn_FoodCoupouns);
         btn_AddressIssues = findViewById(R.id.btn_AddressIssues);
+        btn_DownloadQR = findViewById(R.id.btn_DownloadQRCodes);
+        btn_CheckLeaderBoard = findViewById(R.id.btn_LeaderBoard);
 
         //--------------- Internet Checking -----------
         if (!isConnected(AdminDashboard.this)) {
@@ -93,6 +97,20 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         mFoodCoupoun.setOnClickListener(v -> {
             startActivity(new Intent(AdminDashboard.this, FoodCoupoun.class));
             finish();
+        });
+        btn_DownloadQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminDashboard.this, GenerateParticipantQRCodes.class));
+                finish();
+            }
+        });
+        btn_CheckLeaderBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminDashboard.this, ViewLeaderBoard.class));
+                finish();
+            }
         });
 
         Menu menuNav = navigationView.getMenu();
