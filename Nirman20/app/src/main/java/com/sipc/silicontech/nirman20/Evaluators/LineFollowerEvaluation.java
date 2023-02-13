@@ -17,8 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -207,9 +210,22 @@ public class LineFollowerEvaluation extends AppCompatActivity {
             }
             mDocumentReference = FirebaseFirestore.getInstance().collection("Line Follower").document(mTeamName);
             mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime,"mTotal",mTotal).addOnCompleteListener(task -> {
+                progressDialog.dismiss();
                 startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
                 finish();
-            }).addOnSuccessListener(unused -> Toast.makeText(LineFollowerEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(LineFollowerEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show());
+            }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(LineFollowerEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(LineFollowerEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            });
         });
 
 

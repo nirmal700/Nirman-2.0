@@ -71,10 +71,10 @@ public class EvaluatorSignIn extends AppCompatActivity {
         }
 
         DatabaseReference myRef = database.getReference("Evaluator");
+        progressDialog.show();
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                progressDialog.show();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String name = ds.child("eName").getValue(String.class);
                     Log.e("TAG", "onDataChange: " + name);
@@ -119,13 +119,14 @@ public class EvaluatorSignIn extends AppCompatActivity {
 
         String _password1 = Objects.requireNonNull(et_password.getEditText()).getText().toString().trim();
         Query checkUser = FirebaseDatabase.getInstance().getReference("Evaluator").orderByChild("eName").equalTo(evaluator_name);
+        progressDialog.show();
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (snapshot.exists()) { //Check User
 
-                    progressDialog.show();
+
                     String systemPassword = snapshot.child(evaluator_name).child("ePassword").getValue(String.class);
 
                     if (Objects.requireNonNull(systemPassword).equals(_password1)) {
