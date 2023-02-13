@@ -222,10 +222,10 @@ public class AddNewTeams extends AppCompatActivity {
                 }
             }
             if (b == 4) {
-                if (!ValidTeamName() | !ValidProblemStat() | !ValidApproach() | !ValidCollegeName() | !ValidName1() | !ValidPhone1() | !ValidName2() | !ValidPhone2() | !ValidName3() | !ValidPhone3() | !ValidName4() | !ValidPhone4() | !ValidateEventType()) {
+                if (!ValidTeamName() | !ValidCollegeName() | !ValidName1() | !ValidPhone1() | !ValidName2() | !ValidPhone2() | !ValidName3() | !ValidPhone3() | !ValidName4() | !ValidPhone4() | !ValidateEventType()) {
                     return;
                 } else {
-                    if (event.equals("HackNation") || event.equals("Ideate")) {
+                    if (event.equals("HackNation") || event.equals("Ideate - 1") || event.equals("Ideate - 2")) {
                         if (!ValidProblemStat() | !ValidApproach()) {
                             return;
                         }
@@ -259,8 +259,27 @@ public class AddNewTeams extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AddNewTeams.this, ""+e.toString(), Toast.LENGTH_SHORT).show();
+                            }
                         });
-                    } else if (event.equals("Ideate")) {
+                    } else if (event.equals("Ideate - 1")) {
+                        NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement, approach, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, false);
+                        mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
+                            progressDialog.cancel();
+                            Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
+                        }).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(AddNewTeams.this, teamname + "Added Successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AddNewTeams.this, AdminDashboard.class);
+                                progressDialog.dismiss();
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }else if (event.equals("Ideate - 2")) {
                         NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement, approach, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, false);
                         mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
