@@ -186,7 +186,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         mSubmit.setOnClickListener(view -> {
             progressDialog.show();
             String mTeamName, mSuggestion;
-            long mTotalTime, mCheckPoints, mHandTouches,mTotal;
+            long mTotalTime, mCheckPoints, mHandTouches,mTotal = 0;
             mTeamName = et_teamName.getEditText().getText().toString();
 
 
@@ -198,9 +198,9 @@ public class LineFollowerEvaluation extends AppCompatActivity {
             mCheckPoints = Long.parseLong(disp1.getText().toString());
             mHandTouches = Long.parseLong(disp2.getText().toString());
             mSuggestion = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
-            mTotal = 10*mCheckPoints;
-            if(mHandTouches>5){
-                mTotal = mTotal - 5*(mHandTouches-5);
+//            mTotal = 10*mCheckPoints;
+            if(mHandTouches>3){
+                mTotal = mTotal - 5*(mHandTouches-3);
             }
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Line Follower").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
