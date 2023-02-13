@@ -31,10 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
-import com.sipc.silicontech.nirman20.Evaluators.RoboRaceEvaluation;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.ToDoList.UserToDoList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -202,11 +199,13 @@ public class Request_Help extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
         super.onBackPressed();
     }
+
     private void showCustomDialog() {
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(Request_Help.this);

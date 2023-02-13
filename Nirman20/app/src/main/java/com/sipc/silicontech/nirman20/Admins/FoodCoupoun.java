@@ -27,7 +27,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -229,6 +228,7 @@ public class FoodCoupoun extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), AdminDashboard.class));

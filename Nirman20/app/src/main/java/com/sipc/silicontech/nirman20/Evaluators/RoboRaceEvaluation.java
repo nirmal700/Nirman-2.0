@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -17,13 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,20 +25,20 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Suggestion;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.Objects;
 
 public class RoboRaceEvaluation extends AppCompatActivity {
-    Button start, stop, reset, inc10, dec10, inc20, dec20, mTimeOut, mSubmit, inc30, dec30,mHandIncrement,mHandDecrement,mBonusIncrement,mBonusDecrement;
+    Button start, stop, reset, inc10, dec10, inc20, dec20, mTimeOut, mSubmit, inc30, dec30, mHandIncrement, mHandDecrement, mBonusIncrement, mBonusDecrement;
     TextInputLayout et_teamName, et_collegeName, et_suggestion;
-    TextView disp10, disp20, disp30,mHandTouch,mBonus;
+    TextView disp10, disp20, disp30, mHandTouch, mBonus;
 
-    int count1, count2, count3,countHand,countBonus;
+    int count1, count2, count3, countHand, countBonus;
     int sec, min, miliSec;
     ProgressDialog progressDialog;
     String mTeamName, mCollegeName;
     DocumentReference mDocumentReference;
+    ImageView btn_backToSd;
     private int mTechTimeOut = 0;
     private boolean mTechTimeTaken = false;
     private Chronometer chronometer, mChronoTimer;
@@ -65,7 +59,6 @@ public class RoboRaceEvaluation extends AppCompatActivity {
             handler.postDelayed(this, 60);
         }
     };
-    ImageView btn_backToSd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +70,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         reset = findViewById(R.id.reset);
         mChronoTimer = findViewById(R.id.timer);
         inc10 = findViewById(R.id.incrementer10);
-        inc20= findViewById(R.id.incrementer20);
+        inc20 = findViewById(R.id.incrementer20);
         dec10 = findViewById(R.id.decrementer10);
         dec20 = findViewById(R.id.decrementer20);
         inc30 = findViewById(R.id.incrementer30);
@@ -223,7 +216,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         mSubmit.setOnClickListener(view -> {
             progressDialog.show();
             String mTeamName, mSuggestion;
-            long mTotalTime, mCheckPoints, mHandTouches,mBonusPoint,mTotal;
+            long mTotalTime, mCheckPoints, mHandTouches, mBonusPoint, mTotal;
             mTeamName = et_teamName.getEditText().getText().toString();
 
 
@@ -232,20 +225,18 @@ public class RoboRaceEvaluation extends AppCompatActivity {
             int seconds = Integer.parseInt(timeArray[1]);
             mTotalTime = (minutes * 60L) + seconds;
 
-            mCheckPoints = Long.parseLong(disp10.getText().toString()) + Long.parseLong(disp20.getText().toString()) +Long.parseLong(disp30.getText().toString());
+            mCheckPoints = Long.parseLong(disp10.getText().toString()) + Long.parseLong(disp20.getText().toString()) + Long.parseLong(disp30.getText().toString());
 
             mHandTouches = Long.parseLong(mHandTouch.getText().toString());
             mBonusPoint = Long.parseLong(mBonus.getText().toString());
             mSuggestion = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
 
-            mTotal = (10*Long.parseLong(disp10.getText().toString())) + (20*Long.parseLong(disp20.getText().toString())) + (30*Long.parseLong(disp30.getText().toString()));
-            if(mHandTouches>5)
-            {
-                mTotal =mTotal -  5*(mHandTouches - 5);
+            mTotal = (10 * Long.parseLong(disp10.getText().toString())) + (20 * Long.parseLong(disp20.getText().toString())) + (30 * Long.parseLong(disp30.getText().toString()));
+            if (mHandTouches > 5) {
+                mTotal = mTotal - 5 * (mHandTouches - 5);
             }
-            if(mBonusPoint>0)
-            {
-                mTotal = mTotal + 5*mBonusPoint;
+            if (mBonusPoint > 0) {
+                mTotal = mTotal + 5 * mBonusPoint;
             }
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Robo Race").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
@@ -254,25 +245,16 @@ public class RoboRaceEvaluation extends AppCompatActivity {
                 mSugDB.child(id).setValue(suggestion);
             }
             mDocumentReference = FirebaseFirestore.getInstance().collection("Robo Race").document(mTeamName);
-            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime, "mBonus", mBonusPoint,"mTotal",mTotal).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    progressDialog.dismiss();
-                    RoboRaceEvaluation.this.startActivity(new Intent(RoboRaceEvaluation.this.getApplicationContext(), EvaluatorDashboard.class));
-                    RoboRaceEvaluation.this.finish();
-                }
-            }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(RoboRaceEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RoboRaceEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
+            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime, "mBonus", mBonusPoint, "mTotal", mTotal).addOnCompleteListener(task -> {
+                progressDialog.dismiss();
+                RoboRaceEvaluation.this.startActivity(new Intent(RoboRaceEvaluation.this.getApplicationContext(), EvaluatorDashboard.class));
+                RoboRaceEvaluation.this.finish();
+            }).addOnSuccessListener(unused -> {
+                Toast.makeText(RoboRaceEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(RoboRaceEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             });
         });
 
@@ -365,6 +347,7 @@ public class RoboRaceEvaluation extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));

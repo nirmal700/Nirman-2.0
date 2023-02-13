@@ -134,13 +134,13 @@ public class AddNewTeams extends AppCompatActivity {
             mem1phone = Objects.requireNonNull(mMember1Phone.getEditText()).getText().toString().trim();
             mem2name = Objects.requireNonNull(mMember2Name.getEditText()).getText().toString().trim();
             mem2phone = Objects.requireNonNull(mMember2Phone.getEditText()).getText().toString().trim();
-            mem3name = mMember3Name.getEditText().getText().toString().trim();
-            mem3phone = mMember3Phone.getEditText().getText().toString().trim();
+            mem3name = Objects.requireNonNull(mMember3Name.getEditText()).getText().toString().trim();
+            mem3phone = Objects.requireNonNull(mMember3Phone.getEditText()).getText().toString().trim();
             if (b == 3) {
                 if (!ValidTeamName() | !ValidCollegeName() | !ValidName1() | !ValidPhone1() | !ValidName2() | !ValidPhone2() | !ValidName3() | !ValidPhone3() | !ValidateEventType()) {
                     return;
                 } else {
-                    if (event.equals("HackNation") || event.equals("Ideate - 1")|| event.equals("Ideate - 2")) {
+                    if (event.equals("HackNation") || event.equals("Ideate - 1") || event.equals("Ideate - 2")) {
                         if (!ValidProblemStat() | !ValidApproach()) {
                             return;
                         }
@@ -149,9 +149,7 @@ public class AddNewTeams extends AppCompatActivity {
                     CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
                     if (event.equals("Line Follower")) {
                         NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event, teamname, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, 0, false, false, 0, 0, 0, 0, 0);
-                        mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -165,9 +163,7 @@ public class AddNewTeams extends AppCompatActivity {
                         });
                     } else if (event.equals("Robo Race")) {
                         NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event, teamname, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, 0, false, false, 0L, 0L, 0L, 0L, 0L);
-                        mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -181,9 +177,7 @@ public class AddNewTeams extends AppCompatActivity {
                         });
                     } else if (event.equals("Ideate - 1")) {
                         NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement, approach, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, false);
-                        mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -195,11 +189,9 @@ public class AddNewTeams extends AppCompatActivity {
                                 finish();
                             }
                         });
-                    }else if (event.equals("Ideate - 2")) {
+                    } else if (event.equals("Ideate - 2")) {
                         NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement, approach, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, false);
-                        mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -213,9 +205,7 @@ public class AddNewTeams extends AppCompatActivity {
                         });
                     } else if (event.equals("HackNation")) {
                         NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement, approach, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, false);
-                        mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -244,9 +234,7 @@ public class AddNewTeams extends AppCompatActivity {
                     CollectionReference mCollectionReference = FirebaseFirestore.getInstance().collection(event);
                     if (event.equals("Line Follower")) {
                         NewLineFollowerTeamData newLineFollowerTeamData = new NewLineFollowerTeamData(event, teamname, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, 0, false, false, 0, 0, 0, 0, 0);
-                        mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newLineFollowerTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -260,9 +248,7 @@ public class AddNewTeams extends AppCompatActivity {
                         });
                     } else if (event.equals("Robo Race")) {
                         NewRoboRaceTeamData newRoboRaceTeamData = new NewRoboRaceTeamData(event, teamname, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, 0, false, false, 0, 0, 0, 0, 0L);
-                        mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newRoboRaceTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -276,9 +262,7 @@ public class AddNewTeams extends AppCompatActivity {
                         });
                     } else if (event.equals("Ideate")) {
                         NewIdeateTeamData newIdeateTeamData = new NewIdeateTeamData(event, teamname, problemstatement, approach, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, false);
-                        mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> {
-                            progressDialog.cancel();
-                        }).addOnFailureListener(e -> {
+                        mCollectionReference.document(teamname).set(newIdeateTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
                             Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
@@ -292,14 +276,9 @@ public class AddNewTeams extends AppCompatActivity {
                         });
                     } else if (event.equals("HackNation")) {
                         NewHackNationTeamData newHackNationTeamData = new NewHackNationTeamData(event, teamname, problemstatement, approach, clgname, teamleadname, teamleadph, mem1name, mem1phone, mem2name, mem2phone, mem3name, mem3phone, 0, false);
-                        mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(unused -> {
+                        mCollectionReference.document(teamname).set(newHackNationTeamData).addOnSuccessListener(unused -> progressDialog.cancel()).addOnFailureListener(e -> {
                             progressDialog.cancel();
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.cancel();
-                                Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(AddNewTeams.this, "Failed! Try Again" + e, Toast.LENGTH_SHORT).show();
                         }).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 Toast.makeText(AddNewTeams.this, teamname + "Added Successfully!", Toast.LENGTH_SHORT).show();
@@ -320,7 +299,6 @@ public class AddNewTeams extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
             finishAffinity();
         });
-
 
 
     }

@@ -4968,8 +4968,7 @@ public class AddVolunteers extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(AddVolunteers.this);
         builder.setMessage("Please connect to the internet")
                 //   .setCancelable(false)
-                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
-                .setNegativeButton("Cancel", (dialog, which) -> {
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))).setNegativeButton("Cancel", (dialog, which) -> {
                     startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
                     finish();
                 });

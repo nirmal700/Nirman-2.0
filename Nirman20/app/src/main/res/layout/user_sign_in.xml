@@ -5,17 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".Users.UserSignIn"
     android:background="@color/Primary"
+    android:fillViewport="true"
     android:orientation="vertical"
-    android:transitionName="transition_login">
+    android:transitionName="transition_login"
+    tools:context=".Users.UserSignIn">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/Primary">
+        android:background="@color/Primary"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/nirmanlogo"
-                tools:ignore="ContentDescription"/>
+                tools:ignore="ContentDescription" />
 
 
         </RelativeLayout>
@@ -45,22 +45,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:textSize="80sp"
             android:layout_marginStart="15dp"
             android:fontFamily="@font/moon_regular"
-            android:textStyle="bold"
+            android:text="Login"
             android:textColor="@color/white"
+            android:textSize="80sp"
+            android:textStyle="bold"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/bg_bottom"
             android:orientation="vertical"
             android:paddingHorizontal="15dp"
-            android:paddingTop="20dp"
-            android:background="@drawable/bg_bottom"
-            android:layout_marginTop="60dp">
+            android:paddingTop="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/autoEvent"
@@ -94,41 +94,41 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_phoneNumber"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginTop="20dp"
+                android:hint="Phone"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1.5dp"
-                app:prefixText="+91"
-                app:prefixTextColor="@color/black"
-                android:hint="Phone"
-                android:layout_marginTop="20dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
+                app:prefixText="+91"
+                app:prefixTextColor="@color/black"
                 app:startIconDrawable="@drawable/ic_phone"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:textSize="20sp"
                     android:fontFamily="@font/my_fav_sans_number"
                     android:inputType="number"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/et_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_marginTop="20dp"
                 android:hint="@string/password"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="1.5dp"
-                android:layout_marginTop="20dp"
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
@@ -138,10 +138,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:textSize="20sp"
                     android:fontFamily="@font/my_fav_sans_number"
                     android:inputType="textPassword"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -151,16 +151,16 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/black"
                 android:backgroundTint="@color/Primary"
                 android:fontFamily="@font/moon_bold"
-                app:cornerRadius="5dp"
+                android:gravity="center"
                 android:text="Login"
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:transitionName="transition_signUp"
+                app:cornerRadius="5dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp"
                 tools:targetApi="lollipop" />
 
             <com.google.android.material.button.MaterialButton
@@ -170,23 +170,23 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/Primary_light"
+                android:fontFamily="@font/moon_bold"
                 android:gravity="center"
                 android:text="Sign Up"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:fontFamily="@font/moon_bold"
                 android:transitionName="transition_signUp"
                 app:cornerRadius="5dp"
                 app:strokeColor="@color/black"
-                app:strokeWidth="1dp"/>
+                app:strokeWidth="1dp" />
 
             <TextView
+                android:id="@+id/sipc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/sipc"
+                android:layout_gravity="end"
                 android:text="SIPC/Evaluator?"
                 android:textAlignment="textEnd"
-                android:layout_gravity="end"
                 android:textColor="@color/blue"
                 android:textSize="17sp"
                 tools:ignore="RelativeOverlap" />

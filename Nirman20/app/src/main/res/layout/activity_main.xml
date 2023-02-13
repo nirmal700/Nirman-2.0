@@ -16,9 +16,9 @@
         tools:ignore="UselessParent">
 
         <TextView
+            android:id="@+id/welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/welcome"
             android:layout_marginTop="55dp"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/bold_height_regular"
@@ -40,12 +40,13 @@
             app:lottie_loop="true" />
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/logo"
+            android:contentDescription="@string/image_of_nirmal_logo"
             android:src="@drawable/nirmanlogo"
-            android:transitionName="logo_image"
-            android:contentDescription="@string/image_of_nirmal_logo"/>
+            android:transitionName="logo_image" />
+
         <TextView
             android:id="@+id/rwth"
             android:layout_width="wrap_content"
@@ -67,38 +68,40 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/content"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/bold_height_regular"
                 android:gravity="center"
                 android:text="@string/hacknation_ideathon"
-                android:transitionName="logo_text"
                 android:textColor="@color/white"
                 android:textSize="20dp"
+                android:transitionName="logo_text"
                 tools:ignore="SpUsage"
-                tools:targetApi="o"/>
+                tools:targetApi="o" />
+
             <TextView
+                android:id="@+id/content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/content1"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/bold_height_regular"
                 android:gravity="center"
                 android:text="@string/robo_race_line_follower"
-                android:transitionName="logo_text"
                 android:textColor="@color/white"
                 android:textSize="20dp"
+                android:transitionName="logo_text"
                 tools:ignore="SpUsage"
-                tools:targetApi="o"/>
+                tools:targetApi="o" />
 
             <TextView
+                android:id="@+id/devlopedby"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/devlopedby"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:autoSizeTextType="uniform"

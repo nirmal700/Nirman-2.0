@@ -37,7 +37,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         LeaderBoard leaderBoard = mLeaderBoard.get(position);
         holder.tv_TeamName.setText(leaderBoard.getmTeamName());
         double mMid = Double.parseDouble(String.valueOf(Math.ceil(mLeaderBoard.size() / 3)));
-        if(mMid == 0){
+        if (mMid == 0) {
             mMid = 1;
         }
         double mPos = leaderBoard.getmPosition();
@@ -51,9 +51,9 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
             Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.bg_leader_red);
             holder.mLinearLayout.setBackground(drawable);
         }
-        holder.tv_position.setText("Position: "+leaderBoard.getmPosition());
-        holder.tv_eventName.setText("Event: "+leaderBoard.getmEvent());
-        holder.tv_mFinalMark.setText("Final Mark: "+leaderBoard.getmFinalMark());
+        holder.tv_position.setText("Position: " + leaderBoard.getmPosition());
+        holder.tv_eventName.setText("Event: " + leaderBoard.getmEvent());
+        holder.tv_mFinalMark.setText("Final Mark: " + leaderBoard.getmFinalMark());
     }
 
     @Override
@@ -67,6 +67,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         TextView tv_mFinalMark;
         TextView tv_position;
         LinearLayout mLinearLayout;
+
         public LeaderBoardViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_TeamName = itemView.findViewById(R.id.tv_TeamName);

@@ -1,6 +1,5 @@
 package com.sipc.silicontech.nirman20.Users.ToDoList;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -30,15 +29,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
-import com.sipc.silicontech.nirman20.Evaluators.LineFollowerEvaluation;
-import com.sipc.silicontech.nirman20.Evaluators.RoboRaceEvaluation;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.SessionManagerParticipant;
 import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class UserToDoList extends AppCompatActivity {
@@ -126,14 +121,11 @@ public class UserToDoList extends AppCompatActivity {
             btn_cancel.setOnClickListener(v1 -> dialog.dismiss());
 
 
-
-
             btn_new.setOnClickListener(v12 -> {
 
                 if (et_title.getText().toString().trim().isEmpty() | et_desc.getText().toString().trim().isEmpty()) {
                     Toast.makeText(UserToDoList.this, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
-                }  else {
-
+                } else {
 
 
                     String nTitle = et_title.getText().toString();
@@ -224,6 +216,7 @@ public class UserToDoList extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), UserDashBoard.class));

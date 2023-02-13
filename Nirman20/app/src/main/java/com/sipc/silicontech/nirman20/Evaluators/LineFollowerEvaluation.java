@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -17,11 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,7 +25,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Suggestion;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.Objects;
 
@@ -43,6 +38,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
     ProgressDialog progressDialog;
     String mTeamName, mCollegeName;
     DocumentReference mDocumentReference;
+    ImageView btn_backToSd;
     private int mTechTimeOut = 0;
     private boolean mTechTimeTaken = false;
     private Chronometer chronometer, mChronoTimer;
@@ -63,8 +59,6 @@ public class LineFollowerEvaluation extends AppCompatActivity {
             handler.postDelayed(this, 60);
         }
     };
-
-    ImageView btn_backToSd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +136,6 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         });
 
 
-
-
         chronometer = findViewById(R.id.chronometer);
         chronometer.setFormat("Time: %s");
         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -186,7 +178,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         mSubmit.setOnClickListener(view -> {
             progressDialog.show();
             String mTeamName, mSuggestion;
-            long mTotalTime, mCheckPoints, mHandTouches,mTotal = 0;
+            long mTotalTime, mCheckPoints, mHandTouches, mTotal = 0;
             mTeamName = et_teamName.getEditText().getText().toString();
 
 
@@ -199,8 +191,8 @@ public class LineFollowerEvaluation extends AppCompatActivity {
             mHandTouches = Long.parseLong(disp2.getText().toString());
             mSuggestion = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
 //            mTotal = 10*mCheckPoints;
-            if(mHandTouches>3){
-                mTotal = mTotal - 5*(mHandTouches-3);
+            if (mHandTouches > 3) {
+                mTotal = mTotal - 5 * (mHandTouches - 3);
             }
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("Line Follower").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
@@ -209,22 +201,16 @@ public class LineFollowerEvaluation extends AppCompatActivity {
                 mSugDB.child(id).setValue(suggestion);
             }
             mDocumentReference = FirebaseFirestore.getInstance().collection("Line Follower").document(mTeamName);
-            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime,"mTotal",mTotal).addOnCompleteListener(task -> {
+            mDocumentReference.update("mCheckPointCleared", mCheckPoints, "mHandTouches", mHandTouches, "mTimeOutTaken", mTechTimeTaken, "mTotalTimeTaken", mTotalTime, "mTotal", mTotal).addOnCompleteListener(task -> {
                 progressDialog.dismiss();
                 startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));
                 finish();
-            }).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(LineFollowerEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(LineFollowerEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
+            }).addOnSuccessListener(unused -> {
+                Toast.makeText(LineFollowerEvaluation.this, "Completed!!", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(LineFollowerEvaluation.this, "Failed!!", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             });
         });
 
@@ -317,6 +303,7 @@ public class LineFollowerEvaluation extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));

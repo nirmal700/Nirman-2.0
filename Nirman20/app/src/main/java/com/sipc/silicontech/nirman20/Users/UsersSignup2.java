@@ -1,9 +1,9 @@
 package com.sipc.silicontech.nirman20.Users;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sipc.silicontech.nirman20.R;
 

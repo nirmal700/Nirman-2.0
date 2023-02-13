@@ -8,7 +8,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -37,7 +36,7 @@ public class EvaluatorSignIn extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterEvaluatorName;
     AutoCompleteTextView autoCompleteEvaluator;
     TextInputLayout et_password;
-    Button btn_login,btn_sipc;
+    Button btn_login, btn_sipc;
     String evaluator_name;
     ProgressDialog progressDialog;
     SessionManagerEvaluator managerEvaluator;
@@ -94,15 +93,8 @@ public class EvaluatorSignIn extends AppCompatActivity {
 
         btn_login.setOnClickListener(v -> Evaluatorlogin());
 
-        btn_sipc.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), AdminSignin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
-        });
-        participant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
-            }
-        });
+        btn_sipc.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), AdminSignin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+        participant.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), UserSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
 
         autoCompleteEvaluator.setOnItemClickListener((parent, view, position, id) -> evaluator_name = arrayAdapterEvaluatorName.getItem(position));
 

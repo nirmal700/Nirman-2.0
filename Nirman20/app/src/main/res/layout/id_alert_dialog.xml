@@ -1,108 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:gravity="center"
     android:layout_gravity="center_horizontal"
     android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp"
     tools:targetApi="o">
 
     <ImageView
         android:layout_width="360dp"
         android:layout_height="100dp"
         android:background="@android:color/holo_red_light"
-        android:src="@drawable/ic_alert"
-        android:contentDescription="@null" />
-    
+        android:contentDescription="@null"
+        android:src="@drawable/ic_alert" />
+
     <TextView
+        android:id="@+id/tv_shopId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_shopId"
         android:textColor="@color/black"
         android:textSize="40sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:gravity="center"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/my_fav_sans_number"
+        android:gravity="center"
         android:text="@string/are_you_sure_to_confirm_check_in"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <CheckBox
         android:id="@+id/check_box1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:layout_marginStart="40dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/valid_college_id"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginStart="40dp" />
+        android:textSize="20sp" />
+
     <CheckBox
         android:id="@+id/check_box2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:layout_marginStart="40dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/all_the_team_member_s_present"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginStart="40dp" />
+        android:textSize="20sp" />
+
     <CheckBox
         android:id="@+id/check_box3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:layout_marginStart="40dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/id_card_s_handed_over"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginStart="40dp" />
+        android:textSize="20sp" />
+
     <CheckBox
         android:id="@+id/check_box4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:layout_marginStart="40dp"
         android:fontFamily="@font/my_fav_sans_number"
         android:text="@string/sticker_s_and_all"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginStart="40dp" />
+        android:textSize="20sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/bt_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/bt_cancel"
-            android:text="@string/cancel"
-            android:textSize="20sp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:backgroundTint="@color/light_red"
             tools:ignore="ButtonStyle" />
 
         <Button
+            android:id="@+id/bt_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/bt_ok"
-            android:text="@string/checkin"
-            android:textSize="20sp"
-            android:textColor="@color/white"
             android:layout_margin="10dp"
-            android:enabled="false"
+            android:layout_weight="1"
             android:backgroundTint="@android:color/primary_text_light"
+            android:enabled="false"
+            android:text="@string/checkin"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             tools:ignore="ButtonStyle,UnusedAttribute" />
 
 

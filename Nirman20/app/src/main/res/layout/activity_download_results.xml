@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Primary"
     android:fillViewport="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Evaluators.DownloadResults"
-    android:background="@color/Primary">
+    tools:context=".Evaluators.DownloadResults">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,33 +17,34 @@
             android:id="@+id/btn_backToCd"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:src="@drawable/ic_back_arrow"
-            app:tint="@color/black"
+            android:contentDescription="@null"
             android:focusable="true"
-            android:layout_marginStart="25dp"
-            android:contentDescription="@null"/>
+            android:src="@drawable/ic_back_arrow"
+            app:tint="@color/black" />
+
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="-55dp"
-            android:src="@drawable/ic_podium"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:src="@drawable/ic_podium" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/download_result_s_2"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/white"
-            android:layout_marginVertical="25dp"
             android:layout_gravity="center_horizontal"
-            android:textSize="25sp"
+            android:layout_marginVertical="25dp"
+            android:autoSizeTextType="uniform"
             android:fontFamily="@font/astronaut"
+            android:text="@string/download_result_s_2"
+            android:textColor="@color/white"
+            android:textSize="25sp"
             tools:targetApi="o" />
 
         <LinearLayout
@@ -51,18 +53,19 @@
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_lower"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/download_result_s"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:autoSizeTextType="uniform"
+                android:text="@string/download_result_s"
+                android:textColor="@color/Primary"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/Primary"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 tools:targetApi="o" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -96,17 +99,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="20dp"
-                android:text="@string/submit"
-                android:textSize="20sp"
-                android:textColor="@color/white"
                 android:fontFamily="@font/astronaut"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:strokeColor="@color/black"
                 app:strokeWidth="1dp"
@@ -117,7 +119,6 @@
 
 
     </LinearLayout>
-
 
 
 </ScrollView>

@@ -53,6 +53,7 @@
         android:textStyle="bold"
         tools:ignore="MissingConstraints,SpUsage"
         tools:targetApi="o" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -71,11 +72,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/select_the_event"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
-                android:layout_margin="10dp"
                 app:boxStrokeWidth="1dp"
                 app:endIconTint="@color/black"
                 app:errorTextColor="@color/black"
@@ -101,6 +102,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="15dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/team_name_9"
@@ -109,7 +111,6 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                android:layout_margin="10dp"
                 app:hintTextColor="@color/black"
                 app:startIconDrawable="@drawable/ic_group"
                 app:startIconTint="@color/black"
@@ -133,6 +134,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/problem_statement_9"
@@ -142,7 +144,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
                 app:startIconDrawable="@drawable/ic_bug"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
@@ -166,6 +167,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/approach_to_problem"
@@ -175,7 +177,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
                 app:startIconDrawable="@drawable/ic_solution"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
@@ -199,6 +200,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/college_name_8"
@@ -208,7 +210,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
                 app:startIconDrawable="@drawable/ic_school"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
@@ -231,6 +232,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/team_lead_name_9"
@@ -240,7 +242,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
                 app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
@@ -263,6 +264,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="8dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/team_lead_phone"
@@ -271,7 +273,6 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                android:layout_margin="10dp"
                 app:hintTextColor="@color/black"
                 app:prefixText="+91"
                 app:prefixTextColor="@color/hintBlack"
@@ -298,6 +299,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/member_1_name"
@@ -307,7 +309,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
                 app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
@@ -330,6 +331,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="8dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/member_1_phone"
@@ -338,7 +340,6 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                android:layout_margin="10dp"
                 app:hintTextColor="@color/black"
                 app:prefixText="+91"
                 app:prefixTextColor="@color/hintBlack"
@@ -365,6 +366,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/member_2_name"
@@ -374,7 +376,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
                 app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
@@ -397,6 +398,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="8dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/member_2_phone"
@@ -405,7 +407,6 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                android:layout_margin="10dp"
                 app:hintTextColor="@color/black"
                 app:prefixText="+91"
                 app:prefixTextColor="@color/hintBlack"
@@ -436,11 +437,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
-                android:layout_marginStart="10dp"
-                android:text="@string/choose_the_size_of_the_team"
                 android:fontFamily="@font/dangrek"
+                android:text="@string/choose_the_size_of_the_team"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 tools:ignore="SpUsage"
@@ -494,6 +495,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="5dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/member_3_name"
@@ -503,7 +505,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                android:layout_margin="10dp"
                 app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black"
                 tools:targetApi="o">
@@ -526,6 +527,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_marginTop="8dp"
                 android:autoSizeTextType="uniform"
                 android:hint="@string/member_3_phone"
@@ -534,7 +536,6 @@
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                android:layout_margin="10dp"
                 app:hintTextColor="@color/black"
                 app:prefixText="+91"
                 app:prefixTextColor="@color/hintBlack"
@@ -555,10 +556,6 @@
                     tools:targetApi="o" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
 
 
             <com.google.android.material.button.MaterialButton

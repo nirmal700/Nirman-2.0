@@ -36,11 +36,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.sipc.silicontech.nirman20.AboutUs;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorDashboard;
 import com.sipc.silicontech.nirman20.GenerateParticipantQRCodes;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
-import com.sipc.silicontech.nirman20.Users.UsersSignUp;
 import com.sipc.silicontech.nirman20.Users.ViewLeaderBoard;
 
 import java.nio.charset.StandardCharsets;
@@ -59,7 +57,7 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
     Boolean mCb1 = false, mCb2 = false, mCb3 = false, mCb4 = false;
     Button btCancel, btOk;
     CheckBox checkBox1, checkBox2, checkBox3, checkBox4;
-    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails, mFoodCoupoun, btn_AddressIssues,btn_DownloadQR,btn_CheckLeaderBoard;
+    MaterialCardView mAddVolunteer, mAddNewTeams, mCheckIn, btn_ViewTeamDetails, mFoodCoupoun, btn_AddressIssues, btn_DownloadQR, btn_CheckLeaderBoard;
     Dialog dialog;
     String name, teamname, event;
     ProgressDialog progressDialog;
@@ -98,36 +96,27 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
             startActivity(new Intent(AdminDashboard.this, FoodCoupoun.class));
             finish();
         });
-        btn_DownloadQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AdminDashboard.this, GenerateParticipantQRCodes.class));
-                finish();
-            }
+        btn_DownloadQR.setOnClickListener(v -> {
+            startActivity(new Intent(AdminDashboard.this, GenerateParticipantQRCodes.class));
+            finish();
         });
-        btn_CheckLeaderBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AdminDashboard.this, ViewLeaderBoard.class));
-                finish();
-            }
+        btn_CheckLeaderBoard.setOnClickListener(v -> {
+            startActivity(new Intent(AdminDashboard.this, ViewLeaderBoard.class));
+            finish();
         });
 
         Menu menuNav = navigationView.getMenu();
 
         nav_headerView = navigationView.inflateHeaderView(R.layout.menu_header);
         navigationDrawer();
-        lottieAnimationView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        lottieAnimationView1.setOnClickListener(v -> {
 
-                lottieAnimationView1.playAnimation();
-                lottieAnimationView1.loop(true);
+            lottieAnimationView1.playAnimation();
+            lottieAnimationView1.loop(true);
 
-                if (drawerLayout.isDrawerVisible(GravityCompat.START))
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                else drawerLayout.openDrawer(GravityCompat.START);
-            }
+            if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                drawerLayout.closeDrawer(GravityCompat.START);
+            else drawerLayout.openDrawer(GravityCompat.START);
         });
 
 
@@ -188,7 +177,6 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
 
         animateNavigationDrawer();
     }
-
 
 
     private void scanCode() {
@@ -312,6 +300,7 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         }
 
     }
+
     private void animateNavigationDrawer() {
 
         //Add any color or remove it to use the default one!
@@ -450,34 +439,29 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         builder.setMessage("Are you sure to Log out ?");
 
         //positive YES button
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("YES", (dialog, which) -> {
 
-                sessionManagerAdmin.setAdminLogin(false);
-                sessionManagerAdmin.setDetails("", "", "", "", "","");
+            sessionManagerAdmin.setAdminLogin(false);
+            sessionManagerAdmin.setDetails("", "", "", "", "", "");
 
-                //activity.finishAffinity();
-                dialog.dismiss();
+            //activity.finishAffinity();
+            dialog.dismiss();
 
-                //Finish Activity
-                startActivity(new Intent(getApplicationContext(), AdminSignin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                finish();
-            }
+            //Finish Activity
+            startActivity(new Intent(getApplicationContext(), AdminSignin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            finish();
         });
 
         //Negative NO button
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Dismiss Dialog
-                dialog.dismiss();
-            }
+        builder.setNegativeButton("NO", (dialog, which) -> {
+            //Dismiss Dialog
+            dialog.dismiss();
         });
 
         AlertDialog alert = builder.create();
         alert.show();
     }
+
     @Override
     public void onBackPressed() {
 
@@ -487,6 +471,7 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
         } else
             super.onBackPressed();
     }
+
     private void about() {
         startActivity(new Intent(getApplicationContext(), AboutUs.class));
     }

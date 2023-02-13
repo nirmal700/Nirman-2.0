@@ -33,7 +33,7 @@ public class AddressIssuesAdapter extends RecyclerView.Adapter<AddressIssuesAdap
     @NonNull
     @Override
     public AddressIssueViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.list_help_admin,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.list_help_admin, parent, false);
         return new AddressIssueViewHolder(v);
     }
 
@@ -42,8 +42,8 @@ public class AddressIssuesAdapter extends RecyclerView.Adapter<AddressIssuesAdap
         Help help = mHelp.get(position);
         holder.mTag.setText(help.getmIssueType());
         holder.mDesc.setText(help.getmDescription());
-        holder.tv_EventName.setText(String.format("Event: %s",help.getmEvent()));
-        holder.tv_TeamName.setText(String.format("Team: %s",help.getmTeamname()));
+        holder.tv_EventName.setText(String.format("Event: %s", help.getmEvent()));
+        holder.tv_TeamName.setText(String.format("Team: %s", help.getmTeamname()));
         holder.mDelete.setOnClickListener(v -> {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -54,20 +54,19 @@ public class AddressIssuesAdapter extends RecyclerView.Adapter<AddressIssuesAdap
             builder.setPositiveButton("YES", (dialog, which) -> {
 
                 String idUpdate = help.getmId();
-                FirebaseDatabase.getInstance().getReference("EventIssues").child(help.getmEvent()).child(help.getmTeamname()).child("Issues").child(idUpdate)
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                snapshot.getRef().removeValue();
-                                notifyDataSetChanged();
-                                Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
-                            }
+                FirebaseDatabase.getInstance().getReference("EventIssues").child(help.getmEvent()).child(help.getmTeamname()).child("Issues").child(idUpdate).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getRef().removeValue();
+                        notifyDataSetChanged();
+                        Toast.makeText(mContext, "Item Deleted..", Toast.LENGTH_SHORT).show();
+                    }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                    }
+                });
 
                 dialog.dismiss();
             });
@@ -90,8 +89,9 @@ public class AddressIssuesAdapter extends RecyclerView.Adapter<AddressIssuesAdap
     }
 
     public static class AddressIssueViewHolder extends RecyclerView.ViewHolder {
-        TextView mTag,mDesc,tv_TeamName,tv_EventName;
+        TextView mTag, mDesc, tv_TeamName, tv_EventName;
         Button mDelete;
+
         public AddressIssueViewHolder(@NonNull View itemView) {
             super(itemView);
             mTag = itemView.findViewById(R.id.tv_Tag);

@@ -23,14 +23,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.ramotion.fluidslider.FluidSlider;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Suggestion;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.Objects;
 
 import kotlin.Unit;
 
 public class IdeateEvaluation extends AppCompatActivity {
-    String mTeamName, mCollegeName, mProblemStat, mSugApp,mEventName;
+    String mTeamName, mCollegeName, mProblemStat, mSugApp, mEventName;
     TextInputLayout et_teamName, et_collegeName, et_Problem_Statement, et_description, et_suggestion;
     ProgressDialog progressDialog;
     CollectionReference mCollectionReference;
@@ -38,7 +37,7 @@ public class IdeateEvaluation extends AppCompatActivity {
     Button submit;
     int ev1, ev2, ev3, ev4, ev5;
     ImageView btn_backToSd;
-    TextView textView1,textView2,textView3,textView4,textView5;
+    TextView textView1, textView2, textView3, textView4, textView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,14 +233,14 @@ public class IdeateEvaluation extends AppCompatActivity {
         submit.setOnClickListener(view -> {
             progressDialog.show();
             String sugg = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
-            final long mTotal =  (ev1 + ev2 + ev3 + ev4 + ev5) ;
+            final long mTotal = (ev1 + ev2 + ev3 + ev4 + ev5);
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child(mEventName).child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
             if (sugg.length() > 0 & id != null) {
                 Suggestion suggestion = new Suggestion(mTeamName, mCollegeName, sugg, id, true, false, 0L);
                 mSugDB.child(id).setValue(suggestion);
             }
-            mCollectionReference = FirebaseFirestore.getInstance().collection(mEventName+" Evaluation");
+            mCollectionReference = FirebaseFirestore.getInstance().collection(mEventName + " Evaluation");
             IdeateEvaluation_POJO ideateEvaluation_pojo = new IdeateEvaluation_POJO(mTeamName, mCollegeName, mProblemStat, mSugApp, sugg, managerEvaluator.getEvaluatorName(), ev1, ev2, ev3, ev4, ev5, mTotal, null);
             mCollectionReference.add(ideateEvaluation_pojo).addOnSuccessListener(documentReference -> Toast.makeText(IdeateEvaluation.this, "Makring Done Successfully!!", Toast.LENGTH_SHORT).show()).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -257,6 +256,7 @@ public class IdeateEvaluation extends AppCompatActivity {
             });
         });
     }
+
     private void showCustomDialog() {
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(IdeateEvaluation.this);
@@ -283,6 +283,7 @@ public class IdeateEvaluation extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));

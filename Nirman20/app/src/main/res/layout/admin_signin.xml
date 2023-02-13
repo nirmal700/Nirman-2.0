@@ -7,9 +7,10 @@
     android:background="@color/Primary"
     android:fillViewport="true"
     android:orientation="vertical"
+    android:padding="20dp"
     android:transitionName="transition_login"
-    tools:context=".Admins.AdminSignin"
-    android:padding="20dp">
+    tools:context=".Admins.AdminSignin">
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/logoimg"
         android:layout_width="150dp"
@@ -17,28 +18,32 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="login.json"
         app:lottie_loop="true" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/logotext"
-        android:text="@string/hello_there_welcome_back"
-        android:textSize="40sp"
-        android:fontFamily="@font/bungee"
-        android:textColor="@color/white"/>
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/bungee"
+        android:text="@string/hello_there_welcome_back"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+    <TextView
         android:id="@+id/sloganname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/antic"
         android:text="@string/sign_in_to_continue"
-        android:textSize="18sp"
-        android:fontFamily="@font/antic"/>
+        android:textSize="18sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Primary"
-        android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:background="@color/Primary"
+        android:orientation="vertical">
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_SIC"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -63,12 +68,13 @@
                 android:autoSizeTextType="uniform"
                 android:fontFamily="@font/my_fav_sans_number"
                 android:inputType="textCapCharacters"
-                android:textColor="@color/black"
-                android:textAllCaps="true"
                 android:maxLength="11"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 tools:ignore="SpUsage" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -135,5 +141,5 @@
             app:strokeColor="@color/black"
             app:strokeWidth="1dp"
             tools:ignore="SpUsage" />
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>

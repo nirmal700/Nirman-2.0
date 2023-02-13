@@ -24,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Help;
 import com.sipc.silicontech.nirman20.Users.SessionManagerParticipant;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +109,7 @@ public class AddressIssues extends AppCompatActivity {
             }
         });
     }
+
     //--------------- Internet Error Dialog Box -----------
     private void showCustomDialog() {
 
@@ -137,6 +137,7 @@ public class AddressIssues extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), AdminDashboard.class));

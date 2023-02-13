@@ -1,6 +1,5 @@
 package com.sipc.silicontech.nirman20.Users.ToDoList;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -30,7 +29,6 @@ import com.sipc.silicontech.nirman20.Users.SessionManagerParticipant;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder> {
 
@@ -127,7 +125,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
             tv_update.setText("Update");
 
 
-
             et_title.setText(model.getTitle());
             et_desc.setText(model.getDescription());
 
@@ -142,17 +139,17 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            if (et_title.getText().toString().trim().isEmpty() | et_desc.getText().toString().trim().isEmpty()) {
-                                Toast.makeText(mContext, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
-                            }  else {
+                        if (et_title.getText().toString().trim().isEmpty() | et_desc.getText().toString().trim().isEmpty()) {
+                            Toast.makeText(mContext, "Do not empty Title and Description", Toast.LENGTH_SHORT).show();
+                        } else {
 
-                                db.child("title").setValue(nTitle);
-                                db.child("description").setValue(nDesc);
+                            db.child("title").setValue(nTitle);
+                            db.child("description").setValue(nDesc);
 
-                                Toast.makeText(mContext, "Item Updated..", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
+                            Toast.makeText(mContext, "Item Updated..", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
+                    }
 
 
                     @Override
@@ -188,7 +185,6 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_description = itemView.findViewById(R.id.tv_description);
-
 
 
             btn_edit = itemView.findViewById(R.id.btn_edit);

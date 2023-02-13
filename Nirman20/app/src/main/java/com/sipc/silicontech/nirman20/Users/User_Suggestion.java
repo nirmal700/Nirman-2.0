@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sipc.silicontech.nirman20.Evaluators.EvaluatorSignIn;
 import com.sipc.silicontech.nirman20.R;
 
 import java.util.ArrayList;
@@ -106,6 +105,7 @@ public class User_Suggestion extends AppCompatActivity {
             }
         });
     }
+
     private void showCustomDialog() {
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(User_Suggestion.this);
@@ -132,6 +132,7 @@ public class User_Suggestion extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), UserDashBoard.class));

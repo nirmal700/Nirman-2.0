@@ -135,11 +135,8 @@ public class DownloadResults extends AppCompatActivity {
                                 sum = sum + Long.parseLong(Objects.requireNonNull(Objects.requireNonNull(document.get("mAvg"))).toString());
                             }
                             double avg = sum / value.size();
-                            FirebaseFirestore.getInstance().collection("HackNation").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
+                            FirebaseFirestore.getInstance().collection("HackNation").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(unused -> {
 
-                                }
                             });
                         });
                     }
@@ -276,10 +273,7 @@ public class DownloadResults extends AppCompatActivity {
                                 sum = sum + Long.parseLong(Objects.requireNonNull(Objects.requireNonNull(document.get("mAvg")).toString()));
                             }
                             double avg = sum / value.size();
-                            FirebaseFirestore.getInstance().collection("Ideate - 1").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                }
+                            FirebaseFirestore.getInstance().collection("Ideate - 1").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(unused -> {
                             });
                         });
                     }
@@ -289,7 +283,7 @@ public class DownloadResults extends AppCompatActivity {
                             List<DocumentSnapshot> snapshotList = queryDocumentSnapshots12.getDocuments();
                             for (DocumentSnapshot documentSnapshot : snapshotList) {
                                 mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
-                                Log.e("4324", "onSuccess: " + documentSnapshot.getData().toString());
+                                Log.e("4324", "onSuccess: " + Objects.requireNonNull(documentSnapshot.getData()).toString());
                                 if (Objects.requireNonNull(mIdeate).getmFinalMark() > 1) {
                                     ideateTeamData.add(mIdeate);
                                     Log.e("4324", "onSuccess: " + ideateTeamData.size());
@@ -419,11 +413,8 @@ public class DownloadResults extends AppCompatActivity {
                                 sum = sum + Long.parseLong(Objects.requireNonNull(Objects.requireNonNull(document.get("mAvg")).toString()));
                             }
                             double avg = sum / value.size();
-                            FirebaseFirestore.getInstance().collection("Ideate - 2").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
+                            FirebaseFirestore.getInstance().collection("Ideate - 2").document(Objects.requireNonNull(document1.get("mTeamName")).toString()).update("mFinalMark", avg).addOnSuccessListener(unused -> {
 
-                                }
                             });
                         });
                     }
@@ -652,7 +643,7 @@ public class DownloadResults extends AppCompatActivity {
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmTotalTimeTaken())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmCheckPointCleared())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmHandTouches())).setBackgroundColor(invoicegrey));
-                            table2.addCell(new Cell().add(new Paragraph(""+  roboRaceTeamData.get(a).getmTotal())).setBackgroundColor(invoicegrey));
+                            table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).getmTotal())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + roboRaceTeamData.get(a).ismTimeOutTaken())).setBackgroundColor(invoicegrey));
 
                         }
@@ -782,7 +773,7 @@ public class DownloadResults extends AppCompatActivity {
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmTotalTimeTaken())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmCheckPointCleared())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmHandTouches())).setBackgroundColor(invoicegrey));
-                            table2.addCell(new Cell().add(new Paragraph(""+lineFollowerTeamData.get(a).getmTotal())).setBackgroundColor(invoicegrey));
+                            table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).getmTotal())).setBackgroundColor(invoicegrey));
                             table2.addCell(new Cell().add(new Paragraph("" + lineFollowerTeamData.get(a).ismTimeOutTaken())).setBackgroundColor(invoicegrey));
 
                         }

@@ -3,7 +3,6 @@ package com.sipc.silicontech.nirman20.Users;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -32,13 +31,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.sipc.silicontech.nirman20.AboutUs;
@@ -68,7 +65,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
 
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
-    MaterialCardView mGenQR, btn_RequestHelp, btn_TodoList, btn_Suggestion, btn_RateCoParticipant;
+    MaterialCardView mGenQR, btn_RequestHelp, btn_TodoList, btn_Suggestion, btn_RateCoParticipant,btn_LeaderBoard;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     LinearLayout contentView;
@@ -108,6 +105,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         btn_RequestHelp = findViewById(R.id.btn_RequestHelp);
         btn_TodoList = findViewById(R.id.btn_TodoList);
         btn_Suggestion = findViewById(R.id.btn_Suggestion);
+        btn_LeaderBoard = findViewById(R.id.btn_LeaderBoard);
         btn_RateCoParticipant = findViewById(R.id.btn_RateCoParticipant);
         mRelative = findViewById(R.id.mRealtive);
         lottieAnimationView = findViewById(R.id.splash_robo);
@@ -139,55 +137,43 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         nav_headerView = navigationView.inflateHeaderView(R.layout.menu_header);
         navigationDrawer();
 
-        lottieAnimationView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        lottieAnimationView1.setOnClickListener(v -> {
 
-                lottieAnimationView1.playAnimation();
-                lottieAnimationView1.loop(true);
+            lottieAnimationView1.playAnimation();
+            lottieAnimationView1.loop(true);
 
-                if (drawerLayout.isDrawerVisible(GravityCompat.START))
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                else drawerLayout.openDrawer(GravityCompat.START);
-            }
+            if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                drawerLayout.closeDrawer(GravityCompat.START);
+            else drawerLayout.openDrawer(GravityCompat.START);
         });
 
-        mGenQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), UserQrCode.class));
-                finish();
+        mGenQR.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), UserQrCode.class));
+            finish();
+        });
+        btn_RequestHelp.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), Request_Help.class));
+            finish();
+        });
+        btn_TodoList.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), UserToDoList.class));
+            finish();
+        });
+        btn_Suggestion.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), User_Suggestion.class));
+            finish();
+        });
+        btn_RateCoParticipant.setOnClickListener(v -> {
+            if (!isConnected(UserDashBoard.this)) {
+                showCustomDialog();
+            } else {
+                scanCode();
             }
         });
-        btn_RequestHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Request_Help.class));
-                finish();
-            }
-        });
-        btn_TodoList.setOnClickListener(new View.OnClickListener() {
+        btn_LeaderBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserToDoList.class));
-                finish();
-            }
-        });
-        btn_Suggestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), User_Suggestion.class));
-                finish();
-            }
-        });
-        btn_RateCoParticipant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isConnected(UserDashBoard.this)) {
-                    showCustomDialog();
-                } else {
-                    scanCode();
-                }
+                Toast.makeText(UserDashBoard.this, "Not Enabled!!", Toast.LENGTH_SHORT).show();
             }
         });
         if (managerParticipant.getEventName().equals("Robo Race") | managerParticipant.getEventName().equals("Line Follower")) {
@@ -195,22 +181,19 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 FirebaseFirestore.getInstance().collection(managerParticipant.getEventName())
                         .orderBy("mTotal", Query.Direction.DESCENDING)
                         .orderBy("mTotalTimeTaken", Query.Direction.ASCENDING).get()
-                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                                for (DocumentSnapshot documentSnapshot : snapshotList) {
-                                    NewRoboRaceTeamData mRoboRace = documentSnapshot.toObject(NewRoboRaceTeamData.class);
-                                    if (Objects.requireNonNull(mRoboRace).getmTotalTimeTaken() > 1) {
-                                        roboRaceTeamData.add(mRoboRace);
-                                    }
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot documentSnapshot : snapshotList) {
+                                NewRoboRaceTeamData mRoboRace = documentSnapshot.toObject(NewRoboRaceTeamData.class);
+                                if (Objects.requireNonNull(mRoboRace).getmTotalTimeTaken() > 1) {
+                                    roboRaceTeamData.add(mRoboRace);
                                 }
-                                mSize = roboRaceTeamData.size();
-                                for (int i = 0; i < roboRaceTeamData.size(); i++) {
-                                    if (roboRaceTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                        mPos = i+1;
-                                        ChangeColor();
-                                    }
+                            }
+                            mSize = roboRaceTeamData.size();
+                            for (int i = 0; i < roboRaceTeamData.size(); i++) {
+                                if (roboRaceTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                    mPos = i + 1;
+                                    ChangeColor();
                                 }
                             }
                         });
@@ -218,79 +201,72 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 FirebaseFirestore.getInstance().collection(managerParticipant.getEventName())
                         .orderBy("mTotalTimeTaken", Query.Direction.ASCENDING)
                         .orderBy("mTotal", Query.Direction.DESCENDING).get()
-                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                                for (DocumentSnapshot documentSnapshot : snapshotList) {
-                                    NewLineFollowerTeamData mLineFollower = documentSnapshot.toObject(NewLineFollowerTeamData.class);
-                                    if (Objects.requireNonNull(mLineFollower).getmTotalTimeTaken() > 1) {
-                                        lineFollowerTeamData.add(mLineFollower);
-                                    }
-                                }
-                                mSize = lineFollowerTeamData.size();
-                                for (int i = 0; i < lineFollowerTeamData.size(); i++) {
-                                    if (lineFollowerTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                        mPos = i+1;
-                                        ChangeColor();
-                                    }
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot documentSnapshot : snapshotList) {
+                                NewLineFollowerTeamData mLineFollower = documentSnapshot.toObject(NewLineFollowerTeamData.class);
+                                if (Objects.requireNonNull(mLineFollower).getmTotalTimeTaken() > 1) {
+                                    lineFollowerTeamData.add(mLineFollower);
                                 }
                             }
-
+                            mSize = lineFollowerTeamData.size();
+                            for (int i = 0; i < lineFollowerTeamData.size(); i++) {
+                                if (lineFollowerTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                                    mPos = i + 1;
+                                    ChangeColor();
+                                }
+                            }
                         });
             }
-        } else if (managerParticipant.getEventName().equals("HackNation") | managerParticipant.getEventName().equals("Ideate - 1") |managerParticipant.getEventName().equals("Ideate - 2" ) ){
-            FirebaseFirestore.getInstance().collection(managerParticipant.getEventName()).orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    if (managerParticipant.getEventName().equals("HackNation")) {
-                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                        for (DocumentSnapshot documentSnapshot : snapshotList) {
-                            NewHackNationTeamData mHackNation = documentSnapshot.toObject(NewHackNationTeamData.class);
-                            if (mHackNation.getmFinalMark() > 1) {
-                                hackNationTeamData.add(mHackNation);
-                            }
-                        }
-                        mSize = hackNationTeamData.size();
-                        for (int i = 0; i < hackNationTeamData.size(); i++) {
-                            if (hackNationTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                mPos = i + 1;
-                                ChangeColor();
-                            }
-                        }
-                    } else if (managerParticipant.getEventName().equals("Ideate - 1")) {
-                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                        for (DocumentSnapshot documentSnapshot : snapshotList) {
-                            NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
-                            if (mIdeate.getmFinalMark() > 1) {
-                                ideateTeamData.add(mIdeate);
-                            }
-                        }
-                        mSize = ideateTeamData.size();
-                        for (int i = 0; i < ideateTeamData.size(); i++) {
-                            if (ideateTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                mPos = i+1;
-                                ChangeColor();
-                            }
-                        }
-                    } else if (managerParticipant.getEventName().equals("Ideate - 2")) {
-                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                        for (DocumentSnapshot documentSnapshot : snapshotList) {
-                            NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
-                            if (mIdeate.getmFinalMark() > 1) {
-                                ideateTeamData.add(mIdeate);
-                            }
-                        }
-                        mSize = ideateTeamData.size();
-                        for (int i = 0; i < ideateTeamData.size(); i++) {
-                            if (ideateTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
-                                mPos = i+1;
-                                ChangeColor();
-                            }
+        } else if (managerParticipant.getEventName().equals("HackNation") | managerParticipant.getEventName().equals("Ideate - 1") | managerParticipant.getEventName().equals("Ideate - 2")) {
+            FirebaseFirestore.getInstance().collection(managerParticipant.getEventName()).orderBy("mFinalMark", Query.Direction.DESCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                if (managerParticipant.getEventName().equals("HackNation")) {
+                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot documentSnapshot : snapshotList) {
+                        NewHackNationTeamData mHackNation = documentSnapshot.toObject(NewHackNationTeamData.class);
+                        if (Objects.requireNonNull(mHackNation).getmFinalMark() > 1) {
+                            hackNationTeamData.add(mHackNation);
                         }
                     }
-
+                    mSize = hackNationTeamData.size();
+                    for (int i = 0; i < hackNationTeamData.size(); i++) {
+                        if (hackNationTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                            mPos = i + 1;
+                            ChangeColor();
+                        }
+                    }
+                } else if (managerParticipant.getEventName().equals("Ideate - 1")) {
+                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot documentSnapshot : snapshotList) {
+                        NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
+                        if (Objects.requireNonNull(mIdeate).getmFinalMark() > 1) {
+                            ideateTeamData.add(mIdeate);
+                        }
+                    }
+                    mSize = ideateTeamData.size();
+                    for (int i = 0; i < ideateTeamData.size(); i++) {
+                        if (ideateTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                            mPos = i + 1;
+                            ChangeColor();
+                        }
+                    }
+                } else if (managerParticipant.getEventName().equals("Ideate - 2")) {
+                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                    for (DocumentSnapshot documentSnapshot : snapshotList) {
+                        NewIdeateTeamData mIdeate = documentSnapshot.toObject(NewIdeateTeamData.class);
+                        if (Objects.requireNonNull(mIdeate).getmFinalMark() > 1) {
+                            ideateTeamData.add(mIdeate);
+                        }
+                    }
+                    mSize = ideateTeamData.size();
+                    for (int i = 0; i < ideateTeamData.size(); i++) {
+                        if (ideateTeamData.get(i).getmTeamName().equals(managerParticipant.getTeamName())) {
+                            mPos = i + 1;
+                            ChangeColor();
+                        }
+                    }
                 }
+
             });
 
 
@@ -301,7 +277,7 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
     private void ChangeColor() {
         Log.e("343535", "ChangeColor: " + mPos);
         double mMid = Double.parseDouble(String.valueOf(Math.ceil(mSize / 3)));
-        if(mMid == 0){
+        if (mMid == 0) {
             mMid = 1;
         }
         if (mPos >= 0 & mPos <= mMid) {
@@ -445,29 +421,23 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         builder.setMessage("Are you sure to Log out ?");
 
         //positive YES button
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("YES", (dialog, which) -> {
 
-                managerParticipant.setParticipantLogin(false);
-                managerParticipant.setDetails("", "", "", "", "");
+            managerParticipant.setParticipantLogin(false);
+            managerParticipant.setDetails("", "", "", "", "");
 
-                //activity.finishAffinity();
-                dialog.dismiss();
+            //activity.finishAffinity();
+            dialog.dismiss();
 
-                //Finish Activity
-                startActivity(new Intent(getApplicationContext(), UsersSignUp.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                finish();
-            }
+            //Finish Activity
+            startActivity(new Intent(getApplicationContext(), UsersSignUp.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            finish();
         });
 
         //Negative NO button
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Dismiss Dialog
-                dialog.dismiss();
-            }
+        builder.setNegativeButton("NO", (dialog, which) -> {
+            //Dismiss Dialog
+            dialog.dismiss();
         });
 
         AlertDialog alert = builder.create();
@@ -580,18 +550,10 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(UserDashBoard.this);
         builder.setMessage("Please connect to the internet")
                 //.setCancelable(false)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
-                        finish();
-                    }
+                .setPositiveButton("Connect", (dialog, which) -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    startActivity(new Intent(getApplicationContext(), UserDashBoard.class));
+                    finish();
                 });
         android.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();

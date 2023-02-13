@@ -1,13 +1,13 @@
 package com.sipc.silicontech.nirman20.Users;
 
 public class LeaderBoard {
-    String mTeamName,mEvent;
-    Long mFinalMark,mPosition,mSize;
+    String mTeamName, mEvent;
+    Long mFinalMark, mPosition, mSize;
 
     public LeaderBoard() {
     }
 
-    public LeaderBoard(String mTeamName, String mEvent, Long mFinalMark, Long mPosition,Long mSize) {
+    public LeaderBoard(String mTeamName, String mEvent, Long mFinalMark, Long mPosition, Long mSize) {
         this.mTeamName = mTeamName;
         this.mEvent = mEvent;
         this.mFinalMark = mFinalMark;

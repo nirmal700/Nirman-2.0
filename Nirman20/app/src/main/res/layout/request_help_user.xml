@@ -5,49 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Primary"
-    tools:context=".Users.ToDoList.UserToDoList"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Users.ToDoList.UserToDoList">
 
     <ImageView
         android:id="@+id/btn_backToCd"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:src="@drawable/ic_back_arrow"
-        app:tint="@color/black"
-        android:layout_marginStart="20dp"
+        android:contentDescription="@null"
         android:focusable="true"
-        android:contentDescription="@null" />
+        android:src="@drawable/ic_back_arrow"
+        app:tint="@color/black" />
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="-50dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/help"
-        android:contentDescription="@null"/>
+        android:layout_marginTop="-50dp"
+        android:contentDescription="@null"
+        android:src="@drawable/help" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
         android:autoSizeTextType="uniform"
         android:text="Request Help"
-        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
         tools:targetApi="o" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_lower"
-        android:layout_marginTop="5dp"
         android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_lower"
         android:orientation="vertical">
 
 
@@ -65,14 +65,14 @@
             android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_add"
             app:backgroundTint="@color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="20dp"
             app:fabSize="normal"
-            android:contentDescription="@null"
             tools:targetApi="lollipop" />
 
     </RelativeLayout>

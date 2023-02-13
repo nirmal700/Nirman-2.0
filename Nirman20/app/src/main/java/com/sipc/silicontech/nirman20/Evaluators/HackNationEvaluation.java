@@ -23,8 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.ramotion.fluidslider.FluidSlider;
 import com.sipc.silicontech.nirman20.R;
 import com.sipc.silicontech.nirman20.Users.Suggestion;
-import com.sipc.silicontech.nirman20.Users.UserDashBoard;
-import com.sipc.silicontech.nirman20.Users.UserQrCode;
 
 import java.util.Objects;
 
@@ -80,7 +78,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         final int min2 = 0;
         final int total2 = max2 - min2;
 
-        final int max3 =20;
+        final int max3 = 20;
         final int min3 = 0;
         final int total3 = max3 - min3;
 
@@ -201,7 +199,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         next.setOnClickListener(view -> {
             progressDialog.show();
             String sugg = Objects.requireNonNull(et_suggestion.getEditText()).getText().toString();
-            final long mTotal =  (ev1 + ev2 + ev3 + ev4) ;
+            final long mTotal = (ev1 + ev2 + ev3 + ev4);
             DatabaseReference mSugDB = FirebaseDatabase.getInstance().getReference("Suggestions_Team").child("HackNation").child(mTeamName).child("Suggestions");
             String id = mSugDB.push().getKey();
             if (sugg.length() > 0 & id != null) {
@@ -254,6 +252,7 @@ public class HackNationEvaluation extends AppCompatActivity {
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected() || (bluetoothConn != null && bluetoothConn.isConnected())); // if true ,  else false
 
     }
+
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), EvaluatorDashboard.class));

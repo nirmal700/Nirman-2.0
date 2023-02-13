@@ -25,11 +25,10 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.Su
 
     private final Context mContext;
     private final List<Suggestion> mSuggestion;
+    private final String[] mSugTag = new String[]{"Excellent!", "Outstanding!", "Impressive!", "Remarkable!", "Superb", "Meritorious", "Commendable", "Flawless", "Phenomenal", "Distinguished!"};
     Random random = new Random();
-
     int min = 0;
     int max = 9;
-    private final String [] mSugTag = new String[] {"Excellent!", "Outstanding!", "Impressive!","Remarkable!","Superb","Meritorious","Commendable","Flawless","Phenomenal","Distinguished!"};
 
     public SuggestionAdapter(Context mContext, List<Suggestion> mSuggestion) {
         this.mContext = mContext;

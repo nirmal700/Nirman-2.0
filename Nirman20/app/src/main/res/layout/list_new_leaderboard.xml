@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="5dp"
-    android:layout_weight="1"
-    app:cardElevation="8dp"
-    android:padding="10dp"
-    android:layout_marginBottom="15dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginEnd="10dp"
-    app:cardBackgroundColor="@color/white"
     android:layout_marginHorizontal="5dp"
-    tools:targetApi="o"
-    android:layout_marginStart="10dp">
+    android:layout_marginStart="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="15dp"
+    android:layout_weight="1"
+    android:padding="10dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="8dp"
+    tools:targetApi="o">
 
     <LinearLayout
         android:id="@+id/mLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/bg_Todo_card">
+        android:background="@color/bg_Todo_card"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,32 +67,34 @@
                     android:id="@+id/mEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="Event: HackNation"/>
+                    android:autoSizeTextType="uniform"
+                    android:text="Event: HackNation"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/mFinalMark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="Final Mark: 0" />
+                    android:autoSizeTextType="uniform"
+                    android:text="Final Mark: 0"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/mPosition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="Position: 1" />
+                    android:autoSizeTextType="uniform"
+                    android:text="Position: 1"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
             </LinearLayout>
         </LinearLayout>

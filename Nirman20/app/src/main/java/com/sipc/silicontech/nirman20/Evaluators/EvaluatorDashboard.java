@@ -3,7 +3,6 @@ package com.sipc.silicontech.nirman20.Evaluators;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -39,8 +38,6 @@ import com.sipc.silicontech.nirman20.Admins.NewHackNationTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewIdeateTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewLineFollowerTeamData;
 import com.sipc.silicontech.nirman20.Admins.NewRoboRaceTeamData;
-import com.sipc.silicontech.nirman20.DemoClass;
-import com.sipc.silicontech.nirman20.GenerateParticipantQRCodes;
 import com.sipc.silicontech.nirman20.QRCodeScanner;
 import com.sipc.silicontech.nirman20.R;
 
@@ -53,8 +50,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class EvaluatorDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    MaterialCardView btn_evaluate, btn_downloadResults;
     static final float END_SCALE = 0.7f;
+    MaterialCardView btn_evaluate, btn_downloadResults;
     String AES = "AES";
     String keyPass = "Nirman@2023-SIPC";
     CollectionReference mCollectionReference;
@@ -97,17 +94,14 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
         mEvent.setText(sessionManagerEvaluator.getEventAssigned());
 
 
-        lottieAnimationView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        lottieAnimationView1.setOnClickListener(v -> {
 
-                lottieAnimationView1.playAnimation();
-                lottieAnimationView1.loop(true);
+            lottieAnimationView1.playAnimation();
+            lottieAnimationView1.loop(true);
 
-                if (drawerLayout.isDrawerVisible(GravityCompat.START))
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                else drawerLayout.openDrawer(GravityCompat.START);
-            }
+            if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                drawerLayout.closeDrawer(GravityCompat.START);
+            else drawerLayout.openDrawer(GravityCompat.START);
         });
 
         btn_downloadResults.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), DownloadResults.class)));
@@ -126,14 +120,15 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
         // Navigation Drawer Functions
 
 
-            navigationView.bringToFront();
-            navigationView.setNavigationItemSelectedListener(this);
-            navigationView.setCheckedItem(R.id.nav_home);
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
 
 
-            animateNavigationDrawer();
+        animateNavigationDrawer();
 
     }
+
     private void animateNavigationDrawer() {
 
         //Add any color or remove it to use the default one!
@@ -224,7 +219,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             Toast.makeText(EvaluatorDashboard.this, "Error!!" + e, Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         });
-                    } else if (event.equals("Ideate - 1")| event.equals("Ideate - 2")) {
+                    } else if (event.equals("Ideate - 1") | event.equals("Ideate - 2")) {
                         Log.e("3432", "onActivityResult: '" + teamname + "'");
                         DocumentReference documentReference = mCollectionReference.document(teamname);
                         documentReference.get().addOnSuccessListener(documentSnapshot -> {
@@ -237,7 +232,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                             mEvaluatorIntent.putExtra("mCollegeName", clgname);
                             mEvaluatorIntent.putExtra("mProblemStat", problemstat);
                             mEvaluatorIntent.putExtra("mApproach", approach);
-                            mEvaluatorIntent.putExtra("mEventName",event);
+                            mEvaluatorIntent.putExtra("mEventName", event);
                             progressDialog.dismiss();
                             startActivity(mEvaluatorIntent);
                             finish();
@@ -361,7 +356,6 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
                 break;
 
 
-
             case R.id.nav_share:
                 Toast.makeText(getApplicationContext(), "Share", Toast.LENGTH_SHORT).show();
                 share();
@@ -402,37 +396,33 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
         builder.setMessage("Are you sure to Log out ?");
 
         //positive YES button
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("YES", (dialog, which) -> {
 
-                sessionManagerEvaluator.setEvaluatorLogin(false);
-                sessionManagerEvaluator.setEvaluatorDetails("", "", "", "");
+            sessionManagerEvaluator.setEvaluatorLogin(false);
+            sessionManagerEvaluator.setEvaluatorDetails("", "", "", "");
 
-                //activity.finishAffinity();
-                dialog.dismiss();
+            //activity.finishAffinity();
+            dialog.dismiss();
 
-                //Finish Activity
-                startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                finish();
-            }
+            //Finish Activity
+            startActivity(new Intent(getApplicationContext(), EvaluatorSignIn.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            finish();
         });
 
         //Negative NO button
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Dismiss Dialog
-                dialog.dismiss();
-            }
+        builder.setNegativeButton("NO", (dialog, which) -> {
+            //Dismiss Dialog
+            dialog.dismiss();
         });
 
         AlertDialog alert = builder.create();
         alert.show();
     }
+
     private void about() {
         startActivity(new Intent(getApplicationContext(), AboutUs.class));
     }
+
     private void share() {
 
         try {
@@ -449,6 +439,7 @@ public class EvaluatorDashboard extends AppCompatActivity implements NavigationV
 
 
     }
+
     @Override
     public void onBackPressed() {
 
