@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:autoSizeTextType="uniform"
                     android:hint="@string/pitch_details"
-                    android:inputType="textCapSentences"
+                    android:inputType="textMultiLine"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintBlack"
                     android:textSize="20sp" />

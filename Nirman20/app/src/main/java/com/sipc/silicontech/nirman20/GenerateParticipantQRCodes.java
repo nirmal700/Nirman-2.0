@@ -1,5 +1,6 @@
 package com.sipc.silicontech.nirman20;
 
+import android.app.ProgressDialog;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,20 +11,13 @@ import android.os.Environment;
 import android.util.Base64;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -68,11 +62,17 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
     //------------------------------------------------
 
     private StorageReference mResult;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
+        progressDialog = new ProgressDialog(GenerateParticipantQRCodes.this);
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         mResult = FirebaseStorage.getInstance().getReference("QR CODES");
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File InvDir = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
@@ -534,10 +534,11 @@ public class GenerateParticipantQRCodes extends AppCompatActivity {
                             reference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
 
                             }).addOnProgressListener(snapshot -> {
-
                             }).addOnFailureListener(e -> {
                                 Toast.makeText(GenerateParticipantQRCodes.this, "Uploading PDF Failed !!" + e, Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }).addOnCompleteListener(task -> reference.getDownloadUrl().addOnSuccessListener(uri1 -> {
+                                progressDialog.dismiss();
                                 String pdfurl = uri1.toString();
                                 if (pdfurl != null) {
                                     Intent intent = new Intent(Intent.ACTION_VIEW);

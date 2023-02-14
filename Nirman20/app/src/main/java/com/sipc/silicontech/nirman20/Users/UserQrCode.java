@@ -72,7 +72,7 @@ public class UserQrCode extends AppCompatActivity {
         //--------------- Initialize ProgressDialog -----------
         progressDialog = new ProgressDialog(UserQrCode.this);
         progressDialog.show();
-        //progressDialog.setCancelable(false);
+        progressDialog.setCancelable(false);
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 

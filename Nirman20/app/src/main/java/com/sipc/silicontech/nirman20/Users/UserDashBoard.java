@@ -496,6 +496,9 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                             Toast.makeText(this, "Can't Review Self!!", Toast.LENGTH_SHORT).show();
                         }
 
+                    }else {
+                        progressDialog.dismiss();
+                        Toast.makeText(this, "Can't Review Other Event Participant's", Toast.LENGTH_SHORT).show();
                     }
 
 
