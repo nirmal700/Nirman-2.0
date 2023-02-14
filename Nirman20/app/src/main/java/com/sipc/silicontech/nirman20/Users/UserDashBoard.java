@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -351,6 +352,11 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
                 logout();
                 break;
 
+                case R.id.nav_feedback:
+                feedback();
+                break;
+
+
             case R.id.exit:
                 Toast.makeText(this, "Thank you :)", Toast.LENGTH_SHORT).show();
                 finishAffinity();
@@ -360,6 +366,21 @@ public class UserDashBoard extends AppCompatActivity implements NavigationView.O
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void feedback() {
+        try {
+
+            String url = "https://forms.gle/JyLYKhLcgBodQRoj6";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Unable to Give Feedback.", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void animateNavigationDrawer() {

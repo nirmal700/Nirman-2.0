@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -405,6 +406,9 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
                 Toast.makeText(this, "Thank you :)", Toast.LENGTH_SHORT).show();
                 finishAffinity();
                 break;
+            case R.id.nav_feedback:
+                feedback();
+                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -474,6 +478,27 @@ public class AdminDashboard extends AppCompatActivity implements NavigationView.
 
     private void about() {
         startActivity(new Intent(getApplicationContext(), AboutUs.class));
+    }
+    private void feedback() {
+        try {
+
+//            Intent i = new Intent(Intent.ACTION_SEND);
+//            i.setType("text/plain");
+//            i.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+//            i.putExtra(Intent.EXTRA_TEXT, "");
+//            startActivity(Intent.createChooser(i, "Give Feedback"));
+
+
+            String url = "https://forms.gle/JyLYKhLcgBodQRoj6";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Unable to Give Feedback.", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
 }
